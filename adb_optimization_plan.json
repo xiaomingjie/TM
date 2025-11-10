@@ -1,0 +1,3660 @@
+[
+  {
+    "file": "utils\\emulator_text_input_new.py",
+    "risk_level": "高风险",
+    "is_critical": true,
+    "priority": "高优先级",
+    "strategy": "谨慎优化 - 需要详细测试",
+    "approach": "逐步替换，保留原有逻辑作为备份",
+    "usage_count": 64,
+    "usages": [
+      {
+        "line_number": 5,
+        "line_content": "集成ADB Shell Input作为模拟器兼容的文本输入方法",
+        "match_text": "ADB Shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "\"\"\"",
+          "模拟器文本输入增强器",
+          "集成ADB Shell Input作为模拟器兼容的文本输入方法",
+          "重构版本：删除ADB按键功能，保留文本输入功能",
+          "\"\"\""
+        ]
+      },
+      {
+        "line_number": 149,
+        "line_content": "def try_adb_shell_input(self, hwnd: int, text: str, text_input_mode: str = '单组文本') -> bool:",
+        "match_text": "adb_shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "            return \"unknown\"",
+          "    ",
+          "    def try_adb_shell_input(self, hwnd: int, text: str, text_input_mode: str = '单组文本') -> bool:",
+          "        \"\"\"优化的多策略文本输入系统 - 基于开源最佳实践\"\"\"",
+          "        try:"
+        ]
+      },
+      {
+        "line_number": 201,
+        "line_content": "devices = self._get_adb_devices(adb_path)",
+        "match_text": "adb_devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "",
+          "            # 获取连接的设备",
+          "            devices = self._get_adb_devices(adb_path)",
+          "            if not devices:",
+          "                logger.debug(\"没有连接的ADB设备\")"
+        ]
+      },
+      {
+        "line_number": 221,
+        "line_content": "cmd = [adb_path, '-s', device_id, 'shell', 'am', 'broadcast',",
+        "match_text": "adb_path, '-s', device_id, 'shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "                for device_id in devices:",
+          "                    try:",
+          "                        cmd = [adb_path, '-s', device_id, 'shell', 'am', 'broadcast',",
+          "                               '-a', 'ADB_INPUT_B64', '--es', 'msg', text_b64]",
+          "                        result = subprocess.run(cmd, capture_output=True, text=True, timeout=15,"
+        ]
+      },
+      {
+        "line_number": 245,
+        "line_content": "cmd = [adb_path, '-s', device_id, 'shell', 'am', 'broadcast',",
+        "match_text": "adb_path, '-s', device_id, 'shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "                    device_id = devices[window_index % len(devices)]",
+          "",
+          "                cmd = [adb_path, '-s', device_id, 'shell', 'am', 'broadcast',",
+          "                       '-a', 'ADB_INPUT_B64', '--es', 'msg', text_b64]",
+          "                # 使用更强力的方法隐藏窗口"
+        ]
+      },
+      {
+        "line_number": 282,
+        "line_content": "devices = self._get_adb_devices(adb_path)",
+        "match_text": "adb_devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "",
+          "            # 获取连接的设备",
+          "            devices = self._get_adb_devices(adb_path)",
+          "            if not devices:",
+          "                logger.debug(\"没有连接的ADB设备\")"
+        ]
+      },
+      {
+        "line_number": 302,
+        "line_content": "cmd = [adb_path, '-s', device_id, 'shell', 'am', 'broadcast',",
+        "match_text": "adb_path, '-s', device_id, 'shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "                for device_id in devices:",
+          "                    try:",
+          "                        cmd = [adb_path, '-s', device_id, 'shell', 'am', 'broadcast',",
+          "                               '-a', 'ADB_INPUT_CHARS', '--eia', 'chars', char_codes_str]",
+          "                        result = subprocess.run(cmd, capture_output=True, text=True, timeout=15,"
+        ]
+      },
+      {
+        "line_number": 326,
+        "line_content": "cmd = [adb_path, '-s', device_id, 'shell', 'am', 'broadcast',",
+        "match_text": "adb_path, '-s', device_id, 'shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "                    device_id = devices[window_index % len(devices)]",
+          "",
+          "                cmd = [adb_path, '-s', device_id, 'shell', 'am', 'broadcast',",
+          "                       '-a', 'ADB_INPUT_CHARS', '--eia', 'chars', char_codes_str]",
+          "                result = subprocess.run(cmd, capture_output=True, text=True, timeout=15,"
+        ]
+      },
+      {
+        "line_number": 371,
+        "line_content": "real_devices = self._get_adb_devices(adb_path)",
+        "match_text": "adb_devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "",
+          "            # 获取实际的ADB设备",
+          "            real_devices = self._get_adb_devices(adb_path)",
+          "            if not real_devices:",
+          "                logger.debug(\"没有连接的ADB设备\")"
+        ]
+      },
+      {
+        "line_number": 394,
+        "line_content": "cmd = [adb_path, '-s', target_device, 'shell', 'am', 'broadcast',",
+        "match_text": "adb_path, '-s', target_device, 'shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "                    return False",
+          "",
+          "                cmd = [adb_path, '-s', target_device, 'shell', 'am', 'broadcast',",
+          "                       '-a', 'ADB_INPUT_TEXT', '--es', 'msg', text]",
+          "                result = subprocess.run(cmd, capture_output=True, text=True, timeout=15,"
+        ]
+      },
+      {
+        "line_number": 418,
+        "line_content": "cmd = [adb_path, '-s', base_device, 'shell', 'am', 'broadcast',",
+        "match_text": "adb_path, '-s', base_device, 'shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "                        return False",
+          "",
+          "                    cmd = [adb_path, '-s', base_device, 'shell', 'am', 'broadcast',",
+          "                           '-a', 'ADB_INPUT_TEXT', '--es', 'msg', text]",
+          "                    result = subprocess.run(cmd, capture_output=True, text=True, timeout=15,"
+        ]
+      },
+      {
+        "line_number": 442,
+        "line_content": "devices = self._get_adb_devices(adb_path)",
+        "match_text": "adb_devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "        try:",
+          "            # 获取连接的设备",
+          "            devices = self._get_adb_devices(adb_path)",
+          "            if not devices:",
+          "                logger.debug(\"没有连接的ADB设备\")"
+        ]
+      },
+      {
+        "line_number": 459,
+        "line_content": "cmd = [adb_path, '-s', device_id, 'shell', 'am', 'broadcast',",
+        "match_text": "adb_path, '-s', device_id, 'shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "                return False",
+          "",
+          "            cmd = [adb_path, '-s', device_id, 'shell', 'am', 'broadcast',",
+          "                   '-a', 'ADB_INPUT_TEXT', '--es', 'msg', text]",
+          "            result = subprocess.run(cmd, capture_output=True, text=True, timeout=15,"
+        ]
+      },
+      {
+        "line_number": 479,
+        "line_content": "if not self._check_adb_keyboard_installed(adb_path, device_id):",
+        "match_text": "adb_keyboard_install",
+        "pattern": "adb.*?install",
+        "context": [
+          "        try:",
+          "            # 检查是否已安装",
+          "            if not self._check_adb_keyboard_installed(adb_path, device_id):",
+          "                logger.debug(f\"设备 {device_id} 上ADBKeyboard未安装\")",
+          "                return False"
+        ]
+      },
+      {
+        "line_number": 484,
+        "line_content": "enable_cmd = [adb_path, '-s', device_id, 'shell', 'ime', 'enable', 'com.android.adbkeyboard/.AdbIME']",
+        "match_text": "adb_path, '-s', device_id, 'shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "",
+          "            # 启用ADBKeyboard",
+          "            enable_cmd = [adb_path, '-s', device_id, 'shell', 'ime', 'enable', 'com.android.adbkeyboard/.AdbIME']",
+          "            result = subprocess.run(enable_cmd, capture_output=True, text=True, timeout=10,",
+          "                                  creationflags=subprocess.CREATE_NO_WINDOW)"
+        ]
+      },
+      {
+        "line_number": 489,
+        "line_content": "set_cmd = [adb_path, '-s', device_id, 'shell', 'ime', 'set', 'com.android.adbkeyboard/.AdbIME']",
+        "match_text": "adb_path, '-s', device_id, 'shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "",
+          "            # 设置为当前输入法",
+          "            set_cmd = [adb_path, '-s', device_id, 'shell', 'ime', 'set', 'com.android.adbkeyboard/.AdbIME']",
+          "            result = subprocess.run(set_cmd, capture_output=True, text=True, timeout=10,",
+          "                                  creationflags=subprocess.CREATE_NO_WINDOW)"
+        ]
+      },
+      {
+        "line_number": 497,
+        "line_content": "logger.debug(f\"设备 {device_id} ADBKeyboard设置失败: {result.stderr}\")",
+        "match_text": "f\"设备 {device_id} ADBKeyboard设置失败: {result.stderr}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "                return True",
+          "            else:",
+          "                logger.debug(f\"设备 {device_id} ADBKeyboard设置失败: {result.stderr}\")",
+          "                return False",
+          ""
+        ]
+      },
+      {
+        "line_number": 501,
+        "line_content": "logger.debug(f\"设备 {device_id} ADBKeyboard准备异常: {e}\")",
+        "match_text": "f\"设备 {device_id} ADBKeyboard准备异常: {e}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "",
+          "        except Exception as e:",
+          "            logger.debug(f\"设备 {device_id} ADBKeyboard准备异常: {e}\")",
+          "            return False",
+          ""
+        ]
+      },
+      {
+        "line_number": 504,
+        "line_content": "def _create_virtual_adb_devices(self, adb_path: str, window_count: int) -> list:",
+        "match_text": "adb_devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "            return False",
+          "",
+          "    def _create_virtual_adb_devices(self, adb_path: str, window_count: int) -> list:",
+          "        \"\"\"创建虚拟ADB设备连接 - 通过端口转发实现多连接\"\"\"",
+          "        try:"
+        ]
+      },
+      {
+        "line_number": 511,
+        "line_content": "real_devices = self._get_adb_devices(adb_path)",
+        "match_text": "adb_devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "",
+          "            # 获取基础设备",
+          "            real_devices = self._get_adb_devices(adb_path)",
+          "            if not real_devices:",
+          "                return []"
+        ]
+      },
+      {
+        "line_number": 534,
+        "line_content": "connect_cmd = [adb_path, 'connect', virtual_device]",
+        "match_text": "adb_path, 'connect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "                    if result.returncode == 0:",
+          "                        # 连接到虚拟设备",
+          "                        connect_cmd = [adb_path, 'connect', virtual_device]",
+          "                        result = subprocess.run(connect_cmd, capture_output=True, text=True, timeout=10,",
+          "                                              creationflags=subprocess.CREATE_NO_WINDOW)"
+        ]
+      },
+      {
+        "line_number": 559,
+        "line_content": "return self._get_adb_devices(adb_path)",
+        "match_text": "adb_devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "        except Exception as e:",
+          "            logger.debug(f\"创建虚拟ADB设备异常: {e}\")",
+          "            return self._get_adb_devices(adb_path)",
+          "",
+          "    def _cleanup_virtual_devices(self, adb_path: str, virtual_devices: list):"
+        ]
+      },
+      {
+        "line_number": 561,
+        "line_content": "def _cleanup_virtual_devices(self, adb_path: str, virtual_devices: list):",
+        "match_text": "adb_path: str, virtual_devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "            return self._get_adb_devices(adb_path)",
+          "",
+          "    def _cleanup_virtual_devices(self, adb_path: str, virtual_devices: list):",
+          "        \"\"\"清理虚拟设备连接\"\"\"",
+          "        try:"
+        ]
+      },
+      {
+        "line_number": 568,
+        "line_content": "disconnect_cmd = [adb_path, 'disconnect', device]",
+        "match_text": "adb_path, 'disconnect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "                    try:",
+          "                        # 断开连接",
+          "                        disconnect_cmd = [adb_path, 'disconnect', device]",
+          "                        subprocess.run(disconnect_cmd, capture_output=True, text=True, timeout=5,",
+          "                                     creationflags=subprocess.CREATE_NO_WINDOW)"
+        ]
+      },
+      {
+        "line_number": 568,
+        "line_content": "disconnect_cmd = [adb_path, 'disconnect', device]",
+        "match_text": "adb_path, 'disconnect",
+        "pattern": "adb.*?disconnect",
+        "context": [
+          "                    try:",
+          "                        # 断开连接",
+          "                        disconnect_cmd = [adb_path, 'disconnect', device]",
+          "                        subprocess.run(disconnect_cmd, capture_output=True, text=True, timeout=5,",
+          "                                     creationflags=subprocess.CREATE_NO_WINDOW)"
+        ]
+      },
+      {
+        "line_number": 578,
+        "line_content": "\"\"\"通用ADB input text方法 - 适用于英文和数字\"\"\"",
+        "match_text": "\"\"\"通用ADB input text方法 - 适用于英文和数字\"",
+        "pattern": "[\"\\'].*?adb\\s+.*?[\"\\']",
+        "context": [
+          "",
+          "    def _try_generic_adb_input(self, hwnd: int, text: str, text_input_mode: str = '单组文本') -> bool:",
+          "        \"\"\"通用ADB input text方法 - 适用于英文和数字\"\"\"",
+          "        try:",
+          "            # 查找可用的ADB程序"
+        ]
+      },
+      {
+        "line_number": 587,
+        "line_content": "devices = self._get_adb_devices(adb_path)",
+        "match_text": "adb_devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "",
+          "            # 获取连接的设备",
+          "            devices = self._get_adb_devices(adb_path)",
+          "            if not devices:",
+          "                logger.debug(\"没有连接的ADB设备\")"
+        ]
+      },
+      {
+        "line_number": 599,
+        "line_content": "logger.info(f\"通用ADB单组输入: 窗口{window_index}给所有{len(devices)}个设备发送\")",
+        "match_text": "ADB单组输入: 窗口{window_index}给所有{len(devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "                # 每个窗口给所有设备发送",
+          "                window_index = self._get_window_index_for_hwnd(hwnd)",
+          "                logger.info(f\"通用ADB单组输入: 窗口{window_index}给所有{len(devices)}个设备发送\")",
+          "",
+          "                success_count = 0"
+        ]
+      },
+      {
+        "line_number": 604,
+        "line_content": "cmd = [adb_path, '-s', device_id, 'shell', 'input', 'text', escaped_text]",
+        "match_text": "adb_path, '-s', device_id, 'shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "                for device_id in devices:",
+          "                    try:",
+          "                        cmd = [adb_path, '-s', device_id, 'shell', 'input', 'text', escaped_text]",
+          "                        result = subprocess.run(cmd, capture_output=True, text=True, timeout=10,",
+          "                                              creationflags=subprocess.CREATE_NO_WINDOW)"
+        ]
+      },
+      {
+        "line_number": 612,
+        "line_content": "logger.debug(f\"设备 {device_id} 通用ADB输入失败: {result.stderr}\")",
+        "match_text": "f\"设备 {device_id} 通用ADB输入失败: {result.stderr}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "                            success_count += 1",
+          "                        else:",
+          "                            logger.debug(f\"设备 {device_id} 通用ADB输入失败: {result.stderr}\")",
+          "",
+          "                    except Exception as e:"
+        ]
+      },
+      {
+        "line_number": 615,
+        "line_content": "logger.debug(f\"设备 {device_id} 通用ADB处理异常: {e}\")",
+        "match_text": "f\"设备 {device_id} 通用ADB处理异常: {e}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "",
+          "                    except Exception as e:",
+          "                        logger.debug(f\"设备 {device_id} 通用ADB处理异常: {e}\")",
+          "                        continue",
+          ""
+        ]
+      },
+      {
+        "line_number": 627,
+        "line_content": "cmd = [adb_path, '-s', device_id, 'shell', 'input', 'text', escaped_text]",
+        "match_text": "adb_path, '-s', device_id, 'shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "                    device_id = devices[window_index % len(devices)]",
+          "",
+          "                cmd = [adb_path, '-s', device_id, 'shell', 'input', 'text', escaped_text]",
+          "                result = subprocess.run(cmd, capture_output=True, text=True, timeout=10,",
+          "                                      creationflags=subprocess.CREATE_NO_WINDOW)"
+        ]
+      },
+      {
+        "line_number": 690,
+        "line_content": "devices = self._get_adb_devices(adb_path)",
+        "match_text": "adb_devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "",
+          "            # 获取连接的设备",
+          "            devices = self._get_adb_devices(adb_path)",
+          "            if not devices:",
+          "                logger.debug(\"没有连接的ADB设备\")"
+        ]
+      },
+      {
+        "line_number": 711,
+        "line_content": "cmd = [adb_path, '-s', device_id, 'shell', 'input', 'text', escaped_text]",
+        "match_text": "adb_path, '-s', device_id, 'shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "",
+          "            # 执行ADB输入命令",
+          "            cmd = [adb_path, '-s', device_id, 'shell', 'input', 'text', escaped_text]",
+          "            result = subprocess.run(cmd, capture_output=True, text=True, timeout=10,",
+          "                                  creationflags=subprocess.CREATE_NO_WINDOW)"
+        ]
+      },
+      {
+        "line_number": 802,
+        "line_content": "devices = self._get_adb_devices(adb_path)",
+        "match_text": "adb_devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "",
+          "            # 获取连接的设备",
+          "            devices = self._get_adb_devices(adb_path)",
+          "            if not devices:",
+          "                logger.debug(\"没有连接的ADB设备\")"
+        ]
+      },
+      {
+        "line_number": 817,
+        "line_content": "if not self._check_adb_keyboard_installed(adb_path, device_id):",
+        "match_text": "adb_keyboard_install",
+        "pattern": "adb.*?install",
+        "context": [
+          "                    try:",
+          "                        # 检查ADBKeyboard是否已安装",
+          "                        if not self._check_adb_keyboard_installed(adb_path, device_id):",
+          "                            logger.warning(f\"设备 {device_id} 上ADBKeyboard未安装，跳过\")",
+          "                            continue"
+        ]
+      },
+      {
+        "line_number": 828,
+        "line_content": "cmd = [adb_path, '-s', device_id, 'shell', 'am', 'broadcast', '-a', 'ADB_INPUT_TEXT', '--es', 'msg', text]",
+        "match_text": "adb_path, '-s', device_id, 'shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "                        # 发送中文文本",
+          "                        logger.info(f\"窗口{window_index}向设备{device_id}发送文字: '{text}'\")",
+          "                        cmd = [adb_path, '-s', device_id, 'shell', 'am', 'broadcast', '-a', 'ADB_INPUT_TEXT', '--es', 'msg', text]",
+          "                        result = subprocess.run(cmd, capture_output=True, text=True, timeout=15,",
+          "                                              creationflags=subprocess.CREATE_NO_WINDOW)"
+        ]
+      },
+      {
+        "line_number": 849,
+        "line_content": "keyboard_installed = self._check_adb_keyboard_installed(adb_path, device_id)",
+        "match_text": "adb_keyboard_install",
+        "pattern": "adb.*?install",
+        "context": [
+          "",
+          "                        # 检查ADBKeyboard是否已安装",
+          "                        keyboard_installed = self._check_adb_keyboard_installed(adb_path, device_id)",
+          "                        logger.info(f\"设备 {device_id} ADBKeyboard安装状态: {keyboard_installed}\")",
+          "                        if not keyboard_installed:"
+        ]
+      },
+      {
+        "line_number": 850,
+        "line_content": "logger.info(f\"设备 {device_id} ADBKeyboard安装状态: {keyboard_installed}\")",
+        "match_text": "f\"设备 {device_id} ADBKeyboard安装状态: {keyboard_installed}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "                        # 检查ADBKeyboard是否已安装",
+          "                        keyboard_installed = self._check_adb_keyboard_installed(adb_path, device_id)",
+          "                        logger.info(f\"设备 {device_id} ADBKeyboard安装状态: {keyboard_installed}\")",
+          "                        if not keyboard_installed:",
+          "                            logger.warning(f\"设备 {device_id} 上ADBKeyboard未安装，跳过\")"
+        ]
+      },
+      {
+        "line_number": 850,
+        "line_content": "logger.info(f\"设备 {device_id} ADBKeyboard安装状态: {keyboard_installed}\")",
+        "match_text": "ADBKeyboard安装状态: {keyboard_install",
+        "pattern": "adb.*?install",
+        "context": [
+          "                        # 检查ADBKeyboard是否已安装",
+          "                        keyboard_installed = self._check_adb_keyboard_installed(adb_path, device_id)",
+          "                        logger.info(f\"设备 {device_id} ADBKeyboard安装状态: {keyboard_installed}\")",
+          "                        if not keyboard_installed:",
+          "                            logger.warning(f\"设备 {device_id} 上ADBKeyboard未安装，跳过\")"
+        ]
+      },
+      {
+        "line_number": 857,
+        "line_content": "logger.info(f\"设备 {device_id} ADBKeyboard输入法设置状态: {ime_set}\")",
+        "match_text": "f\"设备 {device_id} ADBKeyboard输入法设置状态: {ime_set}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "                        # 设置ADBKeyboard为当前输入法",
+          "                        ime_set = self._set_adb_keyboard_ime(adb_path, device_id)",
+          "                        logger.info(f\"设备 {device_id} ADBKeyboard输入法设置状态: {ime_set}\")",
+          "                        if not ime_set:",
+          "                            logger.warning(f\"设备 {device_id} 设置ADBKeyboard输入法失败，跳过\")"
+        ]
+      },
+      {
+        "line_number": 864,
+        "line_content": "cmd = [adb_path, '-s', device_id, 'shell', 'am', 'broadcast', '-a', 'ADB_INPUT_TEXT', '--es', 'msg', text]",
+        "match_text": "adb_path, '-s', device_id, 'shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "                        # 发送中文文本",
+          "                        logger.info(f\"向设备 {device_id} 发送文字: '{text}'\")",
+          "                        cmd = [adb_path, '-s', device_id, 'shell', 'am', 'broadcast', '-a', 'ADB_INPUT_TEXT', '--es', 'msg', text]",
+          "                        result = subprocess.run(cmd, capture_output=True, text=True, timeout=15,",
+          "                                              creationflags=subprocess.CREATE_NO_WINDOW)"
+        ]
+      },
+      {
+        "line_number": 878,
+        "line_content": "logger.error(f\"❌ 设备 {device_id} ADBKeyboard输入失败: {result.stderr}\")",
+        "match_text": "f\"❌ 设备 {device_id} ADBKeyboard输入失败: {result.stderr}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "                            success_count += 1",
+          "                        else:",
+          "                            logger.error(f\"❌ 设备 {device_id} ADBKeyboard输入失败: {result.stderr}\")",
+          "",
+          "                    except Exception as e:"
+        ]
+      },
+      {
+        "line_number": 904,
+        "line_content": "if not self._check_adb_keyboard_installed(adb_path, device_id):",
+        "match_text": "adb_keyboard_install",
+        "pattern": "adb.*?install",
+        "context": [
+          "",
+          "                # 检查ADBKeyboard是否已安装",
+          "                if not self._check_adb_keyboard_installed(adb_path, device_id):",
+          "                    logger.debug(f\"设备 {device_id} 上ADBKeyboard未安装\")",
+          "                    return False"
+        ]
+      },
+      {
+        "line_number": 914,
+        "line_content": "cmd = [adb_path, '-s', device_id, 'shell', 'am', 'broadcast', '-a', 'ADB_INPUT_TEXT', '--es', 'msg', text]",
+        "match_text": "adb_path, '-s', device_id, 'shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "",
+          "                # 发送中文文本",
+          "                cmd = [adb_path, '-s', device_id, 'shell', 'am', 'broadcast', '-a', 'ADB_INPUT_TEXT', '--es', 'msg', text]",
+          "                result = subprocess.run(cmd, capture_output=True, text=True, timeout=15,",
+          "                                      creationflags=subprocess.CREATE_NO_WINDOW)"
+        ]
+      },
+      {
+        "line_number": 939,
+        "line_content": "devices = self._get_adb_devices(adb_path)",
+        "match_text": "adb_devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "",
+          "            # 获取连接的设备",
+          "            devices = self._get_adb_devices(adb_path)",
+          "            if not devices:",
+          "                logger.debug(\"没有连接的ADB设备\")"
+        ]
+      },
+      {
+        "line_number": 959,
+        "line_content": "cmd = [adb_path, '-s', device_id, 'shell', 'am', 'broadcast', '-a', 'com.android.inputmethod.latin.SEND_TEXT', '--es', 'text', text]",
+        "match_text": "adb_path, '-s', device_id, 'shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "",
+          "                # 使用广播方式发送中文",
+          "                cmd = [adb_path, '-s', device_id, 'shell', 'am', 'broadcast', '-a', 'com.android.inputmethod.latin.SEND_TEXT', '--es', 'text', text]",
+          "                result = subprocess.run(cmd, capture_output=True, text=True, timeout=15,",
+          "                                      creationflags=subprocess.CREATE_NO_WINDOW)"
+        ]
+      },
+      {
+        "line_number": 972,
+        "line_content": "cmd = [adb_path, '-s', device_id, 'shell', 'am', 'broadcast', '-a', 'com.android.inputmethod.latin.SEND_TEXT', '--es', 'text', text]",
+        "match_text": "adb_path, '-s', device_id, 'shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "                    try:",
+          "                        # 使用广播方式发送中文",
+          "                        cmd = [adb_path, '-s', device_id, 'shell', 'am', 'broadcast', '-a', 'com.android.inputmethod.latin.SEND_TEXT', '--es', 'text', text]",
+          "                        result = subprocess.run(cmd, capture_output=True, text=True, timeout=15,",
+          "                                              creationflags=subprocess.CREATE_NO_WINDOW)"
+        ]
+      },
+      {
+        "line_number": 1003,
+        "line_content": "cmd = [adb_path, '-s', device_id, 'shell', 'am', 'broadcast', '-a', 'com.android.inputmethod.latin.SEND_TEXT', '--es', 'text', text]",
+        "match_text": "adb_path, '-s', device_id, 'shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "",
+          "                # 使用广播方式发送中文",
+          "                cmd = [adb_path, '-s', device_id, 'shell', 'am', 'broadcast', '-a', 'com.android.inputmethod.latin.SEND_TEXT', '--es', 'text', text]",
+          "                result = subprocess.run(cmd, capture_output=True, text=True, timeout=15,",
+          "                                      creationflags=subprocess.CREATE_NO_WINDOW)"
+        ]
+      },
+      {
+        "line_number": 1018,
+        "line_content": "def _check_adb_keyboard_installed(self, adb_path: str, device_id: str) -> bool:",
+        "match_text": "adb_keyboard_install",
+        "pattern": "adb.*?install",
+        "context": [
+          "            return False",
+          "",
+          "    def _check_adb_keyboard_installed(self, adb_path: str, device_id: str) -> bool:",
+          "        \"\"\"检查ADBKeyboard是否已安装\"\"\"",
+          "        try:"
+        ]
+      },
+      {
+        "line_number": 1021,
+        "line_content": "cmd = [adb_path, '-s', device_id, 'shell', 'pm', 'list', 'packages', 'com.android.adbkeyboard']",
+        "match_text": "adb_path, '-s', device_id, 'shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "        \"\"\"检查ADBKeyboard是否已安装\"\"\"",
+          "        try:",
+          "            cmd = [adb_path, '-s', device_id, 'shell', 'pm', 'list', 'packages', 'com.android.adbkeyboard']",
+          "            result = subprocess.run(cmd, capture_output=True, text=True, timeout=10,",
+          "                                  creationflags=subprocess.CREATE_NO_WINDOW)"
+        ]
+      },
+      {
+        "line_number": 1034,
+        "line_content": "cmd1 = [adb_path, '-s', device_id, 'shell', 'ime', 'enable', 'com.android.adbkeyboard/.AdbIME']",
+        "match_text": "adb_path, '-s', device_id, 'shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "        try:",
+          "            # 启用ADBKeyboard输入法",
+          "            cmd1 = [adb_path, '-s', device_id, 'shell', 'ime', 'enable', 'com.android.adbkeyboard/.AdbIME']",
+          "            result1 = subprocess.run(cmd1, capture_output=True, text=True, timeout=10,",
+          "                                   creationflags=subprocess.CREATE_NO_WINDOW)"
+        ]
+      },
+      {
+        "line_number": 1039,
+        "line_content": "cmd2 = [adb_path, '-s', device_id, 'shell', 'ime', 'set', 'com.android.adbkeyboard/.AdbIME']",
+        "match_text": "adb_path, '-s', device_id, 'shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "",
+          "            # 设置为默认输入法",
+          "            cmd2 = [adb_path, '-s', device_id, 'shell', 'ime', 'set', 'com.android.adbkeyboard/.AdbIME']",
+          "            result2 = subprocess.run(cmd2, capture_output=True, text=True, timeout=10,",
+          "                                   creationflags=subprocess.CREATE_NO_WINDOW)"
+        ]
+      },
+      {
+        "line_number": 1260,
+        "line_content": "adb_path = healthy_devices[0].adb_path",
+        "match_text": "adb_path = healthy_devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "            if healthy_devices:",
+          "                # 使用第一个健康设备的ADB路径",
+          "                adb_path = healthy_devices[0].adb_path",
+          "                logger.debug(f\"从先进ADB连接池获取ADB路径: {adb_path}\")",
+          "                self.adb_cache['adb_path'] = adb_path"
+        ]
+      },
+      {
+        "line_number": 1261,
+        "line_content": "logger.debug(f\"从先进ADB连接池获取ADB路径: {adb_path}\")",
+        "match_text": "f\"从先进ADB连接池获取ADB路径: {adb_path}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "                # 使用第一个健康设备的ADB路径",
+          "                adb_path = healthy_devices[0].adb_path",
+          "                logger.debug(f\"从先进ADB连接池获取ADB路径: {adb_path}\")",
+          "                self.adb_cache['adb_path'] = adb_path",
+          "                return adb_path"
+        ]
+      },
+      {
+        "line_number": 1268,
+        "line_content": "result = subprocess.run(['where', 'adb'], capture_output=True, text=True,",
+        "match_text": "subprocess.run(['where', 'adb']",
+        "pattern": "subprocess\\.run\\s*\\(\\s*\\[.*?adb.*?\\]",
+        "context": [
+          "",
+          "            # 2. 检查系统PATH中的adb",
+          "            result = subprocess.run(['where', 'adb'], capture_output=True, text=True,",
+          "                                  creationflags=subprocess.CREATE_NO_WINDOW)",
+          "            if result.returncode == 0:"
+        ]
+      },
+      {
+        "line_number": 1272,
+        "line_content": "logger.debug(f\"在系统PATH中找到ADB: {adb_path}\")",
+        "match_text": "f\"在系统PATH中找到ADB: {adb_path}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "            if result.returncode == 0:",
+          "                adb_path = result.stdout.strip().split('\\n')[0]",
+          "                logger.debug(f\"在系统PATH中找到ADB: {adb_path}\")",
+          "                self.adb_cache['adb_path'] = adb_path",
+          "                return adb_path"
+        ]
+      },
+      {
+        "line_number": 1302,
+        "line_content": "logger.debug(f\"在常见路径中找到ADB: {adb_path}\")",
+        "match_text": "f\"在常见路径中找到ADB: {adb_path}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "        for adb_path in common_adb_paths:",
+          "            if os.path.exists(adb_path):",
+          "                logger.debug(f\"在常见路径中找到ADB: {adb_path}\")",
+          "                self.adb_cache['adb_path'] = adb_path",
+          "                return adb_path"
+        ]
+      },
+      {
+        "line_number": 1309,
+        "line_content": "logger.debug(f\"通过进程搜索找到ADB: {adb_from_process}\")",
+        "match_text": "f\"通过进程搜索找到ADB: {adb_from_process}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "        adb_from_process = self._find_adb_from_running_processes()",
+          "        if adb_from_process:",
+          "            logger.debug(f\"通过进程搜索找到ADB: {adb_from_process}\")",
+          "            self.adb_cache['adb_path'] = adb_from_process",
+          "            return adb_from_process"
+        ]
+      },
+      {
+        "line_number": 1367,
+        "line_content": "def _get_adb_devices(self, adb_path: str) -> list:",
+        "match_text": "adb_devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "            return None",
+          "",
+          "    def _get_adb_devices(self, adb_path: str) -> list:",
+          "        \"\"\"获取ADB连接的设备列表\"\"\"",
+          "        try:"
+        ]
+      },
+      {
+        "line_number": 1370,
+        "line_content": "result = subprocess.run([adb_path, 'devices'], capture_output=True, text=True, timeout=10,",
+        "match_text": "subprocess.run([adb_path, 'devices']",
+        "pattern": "subprocess\\.run\\s*\\(\\s*\\[.*?adb.*?\\]",
+        "context": [
+          "        \"\"\"获取ADB连接的设备列表\"\"\"",
+          "        try:",
+          "            result = subprocess.run([adb_path, 'devices'], capture_output=True, text=True, timeout=10,",
+          "                                  creationflags=subprocess.CREATE_NO_WINDOW)",
+          ""
+        ]
+      },
+      {
+        "line_number": 1370,
+        "line_content": "result = subprocess.run([adb_path, 'devices'], capture_output=True, text=True, timeout=10,",
+        "match_text": "subprocess.run([adb_path, 'devices']",
+        "pattern": "subprocess\\.run\\s*\\(\\s*\\[.*?adb_path.*?\\]",
+        "context": [
+          "        \"\"\"获取ADB连接的设备列表\"\"\"",
+          "        try:",
+          "            result = subprocess.run([adb_path, 'devices'], capture_output=True, text=True, timeout=10,",
+          "                                  creationflags=subprocess.CREATE_NO_WINDOW)",
+          ""
+        ]
+      },
+      {
+        "line_number": 1370,
+        "line_content": "result = subprocess.run([adb_path, 'devices'], capture_output=True, text=True, timeout=10,",
+        "match_text": "adb_path, 'devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "        \"\"\"获取ADB连接的设备列表\"\"\"",
+          "        try:",
+          "            result = subprocess.run([adb_path, 'devices'], capture_output=True, text=True, timeout=10,",
+          "                                  creationflags=subprocess.CREATE_NO_WINDOW)",
+          ""
+        ]
+      },
+      {
+        "line_number": 1384,
+        "line_content": "logger.debug(f\"找到ADB设备: {devices}\")",
+        "match_text": "ADB设备: {devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "                    devices.append(device_id)",
+          "",
+          "            logger.debug(f\"找到ADB设备: {devices}\")",
+          "            return devices",
+          ""
+        ]
+      }
+    ]
+  },
+  {
+    "file": "tasks\\ldplayer_app_manager.py",
+    "risk_level": "高风险",
+    "is_critical": true,
+    "priority": "高优先级",
+    "strategy": "谨慎优化 - 需要详细测试",
+    "approach": "逐步替换，保留原有逻辑作为备份",
+    "usage_count": 42,
+    "usages": [
+      {
+        "line_number": 201,
+        "line_content": "def ensure_ldplayer_adb_connection(instance_index):",
+        "match_text": "adb_connect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "        return None",
+          "",
+          "def ensure_ldplayer_adb_connection(instance_index):",
+          "    \"\"\"确保雷电模拟器ADB连接正常\"\"\"",
+          "    try:"
+        ]
+      },
+      {
+        "line_number": 216,
+        "line_content": "result = subprocess.run([adb_cmd, 'start-server'], capture_output=True, text=True, timeout=10)",
+        "match_text": "subprocess.run([adb_cmd, 'start-server']",
+        "pattern": "subprocess\\.run\\s*\\(\\s*\\[.*?adb.*?\\]",
+        "context": [
+          "        # 1. 启动ADB服务器",
+          "        logger.info(\"启动ADB服务器...\")",
+          "        result = subprocess.run([adb_cmd, 'start-server'], capture_output=True, text=True, timeout=10)",
+          "        logger.info(f\"ADB start-server结果: {result.returncode}\")",
+          ""
+        ]
+      },
+      {
+        "line_number": 217,
+        "line_content": "logger.info(f\"ADB start-server结果: {result.returncode}\")",
+        "match_text": "\"ADB start-server结果: {result.returncode}\"",
+        "pattern": "[\"\\'].*?adb\\s+.*?[\"\\']",
+        "context": [
+          "        logger.info(\"启动ADB服务器...\")",
+          "        result = subprocess.run([adb_cmd, 'start-server'], capture_output=True, text=True, timeout=10)",
+          "        logger.info(f\"ADB start-server结果: {result.returncode}\")",
+          "",
+          "        # 2. 检查设备连接"
+        ]
+      },
+      {
+        "line_number": 220,
+        "line_content": "result = subprocess.run([adb_cmd, 'devices'], capture_output=True, text=True, timeout=5)",
+        "match_text": "subprocess.run([adb_cmd, 'devices']",
+        "pattern": "subprocess\\.run\\s*\\(\\s*\\[.*?adb.*?\\]",
+        "context": [
+          "",
+          "        # 2. 检查设备连接",
+          "        result = subprocess.run([adb_cmd, 'devices'], capture_output=True, text=True, timeout=5)",
+          "        logger.info(f\"ADB devices输出: {result.stdout}\")",
+          ""
+        ]
+      },
+      {
+        "line_number": 220,
+        "line_content": "result = subprocess.run([adb_cmd, 'devices'], capture_output=True, text=True, timeout=5)",
+        "match_text": "adb_cmd, 'devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "",
+          "        # 2. 检查设备连接",
+          "        result = subprocess.run([adb_cmd, 'devices'], capture_output=True, text=True, timeout=5)",
+          "        logger.info(f\"ADB devices输出: {result.stdout}\")",
+          ""
+        ]
+      },
+      {
+        "line_number": 221,
+        "line_content": "logger.info(f\"ADB devices输出: {result.stdout}\")",
+        "match_text": "\"ADB devices输出: {result.stdout}\"",
+        "pattern": "[\"\\'].*?adb\\s+.*?[\"\\']",
+        "context": [
+          "        # 2. 检查设备连接",
+          "        result = subprocess.run([adb_cmd, 'devices'], capture_output=True, text=True, timeout=5)",
+          "        logger.info(f\"ADB devices输出: {result.stdout}\")",
+          "",
+          "        # 3. 如果没有设备，尝试连接雷电模拟器的ADB端口"
+        ]
+      },
+      {
+        "line_number": 221,
+        "line_content": "logger.info(f\"ADB devices输出: {result.stdout}\")",
+        "match_text": "ADB devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "        # 2. 检查设备连接",
+          "        result = subprocess.run([adb_cmd, 'devices'], capture_output=True, text=True, timeout=5)",
+          "        logger.info(f\"ADB devices输出: {result.stdout}\")",
+          "",
+          "        # 3. 如果没有设备，尝试连接雷电模拟器的ADB端口"
+        ]
+      },
+      {
+        "line_number": 235,
+        "line_content": "logger.info(f\"尝试连接ADB端口: {connect_cmd}\")",
+        "match_text": "ADB端口: {connect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "            connect_cmd = f\"127.0.0.1:{base_port}\"",
+          "",
+          "            logger.info(f\"尝试连接ADB端口: {connect_cmd}\")",
+          "            connect_result = subprocess.run([adb_cmd, 'connect', connect_cmd],",
+          "                                          capture_output=True, text=True, timeout=10)"
+        ]
+      },
+      {
+        "line_number": 236,
+        "line_content": "connect_result = subprocess.run([adb_cmd, 'connect', connect_cmd],",
+        "match_text": "subprocess.run([adb_cmd, 'connect', connect_cmd]",
+        "pattern": "subprocess\\.run\\s*\\(\\s*\\[.*?adb.*?\\]",
+        "context": [
+          "",
+          "            logger.info(f\"尝试连接ADB端口: {connect_cmd}\")",
+          "            connect_result = subprocess.run([adb_cmd, 'connect', connect_cmd],",
+          "                                          capture_output=True, text=True, timeout=10)",
+          "            logger.info(f\"ADB connect结果: {connect_result.returncode}, 输出: {connect_result.stdout}\")"
+        ]
+      },
+      {
+        "line_number": 236,
+        "line_content": "connect_result = subprocess.run([adb_cmd, 'connect', connect_cmd],",
+        "match_text": "adb_cmd, 'connect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "",
+          "            logger.info(f\"尝试连接ADB端口: {connect_cmd}\")",
+          "            connect_result = subprocess.run([adb_cmd, 'connect', connect_cmd],",
+          "                                          capture_output=True, text=True, timeout=10)",
+          "            logger.info(f\"ADB connect结果: {connect_result.returncode}, 输出: {connect_result.stdout}\")"
+        ]
+      },
+      {
+        "line_number": 238,
+        "line_content": "logger.info(f\"ADB connect结果: {connect_result.returncode}, 输出: {connect_result.stdout}\")",
+        "match_text": "\"ADB connect结果: {connect_result.returncode}, 输出: {connect_result.stdout}\"",
+        "pattern": "[\"\\'].*?adb\\s+.*?[\"\\']",
+        "context": [
+          "            connect_result = subprocess.run([adb_cmd, 'connect', connect_cmd],",
+          "                                          capture_output=True, text=True, timeout=10)",
+          "            logger.info(f\"ADB connect结果: {connect_result.returncode}, 输出: {connect_result.stdout}\")",
+          "",
+          "            # 再次检查设备"
+        ]
+      },
+      {
+        "line_number": 238,
+        "line_content": "logger.info(f\"ADB connect结果: {connect_result.returncode}, 输出: {connect_result.stdout}\")",
+        "match_text": "ADB connect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "            connect_result = subprocess.run([adb_cmd, 'connect', connect_cmd],",
+          "                                          capture_output=True, text=True, timeout=10)",
+          "            logger.info(f\"ADB connect结果: {connect_result.returncode}, 输出: {connect_result.stdout}\")",
+          "",
+          "            # 再次检查设备"
+        ]
+      },
+      {
+        "line_number": 241,
+        "line_content": "result = subprocess.run([adb_cmd, 'devices'], capture_output=True, text=True, timeout=5)",
+        "match_text": "subprocess.run([adb_cmd, 'devices']",
+        "pattern": "subprocess\\.run\\s*\\(\\s*\\[.*?adb.*?\\]",
+        "context": [
+          "",
+          "            # 再次检查设备",
+          "            result = subprocess.run([adb_cmd, 'devices'], capture_output=True, text=True, timeout=5)",
+          "            logger.info(f\"连接后ADB devices输出: {result.stdout}\")",
+          ""
+        ]
+      },
+      {
+        "line_number": 241,
+        "line_content": "result = subprocess.run([adb_cmd, 'devices'], capture_output=True, text=True, timeout=5)",
+        "match_text": "adb_cmd, 'devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "",
+          "            # 再次检查设备",
+          "            result = subprocess.run([adb_cmd, 'devices'], capture_output=True, text=True, timeout=5)",
+          "            logger.info(f\"连接后ADB devices输出: {result.stdout}\")",
+          ""
+        ]
+      },
+      {
+        "line_number": 242,
+        "line_content": "logger.info(f\"连接后ADB devices输出: {result.stdout}\")",
+        "match_text": "\"连接后ADB devices输出: {result.stdout}\"",
+        "pattern": "[\"\\'].*?adb\\s+.*?[\"\\']",
+        "context": [
+          "            # 再次检查设备",
+          "            result = subprocess.run([adb_cmd, 'devices'], capture_output=True, text=True, timeout=5)",
+          "            logger.info(f\"连接后ADB devices输出: {result.stdout}\")",
+          "",
+          "            for line in result.stdout.split('\\n'):"
+        ]
+      },
+      {
+        "line_number": 242,
+        "line_content": "logger.info(f\"连接后ADB devices输出: {result.stdout}\")",
+        "match_text": "ADB devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "            # 再次检查设备",
+          "            result = subprocess.run([adb_cmd, 'devices'], capture_output=True, text=True, timeout=5)",
+          "            logger.info(f\"连接后ADB devices输出: {result.stdout}\")",
+          "",
+          "            for line in result.stdout.split('\\n'):"
+        ]
+      },
+      {
+        "line_number": 263,
+        "line_content": "cmd = [console_path, \"adb\", \"--index\", str(instance_index), \"--command\", \"shell pm list packages -3\"]",
+        "match_text": "adb\", \"--index\", str(instance_index), \"--command\", \"shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "",
+          "        # 方法1：获取第三方应用（推荐）",
+          "        cmd = [console_path, \"adb\", \"--index\", str(instance_index), \"--command\", \"shell pm list packages -3\"]",
+          "        result = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8')",
+          ""
+        ]
+      },
+      {
+        "line_number": 279,
+        "line_content": "cmd = [console_path, \"adb\", \"--index\", str(instance_index), \"--command\", \"shell pm list packages\"]",
+        "match_text": "adb\", \"--index\", str(instance_index), \"--command\", \"shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "            # 回退到原方法",
+          "            logger.info(\"回退到基础方法获取应用列表\")",
+          "            cmd = [console_path, \"adb\", \"--index\", str(instance_index), \"--command\", \"shell pm list packages\"]",
+          "            result = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8')",
+          ""
+        ]
+      },
+      {
+        "line_number": 491,
+        "line_content": "cmd = [console_path, \"adb\", \"--index\", str(instance_index), \"--command\", \"shell ps\"]",
+        "match_text": "adb\", \"--index\", str(instance_index), \"--command\", \"shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "        logger.info(\" 方法2: 使用 kill 命令杀死进程\")",
+          "        # 先获取进程列表",
+          "        cmd = [console_path, \"adb\", \"--index\", str(instance_index), \"--command\", \"shell ps\"]",
+          "        result = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8')",
+          ""
+        ]
+      },
+      {
+        "line_number": 747,
+        "line_content": "logger.info(f\"使用ADB方法执行应用管理: {adb_cmd}\")",
+        "match_text": "f\"使用ADB方法执行应用管理: {adb_cmd}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "",
+          "            if adb_cmd:",
+          "                logger.info(f\"使用ADB方法执行应用管理: {adb_cmd}\")",
+          "                use_adb_method = True",
+          "            else:"
+        ]
+      },
+      {
+        "line_number": 762,
+        "line_content": "devices_result = subprocess.run([adb_cmd, 'devices'], capture_output=True, text=True, timeout=5)",
+        "match_text": "subprocess.run([adb_cmd, 'devices']",
+        "pattern": "subprocess\\.run\\s*\\(\\s*\\[.*?adb.*?\\]",
+        "context": [
+          "                # 获取所有ADB设备数量",
+          "                import subprocess",
+          "                devices_result = subprocess.run([adb_cmd, 'devices'], capture_output=True, text=True, timeout=5)",
+          "                device_count = 0",
+          "                if devices_result.returncode == 0:"
+        ]
+      },
+      {
+        "line_number": 762,
+        "line_content": "devices_result = subprocess.run([adb_cmd, 'devices'], capture_output=True, text=True, timeout=5)",
+        "match_text": "adb_cmd, 'devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "                # 获取所有ADB设备数量",
+          "                import subprocess",
+          "                devices_result = subprocess.run([adb_cmd, 'devices'], capture_output=True, text=True, timeout=5)",
+          "                device_count = 0",
+          "                if devices_result.returncode == 0:"
+        ]
+      },
+      {
+        "line_number": 921,
+        "line_content": "logger.info(f\" 使用方法: {'ADB' if use_adb_method else '传统控制台'}\")",
+        "match_text": "f\" 使用方法: {'ADB' if use_adb_method else '传统控制台'}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "",
+          "            logger.info(f\" 准备关闭应用: {selected_app} (包名: {package_name})\")",
+          "            logger.info(f\" 使用方法: {'ADB' if use_adb_method else '传统控制台'}\")",
+          "",
+          "            # 使用ADB方法关闭应用"
+        ]
+      },
+      {
+        "line_number": 1011,
+        "line_content": "if not ensure_ldplayer_adb_connection(int(instance['index'])):",
+        "match_text": "adb_connect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "",
+          "        # 确保ADB连接正常",
+          "        if not ensure_ldplayer_adb_connection(int(instance['index'])):",
+          "            logger.warning(f\"无法建立雷电模拟器实例 {instance['index']} 的ADB连接\")",
+          "            # 即使ADB连接失败，也尝试获取应用列表（可能使用控制台方法）"
+        ]
+      },
+      {
+        "line_number": 1033,
+        "line_content": "result = subprocess.run([adb_cmd, 'devices'], capture_output=True, text=True, timeout=5,",
+        "match_text": "subprocess.run([adb_cmd, 'devices']",
+        "pattern": "subprocess\\.run\\s*\\(\\s*\\[.*?adb.*?\\]",
+        "context": [
+          "",
+          "        # 获取所有连接的设备",
+          "        result = subprocess.run([adb_cmd, 'devices'], capture_output=True, text=True, timeout=5,",
+          "                               creationflags=subprocess.CREATE_NO_WINDOW)",
+          "        if result.returncode != 0:"
+        ]
+      },
+      {
+        "line_number": 1033,
+        "line_content": "result = subprocess.run([adb_cmd, 'devices'], capture_output=True, text=True, timeout=5,",
+        "match_text": "adb_cmd, 'devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "",
+          "        # 获取所有连接的设备",
+          "        result = subprocess.run([adb_cmd, 'devices'], capture_output=True, text=True, timeout=5,",
+          "                               creationflags=subprocess.CREATE_NO_WINDOW)",
+          "        if result.returncode != 0:"
+        ]
+      },
+      {
+        "line_number": 1046,
+        "line_content": "logger.info(f\"发现 {len(devices)} 个ADB设备: {devices}\")",
+        "match_text": "f\"发现 {len(devices)} 个ADB设备: {devices}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "                devices.append(device_id)",
+          "",
+          "        logger.info(f\"发现 {len(devices)} 个ADB设备: {devices}\")",
+          "",
+          "        # 根据实例索引选择设备"
+        ]
+      },
+      {
+        "line_number": 1046,
+        "line_content": "logger.info(f\"发现 {len(devices)} 个ADB设备: {devices}\")",
+        "match_text": "ADB设备: {devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "                devices.append(device_id)",
+          "",
+          "        logger.info(f\"发现 {len(devices)} 个ADB设备: {devices}\")",
+          "",
+          "        # 根据实例索引选择设备"
+        ]
+      },
+      {
+        "line_number": 1071,
+        "line_content": "logger.info(f\" [实例{instance_index}] 使用ADB重启应用: {package_name}\")",
+        "match_text": "f\" [实例{instance_index}] 使用ADB重启应用: {package_name}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "        import subprocess",
+          "",
+          "        logger.info(f\" [实例{instance_index}] 使用ADB重启应用: {package_name}\")",
+          "",
+          "        # 动态获取设备ID"
+        ]
+      },
+      {
+        "line_number": 1080,
+        "line_content": "logger.info(f\" [实例{instance_index}] 使用ADB设备: {device_id}\")",
+        "match_text": "f\" [实例{instance_index}] 使用ADB设备: {device_id}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "",
+          "        base_cmd = [adb_cmd, '-s', device_id]",
+          "        logger.info(f\" [实例{instance_index}] 使用ADB设备: {device_id}\")",
+          "",
+          "        # 先关闭应用"
+        ]
+      },
+      {
+        "line_number": 1103,
+        "line_content": "logger.info(f\" [实例{instance_index}] ADB重启应用成功: {package_name}\")",
+        "match_text": "f\" [实例{instance_index}] ADB重启应用成功: {package_name}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "",
+          "        if launch_result.returncode == 0:",
+          "            logger.info(f\" [实例{instance_index}] ADB重启应用成功: {package_name}\")",
+          "            logger.info(f\" [实例{instance_index}] 启动输出: {launch_result.stdout.strip()}\")",
+          "            return True"
+        ]
+      },
+      {
+        "line_number": 1107,
+        "line_content": "logger.error(f\" [实例{instance_index}] ADB重启应用失败: {launch_result.stderr}\")",
+        "match_text": "f\" [实例{instance_index}] ADB重启应用失败: {launch_result.stderr}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "            return True",
+          "        else:",
+          "            logger.error(f\" [实例{instance_index}] ADB重启应用失败: {launch_result.stderr}\")",
+          "            return False",
+          ""
+        ]
+      },
+      {
+        "line_number": 1111,
+        "line_content": "logger.error(f\" [实例{instance_index}] ADB重启应用异常: {e}\")",
+        "match_text": "f\" [实例{instance_index}] ADB重启应用异常: {e}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "",
+          "    except Exception as e:",
+          "        logger.error(f\" [实例{instance_index}] ADB重启应用异常: {e}\")",
+          "        return False",
+          ""
+        ]
+      },
+      {
+        "line_number": 1119,
+        "line_content": "logger.info(f\" [实例{instance_index}] 使用ADB关闭应用: {package_name}\")",
+        "match_text": "f\" [实例{instance_index}] 使用ADB关闭应用: {package_name}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "        import subprocess",
+          "",
+          "        logger.info(f\" [实例{instance_index}] 使用ADB关闭应用: {package_name}\")",
+          "",
+          "        # 动态获取设备ID"
+        ]
+      },
+      {
+        "line_number": 1128,
+        "line_content": "logger.info(f\" [实例{instance_index}] 使用ADB设备: {device_id}\")",
+        "match_text": "f\" [实例{instance_index}] 使用ADB设备: {device_id}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "",
+          "        base_cmd = [adb_cmd, '-s', device_id]",
+          "        logger.info(f\" [实例{instance_index}] 使用ADB设备: {device_id}\")",
+          "",
+          "        # 验证设备连接"
+        ]
+      },
+      {
+        "line_number": 1153,
+        "line_content": "logger.info(f\" [实例{instance_index}] ADB关闭应用成功: {package_name}\")",
+        "match_text": "f\" [实例{instance_index}] ADB关闭应用成功: {package_name}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "            # 简化验证：force-stop 成功就认为关闭成功",
+          "            # Android的force-stop命令通常是可靠的",
+          "            logger.info(f\" [实例{instance_index}] ADB关闭应用成功: {package_name}\")",
+          "            return True",
+          "        else:"
+        ]
+      },
+      {
+        "line_number": 1200,
+        "line_content": "logger.error(f\" [实例{instance_index}] ADB关闭应用异常: {e}\")",
+        "match_text": "f\" [实例{instance_index}] ADB关闭应用异常: {e}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "",
+          "    except Exception as e:",
+          "        logger.error(f\" [实例{instance_index}] ADB关闭应用异常: {e}\")",
+          "        return False",
+          ""
+        ]
+      },
+      {
+        "line_number": 1217,
+        "line_content": "logger.info(f\" [实例{instance_index}] 使用ADB设备: {device_id}\")",
+        "match_text": "f\" [实例{instance_index}] 使用ADB设备: {device_id}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "",
+          "        base_cmd = [adb_cmd, '-s', device_id]",
+          "        logger.info(f\" [实例{instance_index}] 使用ADB设备: {device_id}\")",
+          "",
+          "        # 方法1：先按HOME键回到桌面"
+        ]
+      },
+      {
+        "line_number": 1271,
+        "line_content": "logger.info(f\" [实例{instance_index}] 使用ADB启动应用: {package_name}\")",
+        "match_text": "f\" [实例{instance_index}] 使用ADB启动应用: {package_name}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "        import subprocess",
+          "",
+          "        logger.info(f\" [实例{instance_index}] 使用ADB启动应用: {package_name}\")",
+          "",
+          "        # 动态获取设备ID"
+        ]
+      },
+      {
+        "line_number": 1280,
+        "line_content": "logger.info(f\" [实例{instance_index}] 使用ADB设备: {device_id}\")",
+        "match_text": "f\" [实例{instance_index}] 使用ADB设备: {device_id}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "",
+          "        base_cmd = [adb_cmd, '-s', device_id]",
+          "        logger.info(f\" [实例{instance_index}] 使用ADB设备: {device_id}\")",
+          "",
+          "        # 验证设备连接"
+        ]
+      },
+      {
+        "line_number": 1300,
+        "line_content": "logger.info(f\" [实例{instance_index}] ADB启动应用成功: {package_name}\")",
+        "match_text": "f\" [实例{instance_index}] ADB启动应用成功: {package_name}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "",
+          "        if result.returncode == 0:",
+          "            logger.info(f\" [实例{instance_index}] ADB启动应用成功: {package_name}\")",
+          "            logger.info(f\" [实例{instance_index}] 启动输出: {result.stdout.strip()}\")",
+          "            return True"
+        ]
+      },
+      {
+        "line_number": 1304,
+        "line_content": "logger.error(f\" [实例{instance_index}] ADB启动应用失败: {result.stderr}\")",
+        "match_text": "f\" [实例{instance_index}] ADB启动应用失败: {result.stderr}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "            return True",
+          "        else:",
+          "            logger.error(f\" [实例{instance_index}] ADB启动应用失败: {result.stderr}\")",
+          "            logger.error(f\" [实例{instance_index}] 错误输出: {result.stdout.strip()}\")",
+          ""
+        ]
+      }
+    ]
+  },
+  {
+    "file": "ui\\parameter_panel.py",
+    "risk_level": "高风险",
+    "is_critical": true,
+    "priority": "高优先级",
+    "strategy": "谨慎优化 - 需要详细测试",
+    "approach": "逐步替换，保留原有逻辑作为备份",
+    "usage_count": 26,
+    "usages": [
+      {
+        "line_number": 3203,
+        "line_content": "from utils.intelligent_adb_connector import IntelligentADBConnector",
+        "match_text": "adb_connect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "            # 使用智能ADB连接器获取应用列表",
+          "            try:",
+          "                from utils.intelligent_adb_connector import IntelligentADBConnector",
+          "",
+          "                connector = IntelligentADBConnector()"
+        ]
+      },
+      {
+        "line_number": 3203,
+        "line_content": "from utils.intelligent_adb_connector import IntelligentADBConnector",
+        "match_text": "ADBConnect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "            # 使用智能ADB连接器获取应用列表",
+          "            try:",
+          "                from utils.intelligent_adb_connector import IntelligentADBConnector",
+          "",
+          "                connector = IntelligentADBConnector()"
+        ]
+      },
+      {
+        "line_number": 3205,
+        "line_content": "connector = IntelligentADBConnector()",
+        "match_text": "ADBConnect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "                from utils.intelligent_adb_connector import IntelligentADBConnector",
+          "",
+          "                connector = IntelligentADBConnector()",
+          "                connector.discover_adb_paths()",
+          "                connector.discover_emulator_windows()"
+        ]
+      },
+      {
+        "line_number": 3223,
+        "line_content": "raise Exception(\"No ADB connections available\")",
+        "match_text": "\"No ADB connections available\"",
+        "pattern": "[\"\\'].*?adb\\s+.*?[\"\\']",
+        "context": [
+          "",
+          "                if not target_connection:",
+          "                    raise Exception(\"No ADB connections available\")",
+          "",
+          "                # 使用智能连接器获取已安装的应用包名和名称"
+        ]
+      },
+      {
+        "line_number": 3223,
+        "line_content": "raise Exception(\"No ADB connections available\")",
+        "match_text": "ADB connect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "",
+          "                if not target_connection:",
+          "                    raise Exception(\"No ADB connections available\")",
+          "",
+          "                # 使用智能连接器获取已安装的应用包名和名称"
+        ]
+      },
+      {
+        "line_number": 3227,
+        "line_content": "result = subprocess.run([target_connection.adb_path, '-s', target_connection.device_id,",
+        "match_text": "adb_path, '-s', target_connect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "                # 使用智能连接器获取已安装的应用包名和名称",
+          "                import subprocess",
+          "                result = subprocess.run([target_connection.adb_path, '-s', target_connection.device_id,",
+          "                                       'shell', 'pm', 'list', 'packages', '-3'],",
+          "                                      capture_output=True, text=True, timeout=10,"
+        ]
+      },
+      {
+        "line_number": 3308,
+        "line_content": "logger.info(f\"检查ADB设备连接状态，ADB路径: {adb_cmd}\")",
+        "match_text": "f\"检查ADB设备连接状态，ADB路径: {adb_cmd}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "            import subprocess",
+          "",
+          "            logger.info(f\"检查ADB设备连接状态，ADB路径: {adb_cmd}\")",
+          "",
+          "            # 获取所有连接的设备"
+        ]
+      },
+      {
+        "line_number": 3311,
+        "line_content": "result = subprocess.run([adb_cmd, 'devices'], capture_output=True, text=True, timeout=5)",
+        "match_text": "subprocess.run([adb_cmd, 'devices']",
+        "pattern": "subprocess\\.run\\s*\\(\\s*\\[.*?adb.*?\\]",
+        "context": [
+          "",
+          "            # 获取所有连接的设备",
+          "            result = subprocess.run([adb_cmd, 'devices'], capture_output=True, text=True, timeout=5)",
+          "            logger.info(f\"ADB devices命令返回码: {result.returncode}\")",
+          "            logger.info(f\"ADB devices输出: {result.stdout}\")"
+        ]
+      },
+      {
+        "line_number": 3311,
+        "line_content": "result = subprocess.run([adb_cmd, 'devices'], capture_output=True, text=True, timeout=5)",
+        "match_text": "adb_cmd, 'devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "",
+          "            # 获取所有连接的设备",
+          "            result = subprocess.run([adb_cmd, 'devices'], capture_output=True, text=True, timeout=5)",
+          "            logger.info(f\"ADB devices命令返回码: {result.returncode}\")",
+          "            logger.info(f\"ADB devices输出: {result.stdout}\")"
+        ]
+      },
+      {
+        "line_number": 3312,
+        "line_content": "logger.info(f\"ADB devices命令返回码: {result.returncode}\")",
+        "match_text": "\"ADB devices命令返回码: {result.returncode}\"",
+        "pattern": "[\"\\'].*?adb\\s+.*?[\"\\']",
+        "context": [
+          "            # 获取所有连接的设备",
+          "            result = subprocess.run([adb_cmd, 'devices'], capture_output=True, text=True, timeout=5)",
+          "            logger.info(f\"ADB devices命令返回码: {result.returncode}\")",
+          "            logger.info(f\"ADB devices输出: {result.stdout}\")",
+          "            if result.stderr:"
+        ]
+      },
+      {
+        "line_number": 3312,
+        "line_content": "logger.info(f\"ADB devices命令返回码: {result.returncode}\")",
+        "match_text": "ADB devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "            # 获取所有连接的设备",
+          "            result = subprocess.run([adb_cmd, 'devices'], capture_output=True, text=True, timeout=5)",
+          "            logger.info(f\"ADB devices命令返回码: {result.returncode}\")",
+          "            logger.info(f\"ADB devices输出: {result.stdout}\")",
+          "            if result.stderr:"
+        ]
+      },
+      {
+        "line_number": 3313,
+        "line_content": "logger.info(f\"ADB devices输出: {result.stdout}\")",
+        "match_text": "\"ADB devices输出: {result.stdout}\"",
+        "pattern": "[\"\\'].*?adb\\s+.*?[\"\\']",
+        "context": [
+          "            result = subprocess.run([adb_cmd, 'devices'], capture_output=True, text=True, timeout=5)",
+          "            logger.info(f\"ADB devices命令返回码: {result.returncode}\")",
+          "            logger.info(f\"ADB devices输出: {result.stdout}\")",
+          "            if result.stderr:",
+          "                logger.warning(f\"ADB devices错误输出: {result.stderr}\")"
+        ]
+      },
+      {
+        "line_number": 3313,
+        "line_content": "logger.info(f\"ADB devices输出: {result.stdout}\")",
+        "match_text": "ADB devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "            result = subprocess.run([adb_cmd, 'devices'], capture_output=True, text=True, timeout=5)",
+          "            logger.info(f\"ADB devices命令返回码: {result.returncode}\")",
+          "            logger.info(f\"ADB devices输出: {result.stdout}\")",
+          "            if result.stderr:",
+          "                logger.warning(f\"ADB devices错误输出: {result.stderr}\")"
+        ]
+      },
+      {
+        "line_number": 3315,
+        "line_content": "logger.warning(f\"ADB devices错误输出: {result.stderr}\")",
+        "match_text": "\"ADB devices错误输出: {result.stderr}\"",
+        "pattern": "[\"\\'].*?adb\\s+.*?[\"\\']",
+        "context": [
+          "            logger.info(f\"ADB devices输出: {result.stdout}\")",
+          "            if result.stderr:",
+          "                logger.warning(f\"ADB devices错误输出: {result.stderr}\")",
+          "",
+          "            if result.returncode != 0:"
+        ]
+      },
+      {
+        "line_number": 3315,
+        "line_content": "logger.warning(f\"ADB devices错误输出: {result.stderr}\")",
+        "match_text": "ADB devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "            logger.info(f\"ADB devices输出: {result.stdout}\")",
+          "            if result.stderr:",
+          "                logger.warning(f\"ADB devices错误输出: {result.stderr}\")",
+          "",
+          "            if result.returncode != 0:"
+        ]
+      },
+      {
+        "line_number": 3318,
+        "line_content": "logger.error(\"ADB devices命令执行失败\")",
+        "match_text": "\"ADB devices命令执行失败\"",
+        "pattern": "[\"\\'].*?adb\\s+.*?[\"\\']",
+        "context": [
+          "",
+          "            if result.returncode != 0:",
+          "                logger.error(\"ADB devices命令执行失败\")",
+          "                return None",
+          ""
+        ]
+      },
+      {
+        "line_number": 3318,
+        "line_content": "logger.error(\"ADB devices命令执行失败\")",
+        "match_text": "ADB devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "",
+          "            if result.returncode != 0:",
+          "                logger.error(\"ADB devices命令执行失败\")",
+          "                return None",
+          ""
+        ]
+      },
+      {
+        "line_number": 3333,
+        "line_content": "logger.info(f\"ADB设备扫描结果: 总行数={len(all_lines)}, 有效设备={len(devices)}\")",
+        "match_text": "ADB设备扫描结果: 总行数={len(all_lines)}, 有效设备={len(devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "                        logger.info(f\"发现ADB设备: {device_id}\")",
+          "",
+          "            logger.info(f\"ADB设备扫描结果: 总行数={len(all_lines)}, 有效设备={len(devices)}\")",
+          "            logger.info(f\"所有输出行: {all_lines}\")",
+          ""
+        ]
+      },
+      {
+        "line_number": 3338,
+        "line_content": "logger.info(f\"使用唯一的ADB设备: {devices[0]}\")",
+        "match_text": "ADB设备: {devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "            # 如果只有一个设备，直接使用",
+          "            if len(devices) == 1:",
+          "                logger.info(f\"使用唯一的ADB设备: {devices[0]}\")",
+          "                return devices[0]",
+          "            elif len(devices) == 0:"
+        ]
+      },
+      {
+        "line_number": 3344,
+        "line_content": "start_result = subprocess.run([adb_cmd, 'start-server'], capture_output=True, text=True, timeout=10)",
+        "match_text": "subprocess.run([adb_cmd, 'start-server']",
+        "pattern": "subprocess\\.run\\s*\\(\\s*\\[.*?adb.*?\\]",
+        "context": [
+          "                # 尝试启动ADB服务器",
+          "                logger.info(\"尝试启动ADB服务器...\")",
+          "                start_result = subprocess.run([adb_cmd, 'start-server'], capture_output=True, text=True, timeout=10)",
+          "                logger.info(f\"ADB start-server结果: {start_result.returncode}, 输出: {start_result.stdout}\")",
+          ""
+        ]
+      },
+      {
+        "line_number": 3345,
+        "line_content": "logger.info(f\"ADB start-server结果: {start_result.returncode}, 输出: {start_result.stdout}\")",
+        "match_text": "\"ADB start-server结果: {start_result.returncode}, 输出: {start_result.stdout}\"",
+        "pattern": "[\"\\'].*?adb\\s+.*?[\"\\']",
+        "context": [
+          "                logger.info(\"尝试启动ADB服务器...\")",
+          "                start_result = subprocess.run([adb_cmd, 'start-server'], capture_output=True, text=True, timeout=10)",
+          "                logger.info(f\"ADB start-server结果: {start_result.returncode}, 输出: {start_result.stdout}\")",
+          "",
+          "                # 再次检查设备"
+        ]
+      },
+      {
+        "line_number": 3348,
+        "line_content": "result2 = subprocess.run([adb_cmd, 'devices'], capture_output=True, text=True, timeout=5)",
+        "match_text": "subprocess.run([adb_cmd, 'devices']",
+        "pattern": "subprocess\\.run\\s*\\(\\s*\\[.*?adb.*?\\]",
+        "context": [
+          "",
+          "                # 再次检查设备",
+          "                result2 = subprocess.run([adb_cmd, 'devices'], capture_output=True, text=True, timeout=5)",
+          "                logger.info(f\"重新检查ADB设备: {result2.stdout}\")",
+          "                return None"
+        ]
+      },
+      {
+        "line_number": 3348,
+        "line_content": "result2 = subprocess.run([adb_cmd, 'devices'], capture_output=True, text=True, timeout=5)",
+        "match_text": "adb_cmd, 'devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "",
+          "                # 再次检查设备",
+          "                result2 = subprocess.run([adb_cmd, 'devices'], capture_output=True, text=True, timeout=5)",
+          "                logger.info(f\"重新检查ADB设备: {result2.stdout}\")",
+          "                return None"
+        ]
+      },
+      {
+        "line_number": 3392,
+        "line_content": "logger.info(f\"雷电模拟器使用ADB路径: {adb_path}\")",
+        "match_text": "f\"雷电模拟器使用ADB路径: {adb_path}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "                from utils.ldplayer_finder import get_adb_path",
+          "                adb_path = get_adb_path()",
+          "                logger.info(f\"雷电模拟器使用ADB路径: {adb_path}\")",
+          "                return adb_path",
+          ""
+        ]
+      },
+      {
+        "line_number": 3400,
+        "line_content": "logger.info(f\"MuMu模拟器使用ADB路径: {adb_path}\")",
+        "match_text": "f\"MuMu模拟器使用ADB路径: {adb_path}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "                    from utils.mumu_finder import get_mumu_adb_path",
+          "                    adb_path = get_mumu_adb_path()",
+          "                    logger.info(f\"MuMu模拟器使用ADB路径: {adb_path}\")",
+          "                    return adb_path",
+          "                except ImportError:"
+        ]
+      },
+      {
+        "line_number": 3427,
+        "line_content": "logger.info(f\"使用第一个可用的ADB: {adb_paths[0]}\")",
+        "match_text": "f\"使用第一个可用的ADB: {adb_paths[0]}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "",
+          "                # 如果没有找到对应的，使用第一个可用的",
+          "                logger.info(f\"使用第一个可用的ADB: {adb_paths[0]}\")",
+          "                return adb_paths[0]",
+          ""
+        ]
+      }
+    ]
+  },
+  {
+    "file": "setup_adb_keyboard.py",
+    "risk_level": "低风险",
+    "is_critical": true,
+    "priority": "低优先级",
+    "strategy": "安全优化 - 可以直接替换",
+    "approach": "直接使用先进ADB连接池",
+    "usage_count": 8,
+    "usages": [
+      {
+        "line_number": 48,
+        "line_content": "healthy_devices = self.adb_pool.get_healthy_devices()",
+        "match_text": "adb_pool.get_healthy_devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "            time.sleep(2)",
+          "",
+          "            healthy_devices = self.adb_pool.get_healthy_devices()",
+          "            if healthy_devices:",
+          "                logger.info(f\"✅ ADB连接池初始化成功，发现 {len(healthy_devices)} 个健康设备\")"
+        ]
+      },
+      {
+        "line_number": 50,
+        "line_content": "logger.info(f\"✅ ADB连接池初始化成功，发现 {len(healthy_devices)} 个健康设备\")",
+        "match_text": "ADB连接池初始化成功，发现 {len(healthy_devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "            healthy_devices = self.adb_pool.get_healthy_devices()",
+          "            if healthy_devices:",
+          "                logger.info(f\"✅ ADB连接池初始化成功，发现 {len(healthy_devices)} 个健康设备\")",
+          "                for device in healthy_devices:",
+          "                    logger.info(f\"  设备: {device.device_id} (健康度: {device.health.value})\")"
+        ]
+      },
+      {
+        "line_number": 61,
+        "line_content": "healthy_devices = self.adb_pool.get_healthy_devices()",
+        "match_text": "adb_pool.get_healthy_devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "                # 再次检查",
+          "                time.sleep(3)",
+          "                healthy_devices = self.adb_pool.get_healthy_devices()",
+          "                if healthy_devices:",
+          "                    logger.info(f\"✅ 连接尝试后发现 {len(healthy_devices)} 个健康设备\")"
+        ]
+      },
+      {
+        "line_number": 94,
+        "line_content": "[adb_path, 'connect', address],",
+        "match_text": "adb_path, 'connect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "                    try:",
+          "                        result = subprocess.run(",
+          "                            [adb_path, 'connect', address],",
+          "                            capture_output=True,",
+          "                            text=True,"
+        ]
+      },
+      {
+        "line_number": 118,
+        "line_content": "return self.adb_pool.get_healthy_devices()",
+        "match_text": "adb_pool.get_healthy_devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "            return []",
+          "",
+          "        return self.adb_pool.get_healthy_devices()",
+          "",
+          "    def download_adb_keyboard(self) -> bool:"
+        ]
+      },
+      {
+        "line_number": 456,
+        "line_content": "logger.info(\"  - 尝试手动执行 'adb devices' 检查连接\")",
+        "match_text": "\"  - 尝试手动执行 'adb devices'",
+        "pattern": "[\"\\'].*?adb\\s+.*?[\"\\']",
+        "context": [
+          "            logger.info(\"  - 确保模拟器已启动\")",
+          "            logger.info(\"  - 确保ADB调试已开启\")",
+          "            logger.info(\"  - 尝试手动执行 'adb devices' 检查连接\")",
+          "            return",
+          ""
+        ]
+      },
+      {
+        "line_number": 456,
+        "line_content": "logger.info(\"  - 尝试手动执行 'adb devices' 检查连接\")",
+        "match_text": "adb devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "            logger.info(\"  - 确保模拟器已启动\")",
+          "            logger.info(\"  - 确保ADB调试已开启\")",
+          "            logger.info(\"  - 尝试手动执行 'adb devices' 检查连接\")",
+          "            return",
+          ""
+        ]
+      },
+      {
+        "line_number": 478,
+        "line_content": "logger.info(\"  cmd = ADBCommand(['shell', 'am', 'broadcast', '-a', 'ADB_INPUT_TEXT', '--es', 'msg', '中文文本'], device_id)\")",
+        "match_text": "ADBCommand(['shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "            logger.info(\"  from utils.advanced_adb_manager import get_advanced_adb_pool, ADBCommand\")",
+          "            logger.info(\"  pool = get_advanced_adb_pool()\")",
+          "            logger.info(\"  cmd = ADBCommand(['shell', 'am', 'broadcast', '-a', 'ADB_INPUT_TEXT', '--es', 'msg', '中文文本'], device_id)\")",
+          "            logger.info(\"  success, stdout, stderr = pool.execute_command_sync(cmd)\")",
+          ""
+        ]
+      }
+    ]
+  },
+  {
+    "file": "main.py",
+    "risk_level": "低风险",
+    "is_critical": true,
+    "priority": "低优先级",
+    "strategy": "安全优化 - 可以直接替换",
+    "approach": "直接使用先进ADB连接池",
+    "usage_count": 3,
+    "usages": [
+      {
+        "line_number": 4038,
+        "line_content": "logging.info(f\"ADBKeyboard后台安装完成，处理了 {len(healthy_devices)} 个设备\")",
+        "match_text": "ADBKeyboard后台安装完成，处理了 {len(healthy_devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "                    if setup.download_adb_keyboard():",
+          "                        setup.setup_all_devices()",
+          "                        logging.info(f\"ADBKeyboard后台安装完成，处理了 {len(healthy_devices)} 个设备\")",
+          "                    else:",
+          "                        logging.warning(\"ADBKeyboard APK下载失败，跳过自动安装\")"
+        ]
+      },
+      {
+        "line_number": 4061,
+        "line_content": "adb_thread = threading.Thread(target=async_install_adb_keyboard, daemon=True)",
+        "match_text": "adb_thread = threading.Thread(target=async_install",
+        "pattern": "adb.*?install",
+        "context": [
+          "    try:",
+          "        logging.info(\"准备启动ADBKeyboard后台安装线程...\")",
+          "        adb_thread = threading.Thread(target=async_install_adb_keyboard, daemon=True)",
+          "        adb_thread.start()",
+          "        logging.info(\"启动 ADBKeyboard后台安装已启动，不会阻塞主窗口\")"
+        ]
+      },
+      {
+        "line_number": 4065,
+        "line_content": "logging.error(f\"启动ADBKeyboard安装线程失败: {adb_thread_error}\", exc_info=True)",
+        "match_text": "f\"启动ADBKeyboard安装线程失败: {adb_thread_error}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "        logging.info(\"启动 ADBKeyboard后台安装已启动，不会阻塞主窗口\")",
+          "    except Exception as adb_thread_error:",
+          "        logging.error(f\"启动ADBKeyboard安装线程失败: {adb_thread_error}\", exc_info=True)",
+          "        logging.warning(\"ADBKeyboard将在首次使用时检查安装\")",
+          "    # --- END 启动优化 ---"
+        ]
+      }
+    ]
+  },
+  {
+    "file": "utils\\mumu_manager.py",
+    "risk_level": "低风险",
+    "is_critical": true,
+    "priority": "低优先级",
+    "strategy": "安全优化 - 可以直接替换",
+    "approach": "直接使用先进ADB连接池",
+    "usage_count": 2,
+    "usages": [
+      {
+        "line_number": 482,
+        "line_content": "success, output = self.adb_command(vm_index, f\"shell am broadcast -a ADB_INPUT_TEXT --es msg '{text}'\")",
+        "match_text": "adb_command(vm_index, f\"shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "        \"\"\"输入文本到模拟器 - 只使用ADBKeyboard方法\"\"\"",
+          "        # 只使用ADBKeyboard的broadcast方式（已验证有效）",
+          "        success, output = self.adb_command(vm_index, f\"shell am broadcast -a ADB_INPUT_TEXT --es msg '{text}'\")",
+          "        return success",
+          ""
+        ]
+      },
+      {
+        "line_number": 492,
+        "line_content": "success, output = self.adb_command(vm_index, f\"shell input tap {x} {y}\")",
+        "match_text": "adb_command(vm_index, f\"shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "    def click_coordinate(self, vm_index: int, x: int, y: int) -> bool:",
+          "        \"\"\"点击指定坐标\"\"\"",
+          "        success, output = self.adb_command(vm_index, f\"shell input tap {x} {y}\")",
+          "        return success",
+          ""
+        ]
+      }
+    ]
+  },
+  {
+    "file": "utils\\mumu_input_simulator.py",
+    "risk_level": "低风险",
+    "is_critical": false,
+    "priority": "低优先级",
+    "strategy": "安全优化 - 可以直接替换",
+    "approach": "直接使用先进ADB连接池",
+    "usage_count": 47,
+    "usages": [
+      {
+        "line_number": 307,
+        "line_content": "success = self._execute_adb_shell_command(vm_index, shell_command)",
+        "match_text": "adb_shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "            # 使用shell命令发送keyevent",
+          "            shell_command = f\"input keyevent {keyevent_code}\"",
+          "            success = self._execute_adb_shell_command(vm_index, shell_command)",
+          "",
+          "            if success:"
+        ]
+      },
+      {
+        "line_number": 434,
+        "line_content": "if not self._execute_adb_shell_command(vm_index, shell_command):",
+        "match_text": "adb_shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "                # 使用 sendevent 模拟按键按下（不释放）",
+          "                shell_command = f\"input keyevent {keyevent_code}\"",
+          "                if not self._execute_adb_shell_command(vm_index, shell_command):",
+          "                    success = False",
+          "                    break"
+        ]
+      },
+      {
+        "line_number": 499,
+        "line_content": "# 使用ADB shell input tap命令",
+        "match_text": "ADB shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "                )",
+          "            ",
+          "            # 使用ADB shell input tap命令",
+          "            success = self._execute_adb_shell_command(vm_index, f\"input tap {x} {y}\")",
+          "            "
+        ]
+      },
+      {
+        "line_number": 500,
+        "line_content": "success = self._execute_adb_shell_command(vm_index, f\"input tap {x} {y}\")",
+        "match_text": "adb_shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "            ",
+          "            # 使用ADB shell input tap命令",
+          "            success = self._execute_adb_shell_command(vm_index, f\"input tap {x} {y}\")",
+          "            ",
+          "            if success:"
+        ]
+      },
+      {
+        "line_number": 555,
+        "line_content": "# 使用ADB shell input swipe命令",
+        "match_text": "ADB shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "                )",
+          "",
+          "            # 使用ADB shell input swipe命令",
+          "            success = self._execute_adb_shell_command(vm_index, f\"input swipe {start_x} {start_y} {end_x} {end_y} {duration}\")",
+          ""
+        ]
+      },
+      {
+        "line_number": 556,
+        "line_content": "success = self._execute_adb_shell_command(vm_index, f\"input swipe {start_x} {start_y} {end_x} {end_y} {duration}\")",
+        "match_text": "adb_shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "",
+          "            # 使用ADB shell input swipe命令",
+          "            success = self._execute_adb_shell_command(vm_index, f\"input swipe {start_x} {start_y} {end_x} {end_y} {duration}\")",
+          "",
+          "            if success:"
+        ]
+      },
+      {
+        "line_number": 701,
+        "line_content": "self._execute_adb_shell_command(vm_index, f\"input motionevent UP {end_x} {end_y}\")",
+        "match_text": "adb_shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "                if path_points:",
+          "                    end_x, end_y = path_points[-1]",
+          "                    self._execute_adb_shell_command(vm_index, f\"input motionevent UP {end_x} {end_y}\")",
+          "            except:",
+          "                pass"
+        ]
+      },
+      {
+        "line_number": 748,
+        "line_content": "success = self._execute_adb_shell_command(vm_index, pipe_command)",
+        "match_text": "adb_shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "",
+          "            # 执行管道命令",
+          "            success = self._execute_adb_shell_command(vm_index, pipe_command)",
+          "",
+          "            if success:"
+        ]
+      },
+      {
+        "line_number": 813,
+        "line_content": "chmod_success = self._execute_adb_shell_command(vm_index, f\"chmod +x {device_script_path}\")",
+        "match_text": "adb_shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "",
+          "                # 给脚本文件执行权限并执行",
+          "                chmod_success = self._execute_adb_shell_command(vm_index, f\"chmod +x {device_script_path}\")",
+          "                if not chmod_success:",
+          "                    logger.warning(\"设置脚本执行权限失败\")"
+        ]
+      },
+      {
+        "line_number": 819,
+        "line_content": "exec_success = self._execute_adb_shell_command(vm_index, f\"sh {device_script_path}\")",
+        "match_text": "adb_shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "",
+          "                # 执行脚本",
+          "                exec_success = self._execute_adb_shell_command(vm_index, f\"sh {device_script_path}\")",
+          "",
+          "                # 清理设备上的脚本文件"
+        ]
+      },
+      {
+        "line_number": 822,
+        "line_content": "self._execute_adb_shell_command(vm_index, f\"rm {device_script_path}\")",
+        "match_text": "adb_shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "",
+          "                # 清理设备上的脚本文件",
+          "                self._execute_adb_shell_command(vm_index, f\"rm {device_script_path}\")",
+          "",
+          "                if exec_success:"
+        ]
+      },
+      {
+        "line_number": 910,
+        "line_content": "success = self._execute_adb_shell_command(vm_index, batch_script)",
+        "match_text": "adb_shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "",
+          "            # 执行批量命令",
+          "            success = self._execute_adb_shell_command(vm_index, batch_script)",
+          "",
+          "            if success:"
+        ]
+      },
+      {
+        "line_number": 935,
+        "line_content": "down_success = self._execute_adb_shell_command(vm_index, f\"input motionevent DOWN {start_x} {start_y}\")",
+        "match_text": "adb_shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "            # 开始触摸 - DOWN事件",
+          "            start_x, start_y = path_points[0]",
+          "            down_success = self._execute_adb_shell_command(vm_index, f\"input motionevent DOWN {start_x} {start_y}\")",
+          "            if not down_success:",
+          "                logger.error(\"发送DOWN事件失败\")"
+        ]
+      },
+      {
+        "line_number": 946,
+        "line_content": "move_success = self._execute_adb_shell_command(vm_index, f\"input motionevent MOVE {x} {y}\")",
+        "match_text": "adb_shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "            for i in range(1, len(path_points) - 1):",
+          "                x, y = path_points[i]",
+          "                move_success = self._execute_adb_shell_command(vm_index, f\"input motionevent MOVE {x} {y}\")",
+          "                if not move_success:",
+          "                    logger.warning(f\"发送MOVE事件失败: ({x}, {y})\")"
+        ]
+      },
+      {
+        "line_number": 958,
+        "line_content": "up_success = self._execute_adb_shell_command(vm_index, f\"input motionevent UP {end_x} {end_y}\")",
+        "match_text": "adb_shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "            # 结束触摸 - UP事件",
+          "            end_x, end_y = path_points[-1]",
+          "            up_success = self._execute_adb_shell_command(vm_index, f\"input motionevent UP {end_x} {end_y}\")",
+          "            if not up_success:",
+          "                logger.error(\"发送UP事件失败\")"
+        ]
+      },
+      {
+        "line_number": 1013,
+        "line_content": "def _execute_adb_shell_command(self, vm_index: int, shell_command: str) -> bool:",
+        "match_text": "adb_shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "            return False",
+          "    ",
+          "    def _execute_adb_shell_command(self, vm_index: int, shell_command: str) -> bool:",
+          "        \"\"\"执行MuMu ADB shell命令\"\"\"",
+          "        try:"
+        ]
+      },
+      {
+        "line_number": 1014,
+        "line_content": "\"\"\"执行MuMu ADB shell命令\"\"\"",
+        "match_text": "\"\"\"执行MuMu ADB shell命令\"",
+        "pattern": "[\"\\'].*?adb\\s+.*?[\"\\']",
+        "context": [
+          "    ",
+          "    def _execute_adb_shell_command(self, vm_index: int, shell_command: str) -> bool:",
+          "        \"\"\"执行MuMu ADB shell命令\"\"\"",
+          "        try:",
+          "            manager_path = self.mumu_manager.mumu_manager_path"
+        ]
+      },
+      {
+        "line_number": 1014,
+        "line_content": "\"\"\"执行MuMu ADB shell命令\"\"\"",
+        "match_text": "ADB shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "    ",
+          "    def _execute_adb_shell_command(self, vm_index: int, shell_command: str) -> bool:",
+          "        \"\"\"执行MuMu ADB shell命令\"\"\"",
+          "        try:",
+          "            manager_path = self.mumu_manager.mumu_manager_path"
+        ]
+      },
+      {
+        "line_number": 1024,
+        "line_content": "logger.debug(f\"执行MuMu ADB shell命令: {' '.join(cmd_args)}\")",
+        "match_text": "\"执行MuMu ADB shell命令: {'",
+        "pattern": "[\"\\'].*?adb\\s+.*?[\"\\']",
+        "context": [
+          "            cmd_args = [manager_path, \"adb\", \"-v\", str(vm_index), \"-c\", full_command]",
+          "",
+          "            logger.debug(f\"执行MuMu ADB shell命令: {' '.join(cmd_args)}\")",
+          "",
+          "            # 使用更强力的方法隐藏窗口"
+        ]
+      },
+      {
+        "line_number": 1024,
+        "line_content": "logger.debug(f\"执行MuMu ADB shell命令: {' '.join(cmd_args)}\")",
+        "match_text": "ADB shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "            cmd_args = [manager_path, \"adb\", \"-v\", str(vm_index), \"-c\", full_command]",
+          "",
+          "            logger.debug(f\"执行MuMu ADB shell命令: {' '.join(cmd_args)}\")",
+          "",
+          "            # 使用更强力的方法隐藏窗口"
+        ]
+      },
+      {
+        "line_number": 1041,
+        "line_content": "logger.debug(f\"MuMu ADB shell命令执行成功: {shell_command}\")",
+        "match_text": "\"MuMu ADB shell命令执行成功: {shell_command}\"",
+        "pattern": "[\"\\'].*?adb\\s+.*?[\"\\']",
+        "context": [
+          "",
+          "            if result.returncode == 0:",
+          "                logger.debug(f\"MuMu ADB shell命令执行成功: {shell_command}\")",
+          "                return True",
+          "            else:"
+        ]
+      },
+      {
+        "line_number": 1041,
+        "line_content": "logger.debug(f\"MuMu ADB shell命令执行成功: {shell_command}\")",
+        "match_text": "ADB shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "",
+          "            if result.returncode == 0:",
+          "                logger.debug(f\"MuMu ADB shell命令执行成功: {shell_command}\")",
+          "                return True",
+          "            else:"
+        ]
+      },
+      {
+        "line_number": 1044,
+        "line_content": "logger.error(f\"MuMu ADB shell命令执行失败: {result.stderr}\")",
+        "match_text": "\"MuMu ADB shell命令执行失败: {result.stderr}\"",
+        "pattern": "[\"\\'].*?adb\\s+.*?[\"\\']",
+        "context": [
+          "                return True",
+          "            else:",
+          "                logger.error(f\"MuMu ADB shell命令执行失败: {result.stderr}\")",
+          "                return False",
+          ""
+        ]
+      },
+      {
+        "line_number": 1044,
+        "line_content": "logger.error(f\"MuMu ADB shell命令执行失败: {result.stderr}\")",
+        "match_text": "ADB shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "                return True",
+          "            else:",
+          "                logger.error(f\"MuMu ADB shell命令执行失败: {result.stderr}\")",
+          "                return False",
+          ""
+        ]
+      },
+      {
+        "line_number": 1048,
+        "line_content": "logger.error(f\"执行MuMu ADB shell命令异常: {e}\")",
+        "match_text": "\"执行MuMu ADB shell命令异常: {e}\"",
+        "pattern": "[\"\\'].*?adb\\s+.*?[\"\\']",
+        "context": [
+          "",
+          "        except Exception as e:",
+          "            logger.error(f\"执行MuMu ADB shell命令异常: {e}\")",
+          "            return False",
+          ""
+        ]
+      },
+      {
+        "line_number": 1048,
+        "line_content": "logger.error(f\"执行MuMu ADB shell命令异常: {e}\")",
+        "match_text": "ADB shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "",
+          "        except Exception as e:",
+          "            logger.error(f\"执行MuMu ADB shell命令异常: {e}\")",
+          "            return False",
+          ""
+        ]
+      },
+      {
+        "line_number": 1058,
+        "line_content": "logger.info(f\"MuMu模拟器 {vm_index} 使用ADBKeyboard输入文本: {text}\")",
+        "match_text": "f\"MuMu模拟器 {vm_index} 使用ADBKeyboard输入文本: {text}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "                return False",
+          "",
+          "            logger.info(f\"MuMu模拟器 {vm_index} 使用ADBKeyboard输入文本: {text}\")",
+          "",
+          "            # 只使用ADBKeyboard方法（已验证有效）"
+        ]
+      },
+      {
+        "line_number": 1085,
+        "line_content": "success = self._execute_adb_shell_command(vm_index, shell_command)",
+        "match_text": "adb_shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "",
+          "            # 直接执行命令",
+          "            success = self._execute_adb_shell_command(vm_index, shell_command)",
+          "",
+          "            if success:"
+        ]
+      },
+      {
+        "line_number": 1088,
+        "line_content": "logger.info(f\"VM{vm_index} ADBKeyboard输入成功: '{text}'\")",
+        "match_text": "f\"VM{vm_index} ADBKeyboard输入成功: '{text}'",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "",
+          "            if success:",
+          "                logger.info(f\"VM{vm_index} ADBKeyboard输入成功: '{text}'\")",
+          "                return True",
+          "            else:"
+        ]
+      },
+      {
+        "line_number": 1091,
+        "line_content": "logger.error(f\"VM{vm_index} ADBKeyboard输入失败: '{text}'\")",
+        "match_text": "f\"VM{vm_index} ADBKeyboard输入失败: '{text}'",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "                return True",
+          "            else:",
+          "                logger.error(f\"VM{vm_index} ADBKeyboard输入失败: '{text}'\")",
+          "                return False",
+          ""
+        ]
+      },
+      {
+        "line_number": 1095,
+        "line_content": "logger.error(f\"VM{vm_index} ADBKeyboard输入异常: {e}\")",
+        "match_text": "f\"VM{vm_index} ADBKeyboard输入异常: {e}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "",
+          "        except Exception as e:",
+          "            logger.error(f\"VM{vm_index} ADBKeyboard输入异常: {e}\")",
+          "            return False",
+          ""
+        ]
+      },
+      {
+        "line_number": 1114,
+        "line_content": "if not self._execute_adb_shell_command(vm_index, check_cmd):",
+        "match_text": "adb_shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "            # 1. 检查ADBKeyboard是否已安装",
+          "            check_cmd = f\"pm list packages com.android.adbkeyboard\"",
+          "            if not self._execute_adb_shell_command(vm_index, check_cmd):",
+          "                logger.warning(f\"VM{vm_index} ADBKeyboard未安装\")",
+          "                self._adb_keyboard_active_cache[vm_index] = (False, current_time)"
+        ]
+      },
+      {
+        "line_number": 1121,
+        "line_content": "if not self._execute_adb_shell_command(vm_index, enable_cmd):",
+        "match_text": "adb_shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "            # 2. 启用ADBKeyboard输入法",
+          "            enable_cmd = \"ime enable com.android.adbkeyboard/.AdbIME\"",
+          "            if not self._execute_adb_shell_command(vm_index, enable_cmd):",
+          "                logger.warning(f\"VM{vm_index} 启用ADBKeyboard失败\")",
+          ""
+        ]
+      },
+      {
+        "line_number": 1126,
+        "line_content": "if not self._execute_adb_shell_command(vm_index, set_cmd):",
+        "match_text": "adb_shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "            # 3. 设置ADBKeyboard为当前输入法",
+          "            set_cmd = \"ime set com.android.adbkeyboard/.AdbIME\"",
+          "            if not self._execute_adb_shell_command(vm_index, set_cmd):",
+          "                logger.warning(f\"VM{vm_index} 设置ADBKeyboard为当前输入法失败\")",
+          "                self._adb_keyboard_active_cache[vm_index] = (False, current_time)"
+        ]
+      },
+      {
+        "line_number": 1146,
+        "line_content": "logger.warning(f\"VM{vm_index} 激活ADBKeyboard输入法异常: {e}\")",
+        "match_text": "f\"VM{vm_index} 激活ADBKeyboard输入法异常: {e}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "",
+          "        except Exception as e:",
+          "            logger.warning(f\"VM{vm_index} 激活ADBKeyboard输入法异常: {e}\")",
+          "            # 缓存失败状态（较短时间）",
+          "            self._adb_keyboard_active_cache[vm_index] = (False, time.time())"
+        ]
+      },
+      {
+        "line_number": 1158,
+        "line_content": "success = self._execute_adb_shell_command(vm_index, test_cmd)",
+        "match_text": "adb_shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "            # 发送测试广播验证是否能接收",
+          "            test_cmd = \"am broadcast -a ADB_INPUT_TEXT --es msg ''\"",
+          "            success = self._execute_adb_shell_command(vm_index, test_cmd)",
+          "",
+          "            if success:"
+        ]
+      },
+      {
+        "line_number": 1168,
+        "line_content": "logger.debug(f\"VM{vm_index} ADBKeyboard验证异常: {e}\")",
+        "match_text": "f\"VM{vm_index} ADBKeyboard验证异常: {e}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "",
+          "        except Exception as e:",
+          "            logger.debug(f\"VM{vm_index} ADBKeyboard验证异常: {e}\")",
+          "            return False",
+          ""
+        ]
+      },
+      {
+        "line_number": 1181,
+        "line_content": "if not self._execute_adb_shell_command(vm_index, enable_cmd):",
+        "match_text": "adb_shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "            # 1. 启用ADBKeyboard输入法",
+          "            enable_cmd = \"ime enable com.android.adbkeyboard/.AdbIME\"",
+          "            if not self._execute_adb_shell_command(vm_index, enable_cmd):",
+          "                logger.warning(f\"VM{vm_index} 启用ADBKeyboard失败\")",
+          "                return False"
+        ]
+      },
+      {
+        "line_number": 1187,
+        "line_content": "if not self._execute_adb_shell_command(vm_index, set_cmd):",
+        "match_text": "adb_shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "            # 2. 设置ADBKeyboard为当前输入法",
+          "            set_cmd = \"ime set com.android.adbkeyboard/.AdbIME\"",
+          "            if not self._execute_adb_shell_command(vm_index, set_cmd):",
+          "                logger.warning(f\"VM{vm_index} 设置ADBKeyboard为当前输入法失败\")",
+          "                return False"
+        ]
+      },
+      {
+        "line_number": 1206,
+        "line_content": "logger.info(f\"VM{vm_index} ADBKeyboard快速激活完成{mode_desc}\")",
+        "match_text": "f\"VM{vm_index} ADBKeyboard快速激活完成{mode_desc}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "",
+          "            mode_desc = \"（跳过验证）\" if self._skip_verification else \"（包含验证）\"",
+          "            logger.info(f\"VM{vm_index} ADBKeyboard快速激活完成{mode_desc}\")",
+          "            return True",
+          ""
+        ]
+      },
+      {
+        "line_number": 1210,
+        "line_content": "logger.error(f\"VM{vm_index} 快速激活ADBKeyboard异常: {e}\")",
+        "match_text": "f\"VM{vm_index} 快速激活ADBKeyboard异常: {e}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "",
+          "        except Exception as e:",
+          "            logger.error(f\"VM{vm_index} 快速激活ADBKeyboard异常: {e}\")",
+          "            return False",
+          ""
+        ]
+      },
+      {
+        "line_number": 1256,
+        "line_content": "success = self._execute_adb_shell_command(vm_index, test_cmd)",
+        "match_text": "adb_shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "            # 快速检测：发送空广播测试ADBKeyboard是否响应",
+          "            test_cmd = \"am broadcast -a ADB_INPUT_TEXT --es msg ''\"",
+          "            success = self._execute_adb_shell_command(vm_index, test_cmd)",
+          "",
+          "            if success:"
+        ]
+      },
+      {
+        "line_number": 1271,
+        "line_content": "logger.debug(f\"VM{vm_index} 激进检测ADBKeyboard状态异常: {e}，需要激活\")",
+        "match_text": "f\"VM{vm_index} 激进检测ADBKeyboard状态异常: {e}，需要激活\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "",
+          "        except Exception as e:",
+          "            logger.debug(f\"VM{vm_index} 激进检测ADBKeyboard状态异常: {e}，需要激活\")",
+          "            return True",
+          ""
+        ]
+      },
+      {
+        "line_number": 1364,
+        "line_content": "if not self._execute_adb_shell_command(vm_index, enable_cmd):",
+        "match_text": "adb_shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "            # 1. 启用ADBKeyboard输入法",
+          "            enable_cmd = \"ime enable com.android.adbkeyboard/.AdbIME\"",
+          "            if not self._execute_adb_shell_command(vm_index, enable_cmd):",
+          "                logger.error(f\"VM{vm_index} 启用ADBKeyboard失败\")",
+          "                return False"
+        ]
+      },
+      {
+        "line_number": 1370,
+        "line_content": "if not self._execute_adb_shell_command(vm_index, set_cmd):",
+        "match_text": "adb_shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "            # 2. 设置为当前输入法",
+          "            set_cmd = \"ime set com.android.adbkeyboard/.AdbIME\"",
+          "            if not self._execute_adb_shell_command(vm_index, set_cmd):",
+          "                logger.error(f\"VM{vm_index} 设置ADBKeyboard失败\")",
+          "                return False"
+        ]
+      },
+      {
+        "line_number": 1381,
+        "line_content": "logger.error(f\"VM{vm_index} 激活ADBKeyboard异常: {e}\")",
+        "match_text": "f\"VM{vm_index} 激活ADBKeyboard异常: {e}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "",
+          "        except Exception as e:",
+          "            logger.error(f\"VM{vm_index} 激活ADBKeyboard异常: {e}\")",
+          "            return False",
+          ""
+        ]
+      },
+      {
+        "line_number": 1393,
+        "line_content": "success = self._execute_adb_shell_command(vm_index, tap_cmd)",
+        "match_text": "adb_shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "            # 点击屏幕中央激活焦点",
+          "            tap_cmd = \"input tap 400 600\"",
+          "            success = self._execute_adb_shell_command(vm_index, tap_cmd)",
+          "",
+          "            if success:"
+        ]
+      }
+    ]
+  },
+  {
+    "file": "utils\\backend_modes.py",
+    "risk_level": "低风险",
+    "is_critical": false,
+    "priority": "低优先级",
+    "strategy": "安全优化 - 可以直接替换",
+    "approach": "直接使用先进ADB连接池",
+    "usage_count": 21,
+    "usages": [
+      {
+        "line_number": 616,
+        "line_content": "# 这比ADB shell命令方式快得多",
+        "match_text": "ADB shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "        try:",
+          "            # 使用SendMessage方式发送按键，测试证明这对MuMu模拟器有效",
+          "            # 这比ADB shell命令方式快得多",
+          "            if scan_code == 0:",
+          "                scan_code = win32api.MapVirtualKey(vk_code, 0)"
+        ]
+      },
+      {
+        "line_number": 889,
+        "line_content": "# 对于模拟器窗口，优先尝试ADB Shell Input",
+        "match_text": "ADB Shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "        window_type = self.manager.detect_window_type(self.hwnd)",
+          "",
+          "        # 对于模拟器窗口，优先尝试ADB Shell Input",
+          "        emulator_manager = self._get_emulator_manager()",
+          "        if emulator_manager and window_type in [\"ldplayer\", \"nox\", \"bluestacks\", \"mumu\"]:"
+        ]
+      },
+      {
+        "line_number": 894,
+        "line_content": "logger.debug(f\"检测到模拟器窗口，尝试ADB Shell Input: '{text}'\")",
+        "match_text": "\"检测到模拟器窗口，尝试ADB Shell Input: '",
+        "pattern": "[\"\\'].*?adb\\s+.*?[\"\\']",
+        "context": [
+          "            # 检测是否为模拟器窗口",
+          "            if emulator_manager.is_emulator_window(self.hwnd):",
+          "                logger.debug(f\"检测到模拟器窗口，尝试ADB Shell Input: '{text}'\")",
+          "                if emulator_manager.try_adb_shell_input(self.hwnd, text):",
+          "                    logger.info(f\"ADB Shell Input成功发送文本: '{text}'\")"
+        ]
+      },
+      {
+        "line_number": 894,
+        "line_content": "logger.debug(f\"检测到模拟器窗口，尝试ADB Shell Input: '{text}'\")",
+        "match_text": "ADB Shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "            # 检测是否为模拟器窗口",
+          "            if emulator_manager.is_emulator_window(self.hwnd):",
+          "                logger.debug(f\"检测到模拟器窗口，尝试ADB Shell Input: '{text}'\")",
+          "                if emulator_manager.try_adb_shell_input(self.hwnd, text):",
+          "                    logger.info(f\"ADB Shell Input成功发送文本: '{text}'\")"
+        ]
+      },
+      {
+        "line_number": 895,
+        "line_content": "if emulator_manager.try_adb_shell_input(self.hwnd, text):",
+        "match_text": "adb_shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "            if emulator_manager.is_emulator_window(self.hwnd):",
+          "                logger.debug(f\"检测到模拟器窗口，尝试ADB Shell Input: '{text}'\")",
+          "                if emulator_manager.try_adb_shell_input(self.hwnd, text):",
+          "                    logger.info(f\"ADB Shell Input成功发送文本: '{text}'\")",
+          "                    return True"
+        ]
+      },
+      {
+        "line_number": 896,
+        "line_content": "logger.info(f\"ADB Shell Input成功发送文本: '{text}'\")",
+        "match_text": "\"ADB Shell Input成功发送文本: '",
+        "pattern": "[\"\\'].*?adb\\s+.*?[\"\\']",
+        "context": [
+          "                logger.debug(f\"检测到模拟器窗口，尝试ADB Shell Input: '{text}'\")",
+          "                if emulator_manager.try_adb_shell_input(self.hwnd, text):",
+          "                    logger.info(f\"ADB Shell Input成功发送文本: '{text}'\")",
+          "                    return True",
+          "                else:"
+        ]
+      },
+      {
+        "line_number": 896,
+        "line_content": "logger.info(f\"ADB Shell Input成功发送文本: '{text}'\")",
+        "match_text": "ADB Shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "                logger.debug(f\"检测到模拟器窗口，尝试ADB Shell Input: '{text}'\")",
+          "                if emulator_manager.try_adb_shell_input(self.hwnd, text):",
+          "                    logger.info(f\"ADB Shell Input成功发送文本: '{text}'\")",
+          "                    return True",
+          "                else:"
+        ]
+      },
+      {
+        "line_number": 899,
+        "line_content": "logger.debug(\"ADB Shell Input失败，回退到传统方法\")",
+        "match_text": "\"ADB Shell Input失败，回退到传统方法\"",
+        "pattern": "[\"\\'].*?adb\\s+.*?[\"\\']",
+        "context": [
+          "                    return True",
+          "                else:",
+          "                    logger.debug(\"ADB Shell Input失败，回退到传统方法\")",
+          "",
+          "        # 回退到传统方法"
+        ]
+      },
+      {
+        "line_number": 899,
+        "line_content": "logger.debug(\"ADB Shell Input失败，回退到传统方法\")",
+        "match_text": "ADB Shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "                    return True",
+          "                else:",
+          "                    logger.debug(\"ADB Shell Input失败，回退到传统方法\")",
+          "",
+          "        # 回退到传统方法"
+        ]
+      },
+      {
+        "line_number": 915,
+        "line_content": "\"\"\"模拟器增强键盘发送器 - 集成ADB Shell Input\"\"\"",
+        "match_text": "\"\"\"模拟器增强键盘发送器 - 集成ADB Shell Input\"",
+        "pattern": "[\"\\'].*?adb\\s+.*?[\"\\']",
+        "context": [
+          "",
+          "class EmulatorEnhancedKeyboardSender(BaseKeyboardSender):",
+          "    \"\"\"模拟器增强键盘发送器 - 集成ADB Shell Input\"\"\"",
+          "",
+          "    def __init__(self, hwnd: int):"
+        ]
+      },
+      {
+        "line_number": 915,
+        "line_content": "\"\"\"模拟器增强键盘发送器 - 集成ADB Shell Input\"\"\"",
+        "match_text": "ADB Shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "",
+          "class EmulatorEnhancedKeyboardSender(BaseKeyboardSender):",
+          "    \"\"\"模拟器增强键盘发送器 - 集成ADB Shell Input\"\"\"",
+          "",
+          "    def __init__(self, hwnd: int):"
+        ]
+      },
+      {
+        "line_number": 952,
+        "line_content": "\"\"\"发送文本 - 优先使用ADB Shell Input\"\"\"",
+        "match_text": "\"\"\"发送文本 - 优先使用ADB Shell Input\"",
+        "pattern": "[\"\\'].*?adb\\s+.*?[\"\\']",
+        "context": [
+          "",
+          "    def send_text(self, text: str) -> bool:",
+          "        \"\"\"发送文本 - 优先使用ADB Shell Input\"\"\"",
+          "        emulator_manager = self._get_emulator_manager()",
+          ""
+        ]
+      },
+      {
+        "line_number": 952,
+        "line_content": "\"\"\"发送文本 - 优先使用ADB Shell Input\"\"\"",
+        "match_text": "ADB Shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "",
+          "    def send_text(self, text: str) -> bool:",
+          "        \"\"\"发送文本 - 优先使用ADB Shell Input\"\"\"",
+          "        emulator_manager = self._get_emulator_manager()",
+          ""
+        ]
+      },
+      {
+        "line_number": 955,
+        "line_content": "# 尝试ADB Shell Input",
+        "match_text": "ADB Shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "        emulator_manager = self._get_emulator_manager()",
+          "",
+          "        # 尝试ADB Shell Input",
+          "        if emulator_manager:",
+          "            if emulator_manager.is_emulator_window(self.hwnd):"
+        ]
+      },
+      {
+        "line_number": 958,
+        "line_content": "logger.debug(f\"模拟器增强发送器：尝试ADB Shell Input: '{text}'\")",
+        "match_text": "\"模拟器增强发送器：尝试ADB Shell Input: '",
+        "pattern": "[\"\\'].*?adb\\s+.*?[\"\\']",
+        "context": [
+          "        if emulator_manager:",
+          "            if emulator_manager.is_emulator_window(self.hwnd):",
+          "                logger.debug(f\"模拟器增强发送器：尝试ADB Shell Input: '{text}'\")",
+          "                if emulator_manager.try_adb_shell_input(self.hwnd, text):",
+          "                    logger.info(f\"模拟器增强发送器：ADB Shell Input成功: '{text}'\")"
+        ]
+      },
+      {
+        "line_number": 958,
+        "line_content": "logger.debug(f\"模拟器增强发送器：尝试ADB Shell Input: '{text}'\")",
+        "match_text": "ADB Shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "        if emulator_manager:",
+          "            if emulator_manager.is_emulator_window(self.hwnd):",
+          "                logger.debug(f\"模拟器增强发送器：尝试ADB Shell Input: '{text}'\")",
+          "                if emulator_manager.try_adb_shell_input(self.hwnd, text):",
+          "                    logger.info(f\"模拟器增强发送器：ADB Shell Input成功: '{text}'\")"
+        ]
+      },
+      {
+        "line_number": 959,
+        "line_content": "if emulator_manager.try_adb_shell_input(self.hwnd, text):",
+        "match_text": "adb_shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "            if emulator_manager.is_emulator_window(self.hwnd):",
+          "                logger.debug(f\"模拟器增强发送器：尝试ADB Shell Input: '{text}'\")",
+          "                if emulator_manager.try_adb_shell_input(self.hwnd, text):",
+          "                    logger.info(f\"模拟器增强发送器：ADB Shell Input成功: '{text}'\")",
+          "                    return True"
+        ]
+      },
+      {
+        "line_number": 960,
+        "line_content": "logger.info(f\"模拟器增强发送器：ADB Shell Input成功: '{text}'\")",
+        "match_text": "\"模拟器增强发送器：ADB Shell Input成功: '",
+        "pattern": "[\"\\'].*?adb\\s+.*?[\"\\']",
+        "context": [
+          "                logger.debug(f\"模拟器增强发送器：尝试ADB Shell Input: '{text}'\")",
+          "                if emulator_manager.try_adb_shell_input(self.hwnd, text):",
+          "                    logger.info(f\"模拟器增强发送器：ADB Shell Input成功: '{text}'\")",
+          "                    return True",
+          "                else:"
+        ]
+      },
+      {
+        "line_number": 960,
+        "line_content": "logger.info(f\"模拟器增强发送器：ADB Shell Input成功: '{text}'\")",
+        "match_text": "ADB Shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "                logger.debug(f\"模拟器增强发送器：尝试ADB Shell Input: '{text}'\")",
+          "                if emulator_manager.try_adb_shell_input(self.hwnd, text):",
+          "                    logger.info(f\"模拟器增强发送器：ADB Shell Input成功: '{text}'\")",
+          "                    return True",
+          "                else:"
+        ]
+      },
+      {
+        "line_number": 963,
+        "line_content": "logger.debug(\"模拟器增强发送器：ADB Shell Input失败，使用回退方法\")",
+        "match_text": "\"模拟器增强发送器：ADB Shell Input失败，使用回退方法\"",
+        "pattern": "[\"\\'].*?adb\\s+.*?[\"\\']",
+        "context": [
+          "                    return True",
+          "                else:",
+          "                    logger.debug(\"模拟器增强发送器：ADB Shell Input失败，使用回退方法\")",
+          "",
+          "        # 回退到传统方法"
+        ]
+      },
+      {
+        "line_number": 963,
+        "line_content": "logger.debug(\"模拟器增强发送器：ADB Shell Input失败，使用回退方法\")",
+        "match_text": "ADB Shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "                    return True",
+          "                else:",
+          "                    logger.debug(\"模拟器增强发送器：ADB Shell Input失败，使用回退方法\")",
+          "",
+          "        # 回退到传统方法"
+        ]
+      }
+    ]
+  },
+  {
+    "file": "utils\\intelligent_adb_connector.py",
+    "risk_level": "低风险",
+    "is_critical": false,
+    "priority": "低优先级",
+    "strategy": "安全优化 - 可以直接替换",
+    "approach": "直接使用先进ADB连接池",
+    "usage_count": 14,
+    "usages": [
+      {
+        "line_number": 37,
+        "line_content": "class ADBConnection:",
+        "match_text": "ADBConnect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "",
+          "@dataclass",
+          "class ADBConnection:",
+          "    \"\"\"ADB连接信息\"\"\"",
+          "    device_id: str"
+        ]
+      },
+      {
+        "line_number": 46,
+        "line_content": "class IntelligentADBConnector:",
+        "match_text": "ADBConnect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "",
+          "",
+          "class IntelligentADBConnector:",
+          "    \"\"\"智能ADB连接器\"\"\"",
+          "    "
+        ]
+      },
+      {
+        "line_number": 51,
+        "line_content": "self.adb_connections: List[ADBConnection] = []",
+        "match_text": "adb_connect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "    def __init__(self):",
+          "        self.emulator_windows: List[EmulatorWindow] = []",
+          "        self.adb_connections: List[ADBConnection] = []",
+          "        self.adb_paths: Dict[str, str] = {}",
+          "        "
+        ]
+      },
+      {
+        "line_number": 51,
+        "line_content": "self.adb_connections: List[ADBConnection] = []",
+        "match_text": "ADBConnect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "    def __init__(self):",
+          "        self.emulator_windows: List[EmulatorWindow] = []",
+          "        self.adb_connections: List[ADBConnection] = []",
+          "        self.adb_paths: Dict[str, str] = {}",
+          "        "
+        ]
+      },
+      {
+        "line_number": 87,
+        "line_content": "logger.info(f\"发现ADB路径: {list(adb_paths.keys())}\")",
+        "match_text": "f\"发现ADB路径: {list(adb_paths.keys())}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "        ",
+          "        self.adb_paths = adb_paths",
+          "        logger.info(f\"发现ADB路径: {list(adb_paths.keys())}\")",
+          "        return adb_paths",
+          "    "
+        ]
+      },
+      {
+        "line_number": 235,
+        "line_content": "def connect_all_devices(self) -> List[ADBConnection]:",
+        "match_text": "ADBConnect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "        return False",
+          "    ",
+          "    def connect_all_devices(self) -> List[ADBConnection]:",
+          "        \"\"\"智能连接所有设备\"\"\"",
+          "        connections = []"
+        ]
+      },
+      {
+        "line_number": 263,
+        "line_content": "self.adb_connections = connections",
+        "match_text": "adb_connect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "                    connections.append(conn)",
+          "        ",
+          "        self.adb_connections = connections",
+          "        logger.info(f\"成功连接 {len(connections)} 个设备\")",
+          "        return connections"
+        ]
+      },
+      {
+        "line_number": 267,
+        "line_content": "def _connect_window_devices(self, window: EmulatorWindow, active_ports: Set[int]) -> List[ADBConnection]:",
+        "match_text": "ADBConnect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "        return connections",
+          "    ",
+          "    def _connect_window_devices(self, window: EmulatorWindow, active_ports: Set[int]) -> List[ADBConnection]:",
+          "        \"\"\"为特定窗口连接设备\"\"\"",
+          "        connections = []"
+        ]
+      },
+      {
+        "line_number": 293,
+        "line_content": "def _try_connect_port(self, port: int, adb_path: str, emulator_type: str) -> Optional[ADBConnection]:",
+        "match_text": "adb_path: str, emulator_type: str) -> Optional[ADBConnect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "        return connections",
+          "    ",
+          "    def _try_connect_port(self, port: int, adb_path: str, emulator_type: str) -> Optional[ADBConnection]:",
+          "        \"\"\"尝试连接指定端口\"\"\"",
+          "        device_id = f\"127.0.0.1:{port}\""
+        ]
+      },
+      {
+        "line_number": 300,
+        "line_content": "[adb_path, 'connect', device_id],",
+        "match_text": "adb_path, 'connect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "            # 尝试连接",
+          "            result = subprocess.run(",
+          "                [adb_path, 'connect', device_id],",
+          "                capture_output=True,",
+          "                text=True,"
+        ]
+      },
+      {
+        "line_number": 324,
+        "line_content": "return ADBConnection(",
+        "match_text": "ADBConnect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "                if status == 'device':",
+          "                    logger.info(f\"✅ 成功连接: {device_id} ({emulator_type})\")",
+          "                    return ADBConnection(",
+          "                        device_id=device_id,",
+          "                        status=status,"
+        ]
+      },
+      {
+        "line_number": 343,
+        "line_content": "'total_connections': len(self.adb_connections),",
+        "match_text": "adb_connect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "        summary = {",
+          "            'total_windows': len(self.emulator_windows),",
+          "            'total_connections': len(self.adb_connections),",
+          "            'by_emulator_type': {},",
+          "            'windows': [],"
+        ]
+      },
+      {
+        "line_number": 350,
+        "line_content": "for conn in self.adb_connections:",
+        "match_text": "adb_connect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "        ",
+          "        # 按模拟器类型统计",
+          "        for conn in self.adb_connections:",
+          "            if conn.emulator_type not in summary['by_emulator_type']:",
+          "                summary['by_emulator_type'][conn.emulator_type] = 0"
+        ]
+      },
+      {
+        "line_number": 365,
+        "line_content": "for conn in self.adb_connections:",
+        "match_text": "adb_connect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "        ",
+          "        # 连接信息",
+          "        for conn in self.adb_connections:",
+          "            summary['connections'].append({",
+          "                'device_id': conn.device_id,"
+        ]
+      }
+    ]
+  },
+  {
+    "file": "utils\\advanced_adb_manager.py",
+    "risk_level": "低风险",
+    "is_critical": false,
+    "priority": "低优先级",
+    "strategy": "安全优化 - 可以直接替换",
+    "approach": "直接使用先进ADB连接池",
+    "usage_count": 11,
+    "usages": [
+      {
+        "line_number": 65,
+        "line_content": "class AdvancedADBConnectionPool:",
+        "match_text": "ADBConnect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "",
+          "",
+          "class AdvancedADBConnectionPool:",
+          "    \"\"\"先进的ADB连接池\"\"\"",
+          "    "
+        ]
+      },
+      {
+        "line_number": 131,
+        "line_content": "logger.info(f\"发现ADB路径: {list(adb_paths.keys())}\")",
+        "match_text": "f\"发现ADB路径: {list(adb_paths.keys())}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "            ",
+          "            self._adb_paths = adb_paths",
+          "            logger.info(f\"发现ADB路径: {list(adb_paths.keys())}\")",
+          "            ",
+          "        except Exception as e:"
+        ]
+      },
+      {
+        "line_number": 164,
+        "line_content": "[adb_path, 'devices'],",
+        "match_text": "adb_path, 'devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "            try:",
+          "                result = subprocess.run(",
+          "                    [adb_path, 'devices'],",
+          "                    capture_output=True,",
+          "                    text=True,"
+        ]
+      },
+      {
+        "line_number": 226,
+        "line_content": "[adb_path, 'connect', device_id],",
+        "match_text": "adb_path, 'connect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "            if '127.0.0.1:' in device_id:",
+          "                result = subprocess.run(",
+          "                    [adb_path, 'connect', device_id],",
+          "                    capture_output=True,",
+          "                    text=True,"
+        ]
+      },
+      {
+        "line_number": 241,
+        "line_content": "[adb_path, '-s', device_id, 'shell', 'echo', 'test'],",
+        "match_text": "adb_path, '-s', device_id, 'shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "            # 测试设备连接",
+          "            result = subprocess.run(",
+          "                [adb_path, '-s', device_id, 'shell', 'echo', 'test'],",
+          "                capture_output=True,",
+          "                text=True,"
+        ]
+      },
+      {
+        "line_number": 445,
+        "line_content": "[device.adb_path, 'connect', device.device_id],",
+        "match_text": "adb_path, 'connect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "            if '127.0.0.1:' in device.device_id:",
+          "                result = subprocess.run(",
+          "                    [device.adb_path, 'connect', device.device_id],",
+          "                    capture_output=True,",
+          "                    text=True,"
+        ]
+      },
+      {
+        "line_number": 457,
+        "line_content": "[device.adb_path, '-s', device.device_id, 'shell', 'echo', 'test'],",
+        "match_text": "adb_path, '-s', device.device_id, 'shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "                    # 验证连接",
+          "                    test_result = subprocess.run(",
+          "                        [device.adb_path, '-s', device.device_id, 'shell', 'echo', 'test'],",
+          "                        capture_output=True,",
+          "                        text=True,"
+        ]
+      },
+      {
+        "line_number": 517,
+        "line_content": "_global_adb_pool: Optional[AdvancedADBConnectionPool] = None",
+        "match_text": "adb_pool: Optional[AdvancedADBConnect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "",
+          "# 全局连接池实例",
+          "_global_adb_pool: Optional[AdvancedADBConnectionPool] = None",
+          "_pool_lock = threading.Lock()",
+          ""
+        ]
+      },
+      {
+        "line_number": 521,
+        "line_content": "def get_advanced_adb_pool() -> AdvancedADBConnectionPool:",
+        "match_text": "adb_pool() -> AdvancedADBConnect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "",
+          "",
+          "def get_advanced_adb_pool() -> AdvancedADBConnectionPool:",
+          "    \"\"\"获取全局ADB连接池实例\"\"\"",
+          "    global _global_adb_pool"
+        ]
+      },
+      {
+        "line_number": 527,
+        "line_content": "_global_adb_pool = AdvancedADBConnectionPool()",
+        "match_text": "adb_pool = AdvancedADBConnect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "    with _pool_lock:",
+          "        if _global_adb_pool is None:",
+          "            _global_adb_pool = AdvancedADBConnectionPool()",
+          "            # 初始化发现",
+          "            _global_adb_pool.discover_adb_paths()"
+        ]
+      },
+      {
+        "line_number": 530,
+        "line_content": "_global_adb_pool.discover_devices()",
+        "match_text": "adb_pool.discover_devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "            # 初始化发现",
+          "            _global_adb_pool.discover_adb_paths()",
+          "            _global_adb_pool.discover_devices()",
+          "        ",
+          "        return _global_adb_pool"
+        ]
+      }
+    ]
+  },
+  {
+    "file": "analyze_adb_usage_comprehensive.py",
+    "risk_level": "低风险",
+    "is_critical": false,
+    "priority": "低优先级",
+    "strategy": "安全优化 - 可以直接替换",
+    "approach": "直接使用先进ADB连接池",
+    "usage_count": 7,
+    "usages": [
+      {
+        "line_number": 44,
+        "line_content": "r'adb.*?devices',",
+        "match_text": "adb.*?devices",
+        "pattern": "adb.*?devices",
+        "context": [
+          "            ",
+          "            # ADB设备相关",
+          "            r'adb.*?devices',",
+          "            r'adb.*?shell',",
+          "            r'adb.*?install',"
+        ]
+      },
+      {
+        "line_number": 45,
+        "line_content": "r'adb.*?shell',",
+        "match_text": "adb.*?shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "            # ADB设备相关",
+          "            r'adb.*?devices',",
+          "            r'adb.*?shell',",
+          "            r'adb.*?install',",
+          "            r'adb.*?connect',"
+        ]
+      },
+      {
+        "line_number": 46,
+        "line_content": "r'adb.*?install',",
+        "match_text": "adb.*?install",
+        "pattern": "adb.*?install",
+        "context": [
+          "            r'adb.*?devices',",
+          "            r'adb.*?shell',",
+          "            r'adb.*?install',",
+          "            r'adb.*?connect',",
+          "            r'adb.*?disconnect',"
+        ]
+      },
+      {
+        "line_number": 47,
+        "line_content": "r'adb.*?connect',",
+        "match_text": "adb.*?connect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "            r'adb.*?shell',",
+          "            r'adb.*?install',",
+          "            r'adb.*?connect',",
+          "            r'adb.*?disconnect',",
+          "        ]"
+        ]
+      },
+      {
+        "line_number": 48,
+        "line_content": "r'adb.*?disconnect',",
+        "match_text": "adb.*?disconnect",
+        "pattern": "adb.*?connect",
+        "context": [
+          "            r'adb.*?install',",
+          "            r'adb.*?connect',",
+          "            r'adb.*?disconnect',",
+          "        ]",
+          "        "
+        ]
+      },
+      {
+        "line_number": 48,
+        "line_content": "r'adb.*?disconnect',",
+        "match_text": "adb.*?disconnect",
+        "pattern": "adb.*?disconnect",
+        "context": [
+          "            r'adb.*?install',",
+          "            r'adb.*?connect',",
+          "            r'adb.*?disconnect',",
+          "        ]",
+          "        "
+        ]
+      },
+      {
+        "line_number": 239,
+        "line_content": "logger.info(f\"   ADB使用数: {result['total_adb_usages']}\")",
+        "match_text": "f\"   ADB使用数: {result['total_adb_usages']}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "        for result in critical_files:",
+          "            logger.info(f\"📁 {result['file']} ({result['risk_level']}):\")",
+          "            logger.info(f\"   ADB使用数: {result['total_adb_usages']}\")",
+          "            ",
+          "            # 显示前3个使用示例"
+        ]
+      }
+    ]
+  },
+  {
+    "file": "utils\\mumu_finder.py",
+    "risk_level": "低风险",
+    "is_critical": false,
+    "priority": "低优先级",
+    "strategy": "安全优化 - 可以直接替换",
+    "approach": "直接使用先进ADB连接池",
+    "usage_count": 6,
+    "usages": [
+      {
+        "line_number": 37,
+        "line_content": "logger.info(f\"MuMu查找完成: 安装路径={len(self.install_paths)}, ADB路径={len(self.adb_paths)}\")",
+        "match_text": "f\"MuMu查找完成: 安装路径={len(self.install_paths)}, ADB路径={len(self.adb_paths)}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "        self._find_adb_paths()",
+          "        ",
+          "        logger.info(f\"MuMu查找完成: 安装路径={len(self.install_paths)}, ADB路径={len(self.adb_paths)}\")",
+          "        ",
+          "    def _find_from_registry(self):"
+        ]
+      },
+      {
+        "line_number": 124,
+        "line_content": "logger.info(f\"找到MuMu ADB: {adb_path}\")",
+        "match_text": "f\"找到MuMu ADB: {adb_path}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "                if os.path.exists(adb_path):",
+          "                    self.adb_paths.append(adb_path)",
+          "                    logger.info(f\"找到MuMu ADB: {adb_path}\")",
+          "    ",
+          "    def get_best_adb_path(self) -> Optional[str]:"
+        ]
+      },
+      {
+        "line_number": 142,
+        "line_content": "result = subprocess.run([adb_path, 'version'],",
+        "match_text": "subprocess.run([adb_path, 'version']",
+        "pattern": "subprocess\\.run\\s*\\(\\s*\\[.*?adb.*?\\]",
+        "context": [
+          "                )",
+          "",
+          "                result = subprocess.run([adb_path, 'version'],",
+          "                                      capture_output=True, text=True, timeout=5,",
+          "                                      creationflags=creation_flags, startupinfo=startupinfo)"
+        ]
+      },
+      {
+        "line_number": 142,
+        "line_content": "result = subprocess.run([adb_path, 'version'],",
+        "match_text": "subprocess.run([adb_path, 'version']",
+        "pattern": "subprocess\\.run\\s*\\(\\s*\\[.*?adb_path.*?\\]",
+        "context": [
+          "                )",
+          "",
+          "                result = subprocess.run([adb_path, 'version'],",
+          "                                      capture_output=True, text=True, timeout=5,",
+          "                                      creationflags=creation_flags, startupinfo=startupinfo)"
+        ]
+      },
+      {
+        "line_number": 146,
+        "line_content": "logger.info(f\"找到可用的MuMu ADB: {adb_path}\")",
+        "match_text": "f\"找到可用的MuMu ADB: {adb_path}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "                                      creationflags=creation_flags, startupinfo=startupinfo)",
+          "                if result.returncode == 0:",
+          "                    logger.info(f\"找到可用的MuMu ADB: {adb_path}\")",
+          "                    return adb_path",
+          "            except Exception as e:"
+        ]
+      },
+      {
+        "line_number": 149,
+        "line_content": "logger.debug(f\"MuMu ADB测试失败 {adb_path}: {e}\")",
+        "match_text": "f\"MuMu ADB测试失败 {adb_path}: {e}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "                    return adb_path",
+          "            except Exception as e:",
+          "                logger.debug(f\"MuMu ADB测试失败 {adb_path}: {e}\")",
+          "        ",
+          "        return None"
+        ]
+      }
+    ]
+  },
+  {
+    "file": "utils\\smart_adb_finder.py",
+    "risk_level": "低风险",
+    "is_critical": false,
+    "priority": "低优先级",
+    "strategy": "安全优化 - 可以直接替换",
+    "approach": "直接使用先进ADB连接池",
+    "usage_count": 6,
+    "usages": [
+      {
+        "line_number": 63,
+        "line_content": "logger.debug(f\" 在系统PATH中找到ADB: {adb_path}\")",
+        "match_text": "f\" 在系统PATH中找到ADB: {adb_path}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "        if adb_path:",
+          "            self.found_paths.add(adb_path)",
+          "            logger.debug(f\" 在系统PATH中找到ADB: {adb_path}\")",
+          "",
+          "        # 检查PATH中的每个目录"
+        ]
+      },
+      {
+        "line_number": 74,
+        "line_content": "logger.debug(f\" 在PATH目录中找到ADB: {adb_exe}\")",
+        "match_text": "f\" 在PATH目录中找到ADB: {adb_exe}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "            if os.path.isfile(adb_exe):",
+          "                self.found_paths.add(adb_exe)",
+          "                logger.debug(f\" 在PATH目录中找到ADB: {adb_exe}\")",
+          "    ",
+          ""
+        ]
+      },
+      {
+        "line_number": 125,
+        "line_content": "logger.info(f\" 在目录中找到ADB: {adb_path}\")",
+        "match_text": "f\" 在目录中找到ADB: {adb_path}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "            if os.path.isfile(adb_path):",
+          "                self.found_paths.add(adb_path)",
+          "                logger.info(f\" 在目录中找到ADB: {adb_path}\")",
+          "",
+          "            # 检查常见的模拟器ADB子目录"
+        ]
+      },
+      {
+        "line_number": 135,
+        "line_content": "logger.info(f\" 在子目录中找到ADB: {adb_path}\")",
+        "match_text": "f\" 在子目录中找到ADB: {adb_path}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "                    if os.path.isfile(adb_path):",
+          "                        self.found_paths.add(adb_path)",
+          "                        logger.info(f\" 在子目录中找到ADB: {adb_path}\")",
+          "",
+          "        except Exception as e:"
+        ]
+      },
+      {
+        "line_number": 175,
+        "line_content": "result = subprocess.run([adb_path, 'version'],",
+        "match_text": "subprocess.run([adb_path, 'version']",
+        "pattern": "subprocess\\.run\\s*\\(\\s*\\[.*?adb.*?\\]",
+        "context": [
+          "            )",
+          "",
+          "            result = subprocess.run([adb_path, 'version'],",
+          "                                  capture_output=True, text=True, timeout=5,",
+          "                                  creationflags=creation_flags, startupinfo=startupinfo)"
+        ]
+      },
+      {
+        "line_number": 175,
+        "line_content": "result = subprocess.run([adb_path, 'version'],",
+        "match_text": "subprocess.run([adb_path, 'version']",
+        "pattern": "subprocess\\.run\\s*\\(\\s*\\[.*?adb_path.*?\\]",
+        "context": [
+          "            )",
+          "",
+          "            result = subprocess.run([adb_path, 'version'],",
+          "                                  capture_output=True, text=True, timeout=5,",
+          "                                  creationflags=creation_flags, startupinfo=startupinfo)"
+        ]
+      }
+    ]
+  },
+  {
+    "file": "utils\\ldplayer_finder.py",
+    "risk_level": "低风险",
+    "is_critical": false,
+    "priority": "低优先级",
+    "strategy": "安全优化 - 可以直接替换",
+    "approach": "直接使用先进ADB连接池",
+    "usage_count": 5,
+    "usages": [
+      {
+        "line_number": 260,
+        "line_content": "logger.info(f\"ADB路径优先级: 雷电={ldplayer_adb_paths}, 其他={other_adb_paths}\")",
+        "match_text": "f\"ADB路径优先级: 雷电={ldplayer_adb_paths}, 其他={other_adb_paths}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "        prioritized_paths = ldplayer_adb_paths + other_adb_paths",
+          "",
+          "        logger.info(f\"ADB路径优先级: 雷电={ldplayer_adb_paths}, 其他={other_adb_paths}\")",
+          "",
+          "        for adb_path in prioritized_paths:"
+        ]
+      },
+      {
+        "line_number": 265,
+        "line_content": "result = subprocess.run([adb_path, 'version'],",
+        "match_text": "subprocess.run([adb_path, 'version']",
+        "pattern": "subprocess\\.run\\s*\\(\\s*\\[.*?adb.*?\\]",
+        "context": [
+          "            try:",
+          "                # 测试ADB是否可用",
+          "                result = subprocess.run([adb_path, 'version'],",
+          "                                      capture_output=True, text=True, timeout=5,",
+          "                                      creationflags=subprocess.CREATE_NO_WINDOW)"
+        ]
+      },
+      {
+        "line_number": 265,
+        "line_content": "result = subprocess.run([adb_path, 'version'],",
+        "match_text": "subprocess.run([adb_path, 'version']",
+        "pattern": "subprocess\\.run\\s*\\(\\s*\\[.*?adb_path.*?\\]",
+        "context": [
+          "            try:",
+          "                # 测试ADB是否可用",
+          "                result = subprocess.run([adb_path, 'version'],",
+          "                                      capture_output=True, text=True, timeout=5,",
+          "                                      creationflags=subprocess.CREATE_NO_WINDOW)"
+        ]
+      },
+      {
+        "line_number": 269,
+        "line_content": "logger.info(f\"找到可用的ADB: {adb_path}\")",
+        "match_text": "f\"找到可用的ADB: {adb_path}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "                                      creationflags=subprocess.CREATE_NO_WINDOW)",
+          "                if result.returncode == 0:",
+          "                    logger.info(f\"找到可用的ADB: {adb_path}\")",
+          "                    return adb_path",
+          "            except Exception as e:"
+        ]
+      },
+      {
+        "line_number": 272,
+        "line_content": "logger.debug(f\"ADB测试失败 {adb_path}: {e}\")",
+        "match_text": "f\"ADB测试失败 {adb_path}: {e}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "                    return adb_path",
+          "            except Exception as e:",
+          "                logger.debug(f\"ADB测试失败 {adb_path}: {e}\")",
+          "",
+          "        return None"
+        ]
+      }
+    ]
+  },
+  {
+    "file": "tasks\\keyboard_input.py",
+    "risk_level": "低风险",
+    "is_critical": false,
+    "priority": "低优先级",
+    "strategy": "安全优化 - 可以直接替换",
+    "approach": "直接使用先进ADB连接池",
+    "usage_count": 2,
+    "usages": [
+      {
+        "line_number": 1234,
+        "line_content": "if manager.try_adb_shell_input(target_hwnd, text_to_type, text_input_mode):",
+        "match_text": "adb_shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "                             if manager:",
+          "                                 logger.info(f\"使用旧模拟器文本输入方法: '{text_to_type}' (长度: {len(text_to_type)})\")",
+          "                                 if manager.try_adb_shell_input(target_hwnd, text_to_type, text_input_mode):",
+          "                                     logger.info(\"旧模拟器文本输入成功\")",
+          "                                 # 处理回车键"
+        ]
+      },
+      {
+        "line_number": 1872,
+        "line_content": "if manager.try_adb_shell_input(target_hwnd, text_to_type, text_input_mode):",
+        "match_text": "adb_shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "",
+          "                             # 使用和后台一致的ADB方法，传递文本输入模式参数",
+          "                             if manager.try_adb_shell_input(target_hwnd, text_to_type, text_input_mode):",
+          "                                 logger.info(\"前台模拟器文本输入成功\")",
+          "                             else:"
+        ]
+      }
+    ]
+  },
+  {
+    "file": "utils\\input_simulation\\emulator_window.py",
+    "risk_level": "低风险",
+    "is_critical": false,
+    "priority": "低优先级",
+    "strategy": "安全优化 - 可以直接替换",
+    "approach": "直接使用先进ADB连接池",
+    "usage_count": 2,
+    "usages": [
+      {
+        "line_number": 629,
+        "line_content": "return self._emulator_manager.try_adb_shell_input(self.hwnd, text)",
+        "match_text": "adb_shell",
+        "pattern": "adb.*?shell",
+        "context": [
+          "",
+          "        try:",
+          "            return self._emulator_manager.try_adb_shell_input(self.hwnd, text)",
+          "        except Exception as e:",
+          "            self.logger.debug(f\"ADB文本输入失败: {e}\")"
+        ]
+      },
+      {
+        "line_number": 779,
+        "line_content": "self.logger.debug(f\"[前台点击] ADB点击异常: {adb_error}\")",
+        "match_text": "f\"[前台点击] ADB点击异常: {adb_error}\"",
+        "pattern": "f[\"\\'].*?{.*?adb.*?}.*?[\"\\']",
+        "context": [
+          "                        self.logger.debug(f\"[前台点击] ADB点击失败，尝试其他方法\")",
+          "                except Exception as adb_error:",
+          "                    self.logger.debug(f\"[前台点击] ADB点击异常: {adb_error}\")",
+          "",
+          "            # 方法2：使用pyautogui前台点击"
+        ]
+      }
+    ]
+  },
+  {
+    "file": "venv_build\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks\\hook-mariadb.py",
+    "risk_level": "低风险",
+    "is_critical": false,
+    "priority": "低优先级",
+    "strategy": "安全优化 - 可以直接替换",
+    "approach": "直接使用先进ADB连接池",
+    "usage_count": 1,
+    "usages": [
+      {
+        "line_number": 24,
+        "line_content": "if is_module_satisfies(\"mariadb >= 1.1.0\"):",
+        "match_text": "\"mariadb >= 1.1.0\"",
+        "pattern": "[\"\\'].*?adb\\s+.*?[\"\\']",
+        "context": [
+          "# mariadb >= 1.1.0 requires several hidden imports from mariadb.constants.",
+          "# Collect them all, just to be on the safe side...",
+          "if is_module_satisfies(\"mariadb >= 1.1.0\"):",
+          "    hiddenimports += collect_submodules(\"mariadb.constants\")",
+          ""
+        ]
+      }
+    ]
+  }
+]

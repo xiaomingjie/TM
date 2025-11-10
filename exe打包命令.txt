@@ -1,0 +1,1 @@
+"C:\Users\LS\Desktop\source code\venv_build\Scripts\python.exe" -m PyInstaller "C:\Users\LS\Desktop\source code\编辑器打包文件.spec" --distpath "C:\Users\LS\Desktop\source code\dist"
