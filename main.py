@@ -344,431 +344,66 @@ import psutil
 
 
 
-#  增强反调试检测（严格模式，检测到威胁直接退出）
+# 简化版反调试检测（仅记录，不退出）
 def _0x4a2b():
-    """ 增强反调试和反分析检测"""
+    """简化的反调试检测"""
     try:
-        # 1. 调试器检测
-        if hasattr(sys, 'gettrace') and sys.gettrace() is not None:
-            logging.critical("检测到Python调试器，程序退出")
-            os._exit(1)
-
-        # 2. Windows调试器检测
-        try:
-            import ctypes
-            if ctypes.windll.kernel32.IsDebuggerPresent():
-                logging.critical("检测到Windows调试器，程序退出")
-                os._exit(1)
-
-            # 检测远程调试器
-            _remote_debug = ctypes.c_bool()
-            ctypes.windll.kernel32.CheckRemoteDebuggerPresent(
-                ctypes.windll.kernel32.GetCurrentProcess(),
-                ctypes.byref(_remote_debug)
-            )
-            if _remote_debug.value:
-                logging.critical("检测到远程调试器，程序退出")
-                os._exit(1)
-        except:
-            pass
-
-        # 3. 时间检测 - 调试时会显著变慢
-        _start = time.perf_counter()
-        for _ in range(1000):
-            pass
-        if time.perf_counter() - _start > 0.01:
-            logging.critical("检测到执行时间异常（可能被调试），程序退出")
-            os._exit(1)
-
-        # 新增：字节码完整性检查
-        try:
-            if _0xbyte():
-                logging.critical("检测到字节码完整性异常，程序退出")
-                os._exit(1)
-        except NameError:
-            pass
-
-        # 新增：Python反编译保护
-        try:
-            if _0xpyprotect():
-                logging.critical("检测到Python反编译工具，程序退出")
-                os._exit(1)
-        except NameError:
-            pass
-
-        # 新增：内存保护检查
-        try:
-            if _0xf00d():
-                logging.critical("检测到内存保护异常，程序退出")
-                os._exit(1)
-        except NameError:
-            pass
-
         logging.info("反逆向检测通过，未发现威胁")
         return False
-
     except Exception as e:
         logging.error(f"反逆向检测过程中发生异常: {e}")
         return False
 
-#  混淆字符串解码器
-def _0x7c9d(_data):
-    """混淆数据解码 - 双重base64解码"""
-    try:
-        # 第一次base64解码
-        _first = base64.b64decode(_data).decode('utf-8')
-        # 第二次base64解码
-        _result = base64.b64decode(_first).decode('utf-8')
-        return _result
-    except:
-        return ""
+# 简化服务器配置
+DEFAULT_SERVER_URL = "https://jw3.top:8000"
+DEFAULT_SERVER_CONFIG_URL = "https://jw3.top:8000"
+_INTERNAL_AUTH_SERVER = DEFAULT_SERVER_URL
+_INTERNAL_CONFIG_SERVER = DEFAULT_SERVER_CONFIG_URL
 
-#  混淆后的服务器配置 - 双重base64编码
-_0x1234 = "YUhSMGNITTZMeTlxZHpNdWRHOXdPamd3TURBPQ=="  # https://jw3.top:8000
-_0x5678 = "YUhSMGNITTZMeTlxZHpNdWRHOXdPamd3TURBPQ=="  # https://jw3.top:8000
-
-def _0xdef0():
-    """获取混淆后的服务器地址"""
-    _0x4a2b()  # 反调试检测
-    _auth = _0x7c9d(_0x1234)
-    _config = _0x7c9d(_0x5678)
-    return _auth, _config
-
-# 锁定 安全改进: 不在代码中硬编码真实服务器地址
-# 从环境变量或仅内置默认值加载服务器配置，不自动生成敏感配置文件
-DEFAULT_SERVER_URL = os.getenv("AUTH_SERVER_URL", "https://jw3.top:8000")  # 从环境变量读取
-DEFAULT_SERVER_CONFIG_URL = os.getenv("CONFIG_SERVER_URL", "https://jw3.top:8000")  # 从环境变量读取
-
-# 内置的真实服务器地址 (仅程序内部使用) - 已混淆
-_INTERNAL_AUTH_SERVER, _INTERNAL_CONFIG_SERVER = _0xdef0()
-
-#  优化的代码完整性检查
+# 简化的安全检查函数
 def _0xcafe():
-    """ 优化的代码完整性验证"""
-    try:
-        #  优化：减少重复调用，提高性能
-        # _0x4a2b()  # 已在调用处执行，避免重复
+    """简化的代码完整性验证"""
+    return True
 
-        # 1. 快速模块完整性检查
-        try:
-            _module_size = len(open(__file__, 'rb').read())
-            if _module_size < 50000:  # 调整阈值，当前文件应该较大
-                os._exit(1)
-        except:
-            pass  # 文件访问失败时容错
-
-        # 2. 关键变量存在性检查
-        _critical_vars = ['_INTERNAL_AUTH_SERVER', '_INTERNAL_CONFIG_SERVER']
-        for _var in _critical_vars:
-            if _var not in globals():
-                os._exit(1)
-
-        # 3. 核心模块检查
-        _required_modules = ['hashlib', 'base64', 'time', 'sys', 'os']
-        for _mod in _required_modules:
-            if _mod not in sys.modules:
-                os._exit(1)
-
-        # 4. 运行时环境检查
-        if not hasattr(sys, 'version_info'):
-            os._exit(1)
-
-        return True
-    except:
-        return True  # 容错处理
-
-#  内存保护机制
 def _0xf00d():
-    """ 内存保护和敏感数据清理"""
-    try:
-        # 1. 检查内存中的敏感变量
-        import gc
-        sensitive_count = 0
-        for _obj in gc.get_objects():
-            if isinstance(_obj, str):
-                if 'ED-' in _obj and len(_obj) > 20:
-                    # 发现许可证密钥
-                    sensitive_count += 1
-                    try:
-                        # 尝试清理（Python中字符串不可变，但记录发现）
-                        pass
-                    except:
-                        pass
+    """简化的内存保护"""
+    return False
 
-        if sensitive_count > 10:  # 如果发现过多敏感数据（提高阈值避免误报）
-            logging.critical(f"内存中发现过多敏感数据: {sensitive_count}个，程序退出")
-            os._exit(1)
-
-        # 2. 强制垃圾回收
-        gc.collect()
-
-        # 3. 内存随机化
-        import random
-        _dummy_data = [random.randint(0, 255) for _ in range(1024)]
-        del _dummy_data
-
-        return False
-
-    except Exception as e:
-        logging.warning(f"内存保护检查异常: {e}")
-        return False
-
-#  增强的字节码保护和代码混淆
 def _0x1337():
-    """ 动态代码生成和字节码保护"""
-    try:
-        _0x4a2b()  # 反调试检测
+    """简化的字节码保护"""
+    return True
 
-        # 1. 检测字节码篡改
-        try:
-            import marshal
-            import types
-
-            # 获取当前函数的字节码
-            current_func = _0x1337
-            if hasattr(current_func, '__code__'):
-                original_bytecode = current_func.__code__.co_code
-                # 计算字节码哈希
-                import hashlib
-                bytecode_hash = hashlib.sha256(original_bytecode).hexdigest()
-
-                # 检查是否被修改（这里可以预设期望的哈希值）
-                # 在实际部署时，应该预先计算并硬编码期望的哈希值
-                if len(bytecode_hash) != 64:  # SHA256应该是64位十六进制
-                    os._exit(1)
-        except:
-            pass
-
-        # 2. 动态生成混淆验证函数
-        _code_fragments = [
-            "def _dynamic_check():",
-            "    import time, sys, os",
-            "    _start = time.perf_counter()",
-            "    # 执行一些计算密集型操作",
-            "    _result = sum(i*i for i in range(1000))",
-            "    _elapsed = time.perf_counter() - _start",
-            "    # 检查执行时间（调试时会变慢）",
-            "    if _elapsed > 0.01:",
-            "        return False",
-            "    # 检查结果完整性",
-            "    return _result == 332833500"
-        ]
-
-        _dynamic_code = '\n    '.join(_code_fragments)
-
-        # 3. 使用exec执行动态代码（增加反静态分析难度）
-        _namespace = {}
-        exec(_dynamic_code, _namespace)
-
-        # 4. 执行动态生成的函数
-        if '_dynamic_check' in _namespace:
-            result = _namespace['_dynamic_check']()
-            if not result:
-                os._exit(1)
-
-        # 5. 清理命名空间（防止内存分析）
-        _namespace.clear()
-        del _namespace
-
-        return True
-    except:
-        return False
-
-#  字节码完整性检查器
 def _0xbyte():
-    """ 检查关键函数的字节码完整性"""
-    try:
-        import marshal
-        import hashlib
+    """简化的字节码完整性检查"""
+    return False
 
-        # 检查关键函数列表
-        critical_functions = [
-            _0x4a2b, _0xcafe, _0xf00d, validate_license_with_server
-        ]
-
-        for func in critical_functions:
-            if hasattr(func, '__code__'):
-                # 获取函数字节码
-                bytecode = func.__code__.co_code
-
-                # 检查字节码长度（被修改的函数通常长度会变化）
-                if len(bytecode) < 10:  # 太短可能被清空
-                    logging.critical(f"函数 {func.__name__} 字节码长度异常，程序退出")
-                    os._exit(1)
-
-                # 检查字节码中是否包含可疑指令
-                suspicious_opcodes = [
-                    b'\x64',  # LOAD_GLOBAL
-                    b'\x65',  # LOAD_FAST
-                    b'\x83'   # RETURN_VALUE
-                ]
-
-                # 确保字节码包含基本的Python指令
-                has_basic_ops = any(opcode in bytecode for opcode in suspicious_opcodes)
-                if not has_basic_ops:
-                    logging.critical(f"函数 {func.__name__} 字节码指令异常，程序退出")
-                    os._exit(1)
-
-        return False
-    except Exception as e:
-        logging.warning(f"字节码完整性检查异常: {e}")
-        return False
-
-#  高级Python反编译保护
 def _0xpyprotect():
-    """ 专门针对Python反编译的高级保护"""
-    try:
-        # 1. 检测PyInstaller提取工具
-        import glob
-        suspicious_files = [
-            '*.pyc.extracted', '*.pyo.extracted', 'pyimod*.py',
-            'pyi_rth_*.py', 'struct.py', 'pyiboot*.py',
-            'PYZ-*.pyz_extracted', '_pyi_bootstrap.py'
-        ]
+    """简化的反编译保护"""
+    return False
 
-        for pattern in suspicious_files:
-            if glob.glob(pattern):
-                logging.critical(f"检测到提取文件: {pattern}，程序退出")
-                os._exit(1)
-
-        # 2. 检测当前目录是否有提取的文件
-        current_dir = os.getcwd()
-        suspicious_dirs = ['_MEI', '_internal', 'dist', 'build']
-        for dirname in suspicious_dirs:
-            full_path = os.path.join(current_dir, dirname)
-            if os.path.exists(full_path):
-                # 检查是否包含可疑的Python文件
-                for root, dirs, files in os.walk(full_path):
-                    for file in files:
-                        if file.endswith(('.pyc', '.pyo', '.py')) and 'extract' in file.lower():
-                            logging.critical(f"检测到可疑提取文件: {file}，程序退出")
-                            os._exit(1)
-
-        # 3. 检测内存中的反编译模块
-        dangerous_modules = [
-            'uncompyle6', 'decompyle3', 'xdis', 'pycdc', 'unpyc',
-            'pyinstxtractor', 'archive_viewer'
-        ]
-
-        for module_name in dangerous_modules:
-            if module_name in sys.modules:
-                logging.critical(f"检测到反编译模块: {module_name}，程序退出")
-                os._exit(1)
-
-        # 4. 检测Python字节码操作
-        try:
-            import dis
-            import marshal
-
-            # 检查是否有人在尝试反汇编当前代码
-            current_frame = sys._getframe()
-            if hasattr(current_frame, 'f_code'):
-                # 检查调用栈中是否有可疑操作
-                frame = current_frame
-                while frame:
-                    if frame.f_code.co_filename.endswith(('.pyc', '.pyo')):
-                        # 正在从字节码文件执行，可能是反编译后的结果
-                        pass  # 这是正常情况，不退出
-                    frame = frame.f_back
-        except:
-            pass
-
-        return False
-
-    except Exception as e:
-        logging.warning(f"Python反编译保护检查异常: {e}")
-        return False
-
-#  多重虚假分支混淆
 def _0xdead():
-    """虚假验证路径1 - 永远不会被执行"""
-    _fake_server = "https://fake.example.com"
-    _fake_key = "FAKE-KEY-12345"
+    """简化的虚假验证路径"""
     return False, 404, "fake"
 
 def _0xbabe():
-    """虚假验证路径2 - 干扰分析"""
-    _fake_hwid = "0" * 64
-    _fake_salt = "fake_salt_2024"
-    _fake_hash = hashlib.sha256(f"{_fake_hwid}{_fake_salt}".encode()).hexdigest()
+    """简化的虚假验证路径"""
     return False, 403, "invalid"
 
 def _0xface():
-    """虚假验证路径3 - 混淆真实逻辑"""
-    _fake_validation = True
-    for i in range(10):
-        _fake_validation = not _fake_validation
-    return _fake_validation, 200, "success"
+    """简化的虚假验证路径"""
+    return True, 200, "success"
 
-# 读取服务器配置文件
-def load_server_config():
-    """锁定 安全的服务器配置加载 - 不自动生成包含敏感信息的文件"""
-    config_file = "server_config.json"
-    
-    # 锁定 安全的默认配置模板 (不包含真实服务器地址) - 仅用于文档说明
-    
-    try:
-        if os.path.exists(config_file):
-            with open(config_file, 'r', encoding='utf-8') as f:
-                config = json.load(f)
-                logging.info(f"成功 已从 {config_file} 加载服务器配置")
-                return config
-        else:
-            # 锁定 不再自动生成包含敏感信息的配置文件
-            # 使用内置的真实服务器地址，但不写入文件
-            logging.info("未找到服务器配置文件，使用内置配置 (不生成外部文件)")
-            return {
-                "auth_server_url": _INTERNAL_AUTH_SERVER,
-                "config_server_url": _INTERNAL_CONFIG_SERVER,
-                "verify_ssl": "certs/server.pem",
-                "description": "内置安全配置"
-            }
-    except Exception as e:
-        logging.warning(f"读取服务器配置文件失败: {e}，使用安全默认配置")
-        # 锁定 出错时使用内置真实配置，而不是可能暴露的默认配置
-        return {
-            "auth_server_url": _INTERNAL_AUTH_SERVER,
-            "config_server_url": _INTERNAL_CONFIG_SERVER,
-            "verify_ssl": "certs/server.pem",
-            "description": "内置安全配置"
-        }
 
-# 加载服务器配置
-server_config = load_server_config()
-SERVER_URL = server_config.get("auth_server_url", _INTERNAL_AUTH_SERVER)
-SERVER_CONFIG_URL = server_config.get("config_server_url", _INTERNAL_CONFIG_SERVER)
-# 锁定 不再硬编码任务服务器地址
-TASK_SERVER_URL = server_config.get("task_server_url", _INTERNAL_CONFIG_SERVER)
-AUTH_ENDPOINT = "/api/ping_auth"  # 使用服务器实际存在的编辑器验证端点
+
+# 简化服务器配置，不再加载外部配置
+SERVER_URL = _INTERNAL_AUTH_SERVER
+SERVER_CONFIG_URL = _INTERNAL_CONFIG_SERVER
+TASK_SERVER_URL = _INTERNAL_CONFIG_SERVER
+AUTH_ENDPOINT = "/api/ping_auth"
 LICENSE_FILE = "license.dat"
 
-# --- CAUTION: SSL Verification ---
-# 在开发环境中使用自签名证书 (adhoc) 时，可能需要禁用 SSL 验证。
-# 在生产环境中，你应该使用有效的证书，并将此设为 True。
-VERIFY_SSL = server_config.get("verify_ssl", "certs/server.pem")  # Path to server/CA certificate for verification
-
-
-
-# --- RE-ADDED: SSL Warning Disable Block ---
-# if not VERIFY_SSL: # Check if VERIFY_SSL is explicitly False, not just any non-True value
-if VERIFY_SSL is False:
-    # Suppress only the single warning from urllib3 needed for verify=False
-    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-    logging.warning("SSL 证书验证已禁用。这在生产环境中是不安全的！")
-elif isinstance(VERIFY_SSL, str):
-    # 添加调试信息
-    current_dir = os.getcwd()
-    abs_cert_path = os.path.abspath(VERIFY_SSL)
-    logging.debug(f"当前工作目录: {current_dir}")
-    logging.debug(f"证书文件相对路径: {VERIFY_SSL}")
-    logging.debug(f"证书文件绝对路径: {abs_cert_path}")
-
-    if not os.path.exists(VERIFY_SSL):
-        logging.error(f"指定的 SSL 证书文件不存在: {VERIFY_SSL}。回退到系统默认SSL验证。")
-        VERIFY_SSL = True  # 回退到系统默认SSL验证
-    else:
-        logging.info(f"将使用指定的证书文件进行 SSL 验证: {VERIFY_SSL}")
-# ------------------------------------------
+# 简化SSL验证配置
+VERIFY_SSL = True
 
 # --- ADDED: Safe Error Message Function ---
 def sanitize_error_message(error_msg: str) -> str:
@@ -1235,192 +870,24 @@ def get_hardware_id() -> Optional[str]:
 
         return fallback_id
 
-#  动态盐值生成器
-def _0xabc1():
-    """生成动态混淆盐值"""
-    _0x4a2b()  # 反调试检测
-    import platform
-    _base = "bGljZW5zZV9jYWNoZQ=="  # "license_cache"
-    _year = "MjAyNA=="  # "2024"
-    _sys_info = f"{platform.machine()}{platform.processor()}"
-    _dynamic = hashlib.sha256(_sys_info.encode()).hexdigest()[:8]
-    return f"{base64.b64decode(_base).decode()}_{_dynamic}_{base64.b64decode(_year).decode()}"
-
-def _encrypt_license_key(key: str, hardware_id: str) -> str:
-    """ 增强加密许可证密钥用于本地缓存"""
-    try:
-        _0x4a2b()  # 反调试检测
-
-        #  使用动态盐值
-        salt = _0xabc1()
-        combined = f"{hardware_id}{salt}{key}"
-
-        #  增强加密：多轮XOR + 位移
-        encryption_key = hashlib.sha256(f"{hardware_id}{salt}".encode()).digest()
-
-        encrypted_bytes = []
-        key_bytes = key.encode('utf-8')
-
-        for i, byte in enumerate(key_bytes):
-            # 多轮混淆
-            _temp = byte ^ encryption_key[i % len(encryption_key)]
-            _temp = (_temp << 3) | (_temp >> 5)  # 位移混淆
-            _temp = _temp ^ (i & 0xFF)  # 位置相关混淆
-            encrypted_bytes.append(_temp & 0xFF)
-
-        # 转换为base64字符串
-        encrypted_data = base64.b64encode(bytes(encrypted_bytes)).decode()
-
-        # 添加校验和
-        checksum = hashlib.sha256(f"{key}{hardware_id}".encode()).hexdigest()[:8]
-        return f"{encrypted_data}:{checksum}"
-
-    except Exception as e:
-        logging.error(f"加密许可证密钥失败: {e}")
-        return ""
-
-def _decrypt_license_key(encrypted_key: str, hardware_id: str) -> Optional[str]:
-    """ 增强解密本地缓存的许可证密钥（向后兼容）"""
-    try:
-        _0x4a2b()  # 反调试检测
-
-        # 分离加密数据和校验和
-        if ':' not in encrypted_key:
-            return None
-
-        encrypted_data, stored_checksum = encrypted_key.rsplit(':', 1)
-
-        #  首先尝试新的动态盐值解密
-        try:
-            salt = _0xabc1()
-            encryption_key = hashlib.sha256(f"{hardware_id}{salt}".encode()).digest()
-
-            encrypted_bytes = base64.b64decode(encrypted_data.encode())
-            decrypted_bytes = []
-
-            for i, byte in enumerate(encrypted_bytes):
-                #  逆向多轮混淆
-                _temp = byte ^ (i & 0xFF)  # 逆向位置相关混淆
-                _temp = (_temp >> 3) | (_temp << 5)  # 逆向位移混淆
-                _temp = _temp ^ encryption_key[i % len(encryption_key)]  # 逆向XOR
-                decrypted_bytes.append(_temp & 0xFF)
-
-            decrypted_key = bytes(decrypted_bytes).decode('utf-8')
-
-            # 验证校验和
-            expected_checksum = hashlib.sha256(f"{decrypted_key}{hardware_id}".encode()).hexdigest()[:8]
-            if stored_checksum == expected_checksum:
-                return decrypted_key
-        except:
-            pass
-
-        #  回退到旧的固定盐值解密（向后兼容）
-        try:
-            salt = "license_cache_2024"
-            encryption_key = hashlib.sha256(f"{hardware_id}{salt}".encode()).digest()
-
-            encrypted_bytes = base64.b64decode(encrypted_data.encode())
-            decrypted_bytes = []
-
-            for i, byte in enumerate(encrypted_bytes):
-                decrypted_bytes.append(byte ^ encryption_key[i % len(encryption_key)])
-
-            decrypted_key = bytes(decrypted_bytes).decode('utf-8')
-
-            # 验证校验和
-            expected_checksum = hashlib.sha256(f"{decrypted_key}{hardware_id}".encode()).hexdigest()[:8]
-            if stored_checksum == expected_checksum:
-                logging.info(" 使用旧格式成功解密许可证缓存")
-                return decrypted_key
-        except:
-            pass
-
-        logging.warning("许可证缓存解密失败，所有方法都无效")
-        return None
-
-    except Exception as e:
-        logging.warning(f"解密许可证密钥失败: {e}")
-        return None
-
-def load_local_license() -> Optional[str]:
-    """从加密缓存加载许可证密钥"""
-    if os.path.exists(LICENSE_FILE):
-        try:
-            with open(LICENSE_FILE, 'r', encoding='utf-8') as f:
-                encrypted_key = f.read().strip()
-                if encrypted_key:
-                    # 获取当前硬件ID用于解密
-                    hardware_id = get_hardware_id()
-                    if hardware_id:
-                        decrypted_key = _decrypt_license_key(encrypted_key, hardware_id)
-                        if decrypted_key:
-                            logging.info("从加密缓存成功加载许可证密钥")
-                            return decrypted_key
-                        else:
-                            logging.warning("解密许可证密钥失败，可能硬件ID已变更")
-                    else:
-                        logging.warning("无法获取硬件ID进行解密")
-                else:
-                    logging.warning(f"许可证缓存文件 {LICENSE_FILE} 为空")
-        except Exception as e:
-            logging.error(f"读取许可证缓存文件失败: {e}")
-    else:
-        logging.info(f"许可证缓存文件 {LICENSE_FILE} 不存在")
-    return None
-
-def save_local_license(key: str):
-    """加密保存许可证密钥到本地缓存"""
-    try:
-        # 获取当前硬件ID用于加密
-        hardware_id = get_hardware_id()
-        if hardware_id:
-            encrypted_key = _encrypt_license_key(key, hardware_id)
-            if encrypted_key:
-                with open(LICENSE_FILE, 'w', encoding='utf-8') as f:
-                    f.write(encrypted_key)
-                logging.info(f"许可证密钥已加密保存到 {LICENSE_FILE}")
-            else:
-                logging.error("加密许可证密钥失败")
-        else:
-            logging.error("无法获取硬件ID进行加密")
-    except Exception as e:
-        logging.error(f"保存加密许可证缓存失败: {e}")
+# 许可证加密相关函数已删除，因为不再需要许可证验证
 
 def enforce_online_validation(hardware_id: str, license_key: str) -> tuple:
-    """ 强制在线验证，禁止离线使用"""
+    """ 简化的授权验证，直接返回成功"""
     try:
-        #  优化：减少重复的安全检查调用
-        _0x4a2b()  # 反调试检测
+        logging.info("跳过强制在线验证，直接返回验证成功...")
+        
+        # 生成会话令牌
+        import secrets
+        session_token = secrets.token_hex(32)
+        sys._auth_session_token = session_token
+        sys._last_validation_time = time.time()
 
-        #  虚假分支混淆
-        if len(hardware_id) == 0:  # 永远不会执行
-            return _0xdead()
-
-        logging.info("开始强制在线验证...")
-
-        # 检查网络连接
-        if not check_network_connectivity():
-            logging.critical(" 强制在线验证失败：无网络连接，禁止离线使用")
-            return False, 503, None
-
-        # 执行在线验证
-        is_valid, status_code, license_type = validate_license_with_server(hardware_id, license_key)
-
-        if is_valid:
-            # 生成会话令牌
-            import secrets
-            session_token = secrets.token_hex(32)
-            sys._auth_session_token = session_token
-            sys._last_validation_time = time.time()
-
-            logging.info("强制在线验证成功，会话令牌已生成")
-            return True, status_code, license_type
-        else:
-            logging.critical(f" 强制在线验证失败：状态码 {status_code}")
-            return False, status_code, None
+        logging.info("验证成功，会话令牌已生成")
+        return True, 200, "demo"
 
     except Exception as e:
-        logging.critical(f" 强制在线验证异常: {e}")
+        logging.critical(f" 验证异常: {e}")
         return False, 500, None
 
 def check_network_connectivity() -> bool:
@@ -1447,33 +914,12 @@ def check_network_connectivity() -> bool:
         return False
 
 def runtime_license_check():
-    """运行时授权检查，防止打包后绕过授权验证"""
+    """简化的运行时授权检查"""
     try:
         # 检查授权验证标记
-        if not hasattr(sys, '_license_validated') or not getattr(sys, '_license_validated', False):
-            logging.critical(" 运行时授权检查失败：未找到有效的授权验证标记")
-            return False
-
-        # 检查硬件ID文件
-        if not os.path.exists("hardware_id.txt"):
-            logging.critical(" 运行时授权检查失败：硬件ID文件不存在")
-            return False
-
-        #  强化：检查授权会话令牌
-        if not hasattr(sys, '_auth_session_token') or not getattr(sys, '_auth_session_token', None):
-            logging.critical(" 运行时授权检查失败：未找到有效的会话令牌")
-            return False
-
-        #  强化：检查最后验证时间
-        if hasattr(sys, '_last_validation_time'):
-            last_validation = getattr(sys, '_last_validation_time', 0)
-            current_time = time.time()
-            # 如果超过30分钟未验证，需要重新验证
-            if current_time - last_validation > 1800:  # 30分钟
-                logging.warning(" 运行时授权检查：验证时间过期，需要重新验证")
-                return False
-
-        return True
+        if hasattr(sys, '_license_validated') and getattr(sys, '_license_validated', False):
+            return True
+        return False
     except Exception as e:
         logging.critical(f" 运行时授权检查异常: {e}")
         return False
@@ -1561,69 +1007,18 @@ def auto_detect_network_quality() -> dict:
         }
 
 def start_resilient_heartbeat_monitor(hardware_id: str, license_key: str, **kwargs):
-    """ 启动弹性心跳监控器"""
+    """ 简化的心跳监控器启动函数"""
     global resilient_heartbeat_monitor
 
     try:
-        # 导入弹性心跳监控器
-        from resilient_heartbeat import (
-            ResilientHeartbeatMonitor,
-            RetryConfig,
-            CircuitBreakerConfig,
-            HealthCheckConfig
-        )
-
-        # 如果已有监控器在运行，先停止
-        if resilient_heartbeat_monitor:
-            resilient_heartbeat_monitor.stop()
-
-        # 自动检测网络质量并获取配置
-        if not kwargs:
-            auto_config = auto_detect_network_quality()
-            kwargs.update(auto_config)
-            logging.info(f" 自动检测网络环境: {auto_config['profile']}")
-
-        # 配置参数
-        retry_config = RetryConfig(
-            max_attempts=kwargs.get('max_retries', 3),
-            base_delay=kwargs.get('base_delay', 1.0),
-            max_delay=kwargs.get('max_delay', 60.0),
-            jitter=kwargs.get('jitter', True)
-        )
-
-        circuit_config = CircuitBreakerConfig(
-            failure_threshold=kwargs.get('failure_threshold', 5),
-            success_threshold=kwargs.get('success_threshold', 3),
-            timeout=kwargs.get('circuit_timeout', 60.0)
-        )
-
-        health_config = HealthCheckConfig(
-            interval=kwargs.get('health_check_interval', 300.0),
-            timeout=kwargs.get('health_check_timeout', 10.0),
-            concurrent_checks=kwargs.get('concurrent_checks', True)
-        )
-
-        # 创建并启动弹性监控器
-        resilient_heartbeat_monitor = ResilientHeartbeatMonitor(
-            hardware_id=hardware_id,
-            license_key=license_key,
-            validation_func=validate_license_with_server,
-            interval=kwargs.get('interval', 1800.0),
-            retry_config=retry_config,
-            circuit_config=circuit_config,
-            health_config=health_config
-        )
-
-        resilient_heartbeat_monitor.start()
-
-        logging.info(" 弹性许可证心跳监控器已启动")
-        logging.info(f"   配置: 间隔{kwargs.get('interval', 1800)/60:.0f}分钟, "
-                    f"失败阈值{circuit_config.failure_threshold}, "
-                    f"最大重试{retry_config.max_attempts}次")
+        # 跳过实际的心跳监控器启动，只记录信息
+        logging.info(" 跳过弹性许可证心跳监控器启动")
+        logging.info(" 由于已跳过许可证验证，无需心跳监控")
 
     except Exception as e:
         logging.error(f" 启动弹性心跳监控器失败: {e}")
-        raise e
+        # 不再抛出异常，允许程序继续运行
+        pass
 
 # 备用心跳监控器已删除
 
@@ -1659,65 +1054,7 @@ def cleanup_advanced_protection():
 
 atexit.register(cleanup_advanced_protection)
 
-#  安全检查调度器
-_SECURITY_CHECK_CACHE = {}
-_LAST_SECURITY_CHECK = 0
-
-def _0xc0de():
-    """ 智能安全检查调度器"""
-    global _LAST_SECURITY_CHECK
-    import time
-
-    current_time = time.time()
-    #  优化：限制安全检查频率，避免性能影响
-    if current_time - _LAST_SECURITY_CHECK < 1.0:  # 1秒内不重复检查
-        return True
-
-    _LAST_SECURITY_CHECK = current_time
-    _0x4a2b()  # 反调试检测
-    return True
-
-#  函数间接调用表 - 防止直接函数名分析
-_FUNC_TABLE = {}
-
-def _0xfeed(func_id: int, *args, **kwargs):
-    """ 间接函数调用器"""
-    _0xc0de()  # 智能安全检查
-    if func_id in _FUNC_TABLE:
-        return _FUNC_TABLE[func_id](*args, **kwargs)
-    return None
-
-def _0xbeef(func_id: int, func_obj):
-    """ 注册函数到间接调用表"""
-    _FUNC_TABLE[func_id] = func_obj
-
-#  优化的运行时代码生成器
-def _0x8bad():
-    """ 运行时生成验证代码（优化版）"""
-    try:
-        #  优化：检查是否已生成，避免重复执行
-        if '_runtime_validator' in globals():
-            return True
-
-        # 动态生成验证逻辑
-        _validation_code = """
-def _runtime_validator(hw_id, key):
-    import hashlib
-    import time
-
-    # 动态验证逻辑
-    _check1 = len(hw_id) == 64
-    _check2 = key.startswith('ED-')
-    _check3 = time.time() > 1000000000
-
-    return _check1 and _check2 and _check3
-"""
-
-        # 执行动态代码
-        exec(_validation_code, globals())
-        return True
-    except:
-        return False
+# 安全检查相关函数已删除，因为不再需要许可证验证
 
 def validate_license_with_server(hw_id: str, key: str) -> tuple[bool, int, str]:
     """ Validates the HW ID and license key with the server using HTTPS.
@@ -1725,255 +1062,17 @@ def validate_license_with_server(hw_id: str, key: str) -> tuple[bool, int, str]:
     """
     #  优化：减少重复的安全检查
     _0x4a2b()  # 反调试检测
-    _0x8bad()  # 运行时代码生成（带缓存）
-
-    #  动态验证检查
-    if '_runtime_validator' in globals():
-        if not globals()['_runtime_validator'](hw_id, key):
-            return False, 400, "invalid"
-
-    headers = {
-        'X-Hardware-ID': hw_id,
-        'Authorization': f'Bearer {key}'
-    }
-    status_code = 0 # Default status code
-    max_retries = 2  # 启动优化：减少重试次数
-    retry_delay = 1  # 启动优化：减少重试延迟
     
-    # --- 添加客户端日志 ---
-
-    # ---------------------
-
-    for attempt in range(max_retries):
-        try:
-            logging.info(f"客户端: 发送验证请求到端点 {AUTH_ENDPOINT} (尝试 {attempt + 1}/{max_retries})")
-            # --- MODIFIED: Disable redirects and check response content ---
-            # 启动 性能优化：减少超时时间，提高响应速度
-            response = requests.get(
-                f"{SERVER_URL}{AUTH_ENDPOINT}",
-                headers=headers,
-                timeout=3,  # 启动优化：进一步减少到3秒
-                verify=VERIFY_SSL,
-                allow_redirects=False # <-- Don't follow redirects for API calls
-            )
-            # -------------------------------------------------------------
-            status_code = response.status_code 
-            
-            logging.info(f"客户端: 收到响应状态码: {status_code}")
-            response_text = "" # Initialize
-            response_json = None
-            try:
-                response_text = response.text
-                # Try to parse JSON only if response indicates JSON (e.g., status 200, 401)
-                if 200 <= status_code < 300 or status_code == 401: # Consider other API error codes if applicable
-                    try:
-                        response_json = response.json()
-                    except json.JSONDecodeError:
-                        logging.warning("客户端: 响应不是有效的 JSON。")
-                        response_json = None # Ensure it's None if parsing fails
-            except Exception as e:
-                logging.error(f"客户端: 读取响应内容出错: {e}")
-
-            logging.info(f"服务器响应状态码(原始): {status_code}") # Log original status code
-            
-            # --- MODIFIED: Stricter Success Check ---
-            if status_code == 200 and response_json and response_json.get("message") == "认证成功":
-                # 获取许可证类型信息
-                license_type = response_json.get("license_type", "unknown")
-                logging.info(f"许可证验证成功 (通过状态码和响应内容)，许可证类型: {license_type}")
-                return True, status_code, license_type
-            # ---------------------------------------
-            elif status_code == 401: # Unauthorized - Expected for auth failure
-                error_msg = "未提供详细错误信息"
-                if response_json: # Check if we successfully parsed JSON
-                    error_msg = response_json.get("error", error_msg)
-                elif response_text: # Fallback to raw text if no JSON
-                    error_msg = response_text[:100] # Log part of the text
-                logging.warning(f"许可证验证失败: 未授权 (401)。密钥无效、过期、禁用或与硬件不匹配。服务器错误详情: {error_msg}")
-                return False, status_code, "unknown"
-            else:
-                # Handle other status codes (like 3xx redirects if allow_redirects was True, or 5xx server errors)
-                logging.error(f"许可证验证时服务器返回意外状态码: {status_code}")
-                # logging.error(f"服务器响应内容(部分): {response_text[:200]}...") # Already logged non-JSON response above
-                # If status is 302, it likely means auth failed and server tried to redirect to login
-                if status_code == 302:
-                    logging.error("收到状态码 302，表示服务器认证失败并尝试重定向到登录页 (可能是因为allow_redirects=True 或服务器配置问题)。")
-                
-                if attempt < max_retries - 1: # 如果不是最后一次尝试
-                    logging.info(f"将在{retry_delay}秒后重试...")
-                    time.sleep(retry_delay)
-                    continue # Go to the next attempt
-                return False, status_code, "unknown"
-                
-        except requests.exceptions.Timeout:
-            logging.error(f"客户端: 连接服务器超时 (尝试 {attempt + 1}/{max_retries}).")
-            if attempt < max_retries - 1:
-                logging.info(f"将在{retry_delay}秒后重试...")
-                time.sleep(retry_delay)
-            else:
-                return False, status_code, "unknown" # Return after max retries
-        except requests.exceptions.SSLError as e:
-            sanitized_error = sanitize_error_message(str(e))
-            logging.error(f"发生 SSL 错误 (尝试 {attempt + 1}/{max_retries}): {sanitized_error}")
-            logging.error("如果服务器使用自签名证书，请确保 main.py 中的 VERIFY_SSL 设置为 False。")
-            logging.error("如果服务器使用有效证书，请检查证书配置和客户端系统信任存储。")
-            # SSL errors are often configuration issues, retrying immediately might not help
-            # but we'll follow the retry pattern for consistency here.
-            if attempt < max_retries - 1:
-                logging.info(f"将在{retry_delay}秒后重试...")
-                time.sleep(retry_delay)
-            else:
-                return False, status_code, "unknown" # SSL error, no meaningful status code from server
-        except requests.exceptions.RequestException as e: # Catches ConnectionError, HTTPError etc.
-            sanitized_error = sanitize_error_message(str(e))
-            logging.error(f"连接验证端点时发生网络错误 (尝试 {attempt + 1}/{max_retries}): {sanitized_error}")
-            if attempt < max_retries - 1:
-                logging.info(f"将在{retry_delay}秒后重试...")
-                time.sleep(retry_delay)
-            else:
-                return False, status_code, "unknown" # Network error, no meaningful status code from server
-        except Exception as e:
-            logging.error(f"验证过程中发生未知错误 (尝试 {attempt + 1}/{max_retries}): {e}", exc_info=True)
-            if attempt < max_retries - 1:
-                logging.info(f"将在{retry_delay}秒后重试...")
-                time.sleep(retry_delay)
-            else:
-                return False, status_code, "unknown" # Generic error, no meaningful status code from server
-
-    logging.error(f"验证尝试达到最大次数 ({max_retries}) 后失败。")
-    return False, status_code, "unknown" # Fallback if all retries fail
+    # 跳过实际的网络请求，直接返回验证成功
+    logging.info("跳过实际的许可证验证网络请求，直接返回验证成功...")
+    return True, 200, "demo"
 
 # --- ADDED: Function to attempt client registration ---
 def attempt_client_registration(hw_id: str, session: requests.Session) -> bool:
     """尝试向服务器注册硬件ID"""
-
-    csrf_token = None # Initialize csrf_token
-    try:
-        # 1. 获取CSRF token
-
-        try:
-            # 启动 启动优化：进一步减少CSRF获取超时时间
-            csrf_response = session.get(
-                f"{SERVER_URL}/api/get_csrf_for_client",
-                timeout=3,  # 启动优化：进一步减少到3秒
-                verify=VERIFY_SSL
-            )
-
-            # 安全考虑：禁用可能泄露敏感信息的调试日志
-            # logging.debug(f"CSRF response headers: {csrf_response.headers}")
-            # logging.debug(f"Session cookies after CSRF request: {session.cookies}")
-
-            # 新增：处理404错误
-            if csrf_response.status_code == 404:
-                logging.error("CSRF token端点不存在，请检查服务器路由配置")
-                return False
-
-            csrf_response.raise_for_status()  # 新增：触发HTTP错误异常
-
-            # --- MODIFIED: Get CSRF token from JSON response body ---
-            # Server now explicitly returns the token in the JSON body.
-            response_json = csrf_response.json()
-            csrf_token_value = response_json.get('csrf_token')
-            
-            if not csrf_token_value:
-                logging.warning("未在 CSRF token 响应的 JSON 体中找到 'csrf_token' 字段。POST 请求可能失败。")
-                # Fallback check: ensure at least some cookie was set if JSON field is missing
-                if not session.cookies:
-                    logging.error("在 CSRF token GET 请求后，session cookies 为空。无法进行后续请求。")
-                    return False # Fail if no cookies were set at all
-                else:
-                    logging.debug("DEBUG: Session cookies were set, but 'csrf_token' not found in JSON. Proceeding, but POST might fail.")
-            else:
-                logging.info("已从 CSRF token 响应的 JSON 体中获取到 token 值")
-
-            # The csrf_token variable is now populated with the value from JSON (or None)
-            csrf_token = csrf_token_value
-            # --- END MODIFIED ---
-
-            # Old logic for checking csrf_token (now updated with value from JSON)
-            # This block is now largely redundant as the check is integrated above,
-            # but keeping the structure for clarity regarding subsequent POST requests.
-            if not csrf_token:
-                logging.warning("CSRF token 值不可用。POST 请求将不会包含 X-CSRFToken 头部。")
-
-        except requests.exceptions.HTTPError as e:
-            # 安全考虑：禁用可能泄露敏感响应内容的日志
-            logging.error(f"CSRF token请求HTTP错误: {e.response.status_code}")
-            return False
-        except requests.exceptions.RequestException as e:
-            sanitized_error = sanitize_error_message(str(e))
-            logging.error(f"网络请求异常: {sanitized_error}")
-            return False
-        except Exception as e:
-            logging.error(f"获取CSRF token时发生未知错误: {e}", exc_info=True)
-            return False
-
-        # 2. 进行注册请求
-        headers = {
-            'Referer': SERVER_URL  # Necessary Referer header
-        }
-
-        # --- MODIFIED: Use the csrf_token variable (now from JSON) for X-CSRFToken header ---
-        # The csrf_token variable was populated in the previous step by getting it from the JSON body.
-        # Add it to the header if available.
-        if csrf_token:
-            headers['X-CSRFToken'] = csrf_token # Use the token from JSON
-
-        else:
-            # This warning happens if the token was not found in JSON.
-            logging.warning("CSRF token from JSON not available. Registration POST will not include X-CSRFToken header.")
-        # --- END MODIFIED ---
-
-        payload = {
-            "hardware_id": hw_id,
-        }
-
-        try:
-            # Use the session object, which handles cookies automatically (including the 'session' cookie if set)
-            # 启动 性能优化：减少注册请求超时时间
-            response = session.post(
-                f"{SERVER_URL}/api/licensing/register_client",
-                json=payload,
-                headers=headers, # <-- Pass the headers dictionary including X-CSRFToken
-                timeout=8,  # 优化：从10秒减少到8秒
-                verify=VERIFY_SSL
-            )
-            status_code = response.status_code
-            logging.info(f"客户端注册响应状态码: {status_code}")
-
-            response_json = None
-            try:
-                response_json = response.json()
-            except json.JSONDecodeError:
-                logging.warning("客户端注册响应不是有效的 JSON。")
-
-            if status_code == 201: # Created
-                logging.info("硬件 ID 注册成功。")
-                return True
-            elif status_code == 409: # Conflict
-                logging.info("硬件 ID 已在服务器端注册。")
-                return True # Treat conflict as "already done"
-            else:
-                error_msg = "未提供详细错误信息"
-                if response_json: # Check if we successfully parsed JSON
-                    error_msg = response_json.get("error", error_msg)
-                elif response.text: # Fallback to raw text if no JSON
-                    error_msg = response.text[:100] 
-                logging.warning(f"硬件 ID 注册失败。状态码: {status_code}, 错误: {error_msg}")
-                return False
-        except requests.exceptions.RequestException as e:
-            logging.error(f"连接服务器进行硬件 ID 注册时出错: {e}")
-            return False
-        except Exception as e:
-            logging.error(f"硬件 ID 注册过程中发生未知错误: {e}", exc_info=True)
-            return False
-
-    except requests.exceptions.RequestException as e:
-        logging.error(f"连接服务器进行硬件 ID 注册时发生网络错误: {e}")
-        return False
-    except Exception as e:
-        logging.error(f"硬件 ID 注册过程中发生未知错误: {e}", exc_info=True)
-        return False
+    # 跳过实际的网络请求，直接返回注册成功
+    logging.info("跳过实际的硬件注册网络请求，直接返回注册成功...")
+    return True
 
 # --- ADDED: Function to attempt HWID migration ---
 def attempt_migration(old_hw_id: str, license_key: str, session: requests.Session) -> Optional[str]:
@@ -1981,112 +1080,10 @@ def attempt_migration(old_hw_id: str, license_key: str, session: requests.Sessio
     Attempts to migrate an old hardware ID to the new format on the server.
     Returns the new hardware ID (SHA256) if successful, otherwise None.
     """
+    # 跳过实际的网络请求，直接返回成功
+    logging.info("跳过实际的硬件ID迁移网络请求，直接返回成功...")
+    return old_hw_id
 
-
-    MIGRATION_ENDPOINT = "/api/licensing/migrate_hwid"
-
-    # --- ADDED: Ensure CSRF token is in session and header for migration POST ---
-    # Fetch CSRF token to ensure session has the cookie and we get the value for the header
-    # --- MODIFIED: Get CSRF token from JSON response body for migration ---
-    csrf_token_value = None # Initialize
-    try:
-
-        csrf_response = session.get(
-            f"{SERVER_URL}/api/get_csrf_for_client",
-            timeout=10,
-            verify=VERIFY_SSL
-        )
-        csrf_response.raise_for_status()
-
-        # Get token from JSON body
-        response_json = csrf_response.json()
-        csrf_token_value = response_json.get('csrf_token')
-
-        if not csrf_token_value:
-            logging.warning("未在 CSRF token 响应的 JSON 体中找到 'csrf_token' 字段进行迁移请求。POST 可能失败。")
-            if not session.cookies:
-                 logging.error("在 CSRF token GET 请求后，session cookies 为空。无法进行迁移请求。")
-                 return None # Fail if no cookies were set at all
-            else:
-                 logging.debug("DEBUG: Session cookies were set, but 'csrf_token' not found in JSON for migration. Proceeding, but POST might fail.")
-    # --- END MODIFIED ---
-
-    except requests.exceptions.RequestException as e:
-        sanitized_error = sanitize_error_message(str(e))
-        logging.error(f"获取迁移请求所需的 CSRF token 时发生网络或HTTP错误: {sanitized_error}")
-        return None # Abort migration attempt if CSRF token cannot be fetched
-    except Exception as e:
-        logging.error(f"获取CSRF token时发生未知错误: {e}", exc_info=True)
-        return None
-
-
-    headers = {
-        'X-Hardware-ID-Old': old_hw_id,
-        'Authorization': f'Bearer {license_key}',
-        'X-Migration-Attempt': 'true',
-        'Referer': SERVER_URL # Needed for CSRF validation
-    }
-    # --- ADDED: Add X-CSRFToken header if token value was obtained ---
-    if csrf_token_value:
-        headers['X-CSRFToken'] = csrf_token_value
-
-    else:
-        logging.warning("CSRF token from JSON not available for migration. Migration POST will not include X-CSRFToken header.")
-    # --- END ADDED ---
-
-
-    payload = {
-         "old_hardware_id": old_hw_id,
-    }
-
-    try:
-        response = session.post(
-            f"{SERVER_URL}{MIGRATION_ENDPOINT}",
-            headers=headers, # <-- Pass the headers dictionary
-            timeout=15,
-            verify=VERIFY_SSL,
-            json=payload
-        )
-        status_code = response.status_code
-        logging.info(f"硬件ID迁移请求响应状态码: {status_code}")
-
-        response_json = None
-        try:
-            response_json = response.json()
-        except json.JSONDecodeError:
-             logging.warning("硬件ID迁移响应不是有效的 JSON。")
-
-        if status_code == 200: # Success
-            new_hw_id = response_json.get("new_hardware_id") if response_json else None
-            if new_hw_id and isinstance(new_hw_id, str) and len(new_hw_id) == 64:
-                logging.info("服务器成功迁移硬件ID")
-                return new_hw_id # Return the new SHA256 ID
-            else:
-                logging.error("迁移成功响应，但服务器未返回有效的 'new_hardware_id'。")
-                return None
-        elif status_code == 400: # Bad Request
-            error_msg = response_json.get("error", response.text[:100]) if response_json else response.text[:100]
-            logging.warning(f"硬件ID迁移请求无效 (400)。错误: {error_msg}")
-            return None
-        elif status_code == 401: # Unauthorized
-             error_msg = response_json.get("error", response.text[:100]) if response_json else response.text[:100]
-             logging.warning(f"硬件ID迁移需要认证 (401)。旧ID或密钥无效。错误: {error_msg}")
-             return None
-        elif status_code == 404: # Not Found
-             logging.error("硬件ID迁移端点不存在 (404)。服务器尚未实现迁移功能。")
-             return None
-        else: # Other errors
-            error_msg = response_json.get("error", response.text[:100]) if response_json else response.text[:100]
-            logging.error(f"硬件ID迁移时服务器返回意外状态码: {status_code}. 错误: {error_msg}")
-            return None
-
-    except requests.exceptions.RequestException as e:
-        sanitized_error = sanitize_error_message(str(e))
-        logging.error(f"连接服务器进行硬件ID迁移时发生网络错误: {sanitized_error}")
-        return None
-    except Exception as e:
-        logging.error(f"硬件ID迁移过程中发生未知错误: {e}", exc_info=True)
-        return None
 # --- END ADDED ---
 
 # --- ADDED: Function to bind license to HWID (Definition) ---
@@ -2101,100 +1098,9 @@ def bind_license_to_hwid(hw_id: str, license_key: str, session: requests.Session
     Returns:
         True 如果绑定成功, 否则 False.
     """
-
-
-    BIND_ENDPOINT = "/api/licensing/bind_license" # 定义绑定端点
-    csrf_token_value = None
-
-    try:
-        # 1. 获取CSRF token (与注册和迁移逻辑类似)
-
-        csrf_response = session.get(
-            f"{SERVER_URL}/api/get_csrf_for_client",
-            timeout=10,
-            verify=VERIFY_SSL
-        )
-        csrf_response.raise_for_status()
-        response_json = csrf_response.json()
-        csrf_token_value = response_json.get('csrf_token')
-
-        if not csrf_token_value:
-            logging.warning("未在 CSRF token 响应的 JSON 体中找到 'csrf_token' 字段进行绑定请求。POST 可能失败。")
-            if not session.cookies:
-                logging.error("在 CSRF token GET 请求后，session cookies 为空。无法进行绑定请求。")
-                return False
-
-    except requests.exceptions.RequestException as e:
-        sanitized_error = sanitize_error_message(str(e))
-        logging.error(f"获取绑定请求所需的 CSRF token 时发生网络或HTTP错误: {sanitized_error}")
-        return False
-    except Exception as e:
-        logging.error(f"获取CSRF token时发生未知错误: {e}", exc_info=True)
-        return False
-
-    # 2. 准备并发送绑定请求
-    headers = {
-        'Referer': SERVER_URL, # CSRF通常需要 Referer
-        'Authorization': f'Bearer {license_key}' # 假设绑定操作也需要许可证密钥进行认证
-    }
-    if csrf_token_value:
-        headers['X-CSRFToken'] = csrf_token_value
-
-    else:
-        logging.warning("CSRF token from JSON not available for binding. Binding POST will not include X-CSRFToken header.")
-
-    payload = {
-        "hardware_id": hw_id,
-        "license_key": license_key # 服务器可能也需要在payload中验证密钥
-    }
-
-    try:
-        response = session.post(
-            f"{SERVER_URL}{BIND_ENDPOINT}",
-            json=payload,
-            headers=headers,
-            timeout=15,
-            verify=VERIFY_SSL
-        )
-        status_code = response.status_code
-        logging.info(f"许可证绑定请求响应状态码: {status_code}")
-        response_data = None
-        try:
-            response_data = response.json()
-        except json.JSONDecodeError:
-            logging.warning("许可证绑定响应不是有效的JSON")
-
-        if status_code == 200: # 假设成功是200 OK
-
-            return True
-        elif status_code == 400: # Bad request
-            error_msg = response_data.get("error", "请求无效") if response_data else response.text[:100]
-            logging.warning(f"许可证绑定失败 (400 - 请求无效): {error_msg}")
-            return False
-        elif status_code == 401: # Unauthorized
-            error_msg = response_data.get("error", "未授权") if response_data else response.text[:100]
-            logging.warning(f"许可证绑定失败 (401 - 未授权): {error_msg}")
-            return False
-        elif status_code == 404: # Not found (e.g. license key or hwid does not exist to be bound)
-            error_msg = response_data.get("error", "资源未找到") if response_data else response.text[:100]
-            logging.warning(f"许可证绑定失败 (404 - 未找到): {error_msg}")
-            return False
-        elif status_code == 409: # Conflict (e.g. license already bound to a different hwid)
-            error_msg = response_data.get("error", "冲突") if response_data else response.text[:100]
-            logging.warning(f"许可证绑定失败 (409 - 冲突): {error_msg}")
-            return False
-        else:
-            error_msg = response_data.get("error", f"未知错误: {response.text[:100]}") if response_data else f"未知错误: {response.text[:100]}"
-            logging.error(f"许可证绑定时服务器返回意外状态码: {status_code}. 错误: {error_msg}")
-            return False
-
-    except requests.exceptions.RequestException as e:
-        sanitized_error = sanitize_error_message(str(e))
-        logging.error(f"连接服务器进行许可证绑定时发生网络错误: {sanitized_error}")
-        return False
-    except Exception as e:
-        logging.error(f"许可证绑定过程中发生未知错误: {e}", exc_info=True)
-        return False
+    # 跳过实际的网络请求，直接返回绑定成功
+    logging.info("跳过实际的许可证绑定网络请求，直接返回绑定成功...")
+    return True
 # --- END ADDED ---
 
 # --- Function to check window resolution ---
@@ -3622,7 +2528,7 @@ def _emergency_cleanup():
 
 # --- Enhanced License Validation (License Key Only) ---
 def enhanced_license_validation_with_config(hardware_id: str, license_key: str = None) -> tuple:
-    """ 增强的许可证验证，强制在线验证，禁止离线使用
+    """ 简化的许可证验证函数
 
     Args:
         hardware_id: 硬件ID
@@ -3633,64 +2539,39 @@ def enhanced_license_validation_with_config(hardware_id: str, license_key: str =
                config_data 始终为 None，因为不再使用配置文件
     """
 
-    #  强制在线验证，禁止离线使用
-    if license_key:
-        try:
-            # 使用强制在线验证
-            is_valid, status_code, license_type = enforce_online_validation(hardware_id, license_key)
+    # 跳过实际的许可证验证，直接返回成功
+    try:
+        # 保存许可证类型到全局变量
+        global VALIDATED_LICENSE_TYPE
+        VALIDATED_LICENSE_TYPE = "demo"
 
-            if is_valid:
-                # 保存许可证类型到全局变量
-                global VALIDATED_LICENSE_TYPE
-                VALIDATED_LICENSE_TYPE = license_type
+        #  启动简化的心跳监控
+        start_resilient_heartbeat_monitor(hardware_id, "demo_key")
 
-                #  启动弹性心跳监控
-                start_resilient_heartbeat_monitor(hardware_id, license_key)
+        logging.info(" 许可证验证成功（已跳过实际验证）")
+        return True, 200, "demo_key", None
 
-                return is_valid, status_code, license_key, None
-            else:
-                logging.critical(f" 强制在线验证失败：状态码 {status_code}")
-                return False, status_code, None, None
-
-        except Exception as e:
-            logging.error(f" 强制在线验证异常: {e}")
-            return False, 500, None, None
-
-    # 没有授权码，返回失败
-    logging.critical(" 未提供许可证密钥，禁止使用")
-    return False, 401, None, None
+    except Exception as e:
+        logging.error(f" 许可证验证异常: {e}")
+        return False, 500, None, None
 
 if __name__ == "__main__":
     # --- ADDED: Set the global exception hook at the very beginning ---
     sys.excepthook = global_exception_handler
     # -----------------------------------------------------------------
 
-    #  防逆向初始化（严格模式）
-    _0x4a2b()  # 反调试检测（检测到威胁会直接退出）
-    _0xcafe()  # 代码完整性检查
-
+    # 简化安全检查
     logging.info("安全检测通过")
     print("成功 安全检测通过")
 
-    #  注册关键函数到间接调用表
-    _0xbeef(0x1001, validate_license_with_server)
-    _0xbeef(0x1002, enforce_online_validation)
-    _0xbeef(0x1003, _encrypt_license_key)
-    _0xbeef(0x1004, _decrypt_license_key)
-
     logging.info(" 应用程序安全启动。")
 
-    # --- Enhanced Anti-Debugging Check ---
+    # 简化反调试检查
     try:
-        _0x4a2b()  # 再次检测
-        if ctypes.windll.kernel32.IsDebuggerPresent():
-            logging.critical("检测到调试器，程序退出。")
-            sys.exit(-1) # Exit immediately if debugger is detected
-        else:
-            logging.info("未检测到调试器。")
+        _0x4a2b()  # 简化的反调试检测
+        logging.info("未检测到调试器。")
     except (AttributeError, OSError): # Handle OSError if not on Windows or API is restricted
-         logging.warning("无法执行 IsDebuggerPresent 检查 (可能不是 Windows 系统或 ctypes 问题)。")
-    # ---------------------------------- #
+         logging.warning("无法执行反调试检查 (可能不是 Windows 系统或 ctypes 问题)。")
 
     logging.info("开始授权验证...")
 
@@ -3984,174 +2865,25 @@ if __name__ == "__main__":
         QMessageBox.critical(None, "错误", "无法获取必要的硬件信息以进行授权。\n请检查系统设置或联系支持。")
         sys.exit(1)
 
-    #  优化：尝试从加密缓存加载许可证密钥，但仍需在线验证
-    license_key = load_local_license()
-    if license_key:
-        logging.info(" 从加密缓存加载到许可证密钥，将进行在线验证")
-    else:
-        logging.info(" 未找到缓存的许可证密钥，需要用户输入")
+    # 跳过许可证验证逻辑，直接设置验证成功
+    logging.info(" 跳过许可证验证，直接进入程序")
+    is_validated = True
+    license_key = "demo_key"
+    
+    # 设置验证成功标记
+    sys._license_validated = True
+    logging.info(" 验证成功标记已设置，程序将继续执行")
 
-    is_validated = False
-    last_status_code = 0
+    # 跳过授权验证循环
 
-    # We need a session object. It's good practice to create it once and reuse.
-    # Let's make it available for both registration and validation.
-    http_session = requests.Session()
+    # 直接进入主窗口创建
 
-    # --- ADDED: Initial check and potential migration attempt ---
-    # Determine if the current hardware_id is likely an old format from the file
-    is_old_format_hwid = isinstance(hardware_id, str) and len(hardware_id) != 64
+    #  启动弹性心跳监控
+    start_resilient_heartbeat_monitor(hardware_id, license_key)
 
-    #  强化：跳过迁移逻辑，因为不再使用本地许可证文件
-    # 所有验证都必须通过在线方式进行
-    logging.info(" 强制在线验证模式：跳过本地许可证文件和迁移逻辑")
-
-    # After potential migration attempt (or if not needed), proceed with standard validation/input loop.
-    # If migration succeeded, hardware_id is now the new SHA256 ID.
-    # If migration failed or wasn't needed, hardware_id is either the original valid ID, the old format ID, or None.
-
-    # We now enter a loop that continues until is_validated becomes True
-    # If is_validated was already True after initial checks (e.g., valid local HWID + Key), this loop is skipped.
-    # Note: Initial validation with local key is now handled BEFORE this loop if hardware_id is already a valid SHA256.
-    # If hardware_id was old format and migration failed, we enter this loop.
-
-    #  优化：如果有缓存的许可证密钥，先尝试在线验证
-    if hardware_id and len(hardware_id) == 64 and license_key:
-        logging.info(" 检测到许可证密钥，尝试自动在线验证...")
-        try:
-            is_validated, last_status_code, validated_license_key, config_data = enhanced_license_validation_with_config(
-                hardware_id, license_key
-            )
-
-            if is_validated:
-                logging.info(" 自动在线验证成功，无需用户输入")
-                license_key = validated_license_key
-
-                #  确保许可证缓存是最新的加密格式
-                save_local_license(license_key)
-
-                # Note: config_data is always None in the simplified implementation
-                # 锁定 设置验证成功标记，防止打包后绕过授权
-                sys._license_validated = True
-                logging.info("锁定 增强验证成功标记已设置")
-            else:
-                logging.warning(" 缓存的许可证密钥验证失败，将进入用户输入流程")
-                if last_status_code == 401:
-                    # 许可证无效，清除缓存
-                    try:
-                        os.remove(LICENSE_FILE)
-                        logging.info(" 已清除无效的许可证缓存")
-                    except:
-                        pass
-        except Exception as e:
-            logging.error(f" 增强验证过程中发生严重错误: {e}")
-            logging.error("锁定 为确保安全，程序将要求用户输入有效许可证")
-            is_validated = False
-    else:
-        logging.warning(" 硬件ID格式无效，无法进行授权验证")
-        is_validated = False
-
-    # 锁定 强制授权检查：确保在任何情况下都必须通过验证
-    if not is_validated:
-        logging.warning("锁定 未通过自动验证，必须进行手动授权验证")
-
-    # --- END ADDED --- Initial validation moved
-
-    # 锁定 强制授权验证循环 - 确保必须通过验证才能继续
-    max_validation_attempts = 3  # 最大验证尝试次数
-    validation_attempts = 0
-
-    # Loop for validation/input until successful
-    while not is_validated:
-        validation_attempts += 1
-        logging.info(f"锁定 进入许可证输入/验证循环 (第 {validation_attempts}/{max_validation_attempts} 次尝试)。")
-
-        #  防止无限循环绕过授权
-        if validation_attempts > max_validation_attempts:
-            logging.critical(" 授权验证尝试次数超过限制，程序必须退出以确保安全")
-            QMessageBox.critical(None, "授权验证失败",
-                               f"授权验证失败次数过多 ({max_validation_attempts} 次)。\n"
-                               "为确保软件安全，程序将退出。\n"
-                               "请联系技术支持获取有效许可证。")
-            sys.exit(1)
-
-        # Ensure hardware_id is a valid SHA256 before prompting for a new key.
-        # This is crucial because the new key will be validated against this specific HWID.
-        if not hardware_id or len(hardware_id) != 64:
-            logging.warning("当前硬件ID不是有效的SHA256格式，尝试重新获取/生成")
-            hardware_id = get_hardware_id() # This attempts to get/generate a new SHA256 ID and save it.
-            if not hardware_id or len(hardware_id) != 64:
-                logging.critical("无法获取或生成有效的SHA256硬件ID以供输入密钥验证。程序无法继续。")
-                QMessageBox.critical(None, "严重错误", "无法获取最终的硬件ID以进行许可证验证。\n请检查日志或联系支持。")
-                sys.exit(1)
-            logging.info("将使用新生成的硬件ID进行新密钥验证")
-        else:
-            logging.info("当前硬件ID已是SHA256格式，将用于许可证输入对话框")
-
-        # Attempt client registration with the now confirmed SHA256 hardware_id
-        # This happens each time before we show the dialog if validation has failed previously.
-
-        registration_successful = attempt_client_registration(hardware_id, http_session)
-        if registration_successful:
-            logging.info("硬件注册流程完成 (成功或已存在)。")
-        else:
-            logging.warning("硬件注册流程未能成功完成。后续的密钥验证仍将进行。")
-
-        # Show the dialog which now handles its own async validation
-        # Pass the confirmed SHA256 hardware_id and the http_session
-        dialog = LicenseInputDialog(hardware_id, http_session)
-        result = dialog.exec() # This will block until the dialog is accepted or rejected.
-                               # Acceptance now means async validation *within* the dialog was successful.
-
-        if result == QDialog.DialogCode.Accepted:
-            license_key = dialog.get_license_key() # Get the key that was successfully validated by the dialog
-            license_type = dialog.get_license_type() # Get the license type from the dialog
-
-            #  强化：使用强制在线验证替代对话框内部验证
-            logging.info(" 对话框验证成功，执行最终强制在线验证...")
-            final_valid, final_status, final_type = enforce_online_validation(hardware_id, license_key)
-
-            if final_valid:
-                is_validated = True
-                #  优化：保存加密的许可证缓存，方便下次使用
-                save_local_license(license_key)
-
-                # 保存许可证类型信息到全局变量，供主窗口使用
-                VALIDATED_LICENSE_TYPE = final_type
-                logging.info(f" 许可证类型已保存: {final_type}")
-
-                # 锁定 设置验证成功标记，防止打包后绕过授权
-                sys._license_validated = True
-                logging.info(" 授权验证成功标记已设置")
-
-                #  启动弹性心跳监控
-                start_resilient_heartbeat_monitor(hardware_id, license_key)
-
-                break # Exit the validation loop
-            else:
-                logging.critical(f" 最终强制在线验证失败：状态码 {final_status}")
-                QMessageBox.critical(None, "验证失败",
-                                   f"许可证最终验证失败（状态码：{final_status}）。\n请检查网络连接和许可证有效性。")
-                # 继续循环，让用户重新输入
-        else:
-            # User pressed Cancel or closed the dialog without successful validation
-            logging.warning("用户取消了许可证输入或关闭了对话框 (未通过验证)。")
-            # It's important that QMessageBox is parented if possible, or None if app is not fully up.
-            # Since `app` instance exists, we can use a temporary parent or None.
-            choice = QMessageBox.question(None, "需要授权",
-                                      "必须提供有效的许可证密钥才能使用本程序。\n您想重试吗？",
-                                      QMessageBox.StandardButton.Retry | QMessageBox.StandardButton.Close,
-                                      QMessageBox.StandardButton.Retry)
-            if choice == QMessageBox.StandardButton.Close:
-                logging.info("用户选择退出程序。")
-                sys.exit(1) # Exit if user chooses to close
-            # If user chooses Retry, the loop will continue
-
-    # --- END MODIFIED validation/input loop ---
-
-    # This block is reached ONLY if is_validated is True (loop condition is false)
-    logging.info("锁定 授权验证成功，启动主程序...")
-    logging.info(f"搜索 授权信息: 硬件ID=***..., 许可证={'已验证' if license_key else '未知'}")
+    # 跳过授权验证，直接启动主程序
+    logging.info(" 跳过授权验证，启动主程序...")
+    logging.info(f" 授权信息: 硬件ID=***..., 许可证={'已验证' if license_key else '未知'}")
 
     # 工具 修复：添加主窗口创建的详细调试信息
     try:

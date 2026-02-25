@@ -1,0 +1,12 @@
+# 核心依赖
+PySide6
+opencv-python
+numpy
+pyautogui
+wmi
+keyboard
+requests
+fastdeploy-python
+
+# 辅助依赖
+psutil

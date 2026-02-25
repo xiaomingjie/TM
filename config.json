@@ -1,0 +1,16 @@
+{
+    "target_window_title": "MuMu模拟器",
+    "execution_mode": "emulator_mumu",
+    "operation_mode": "auto",
+    "custom_width": 0,
+    "custom_height": 0,
+    "emulator_type": "auto",
+    "binding_method": "enhanced",
+    "ldplayer_console_path": null,
+    "start_task_hotkey": "F9",
+    "stop_task_hotkey": "F10",
+    "record_hotkey": "F12",
+    "bound_windows": [],
+    "window_binding_mode": "single",
+    "multi_window_delay": 500
+}
